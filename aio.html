@@ -256,7 +256,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="02-introduction-to-bioconductor.html">2. Bioconductorの概要</a>
+        <a href="02-introduction-to-bioconductor.html">2. Introduction to Bioconductor</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -537,7 +537,7 @@ that is easily accessible from an R session.</li>
 </div>
 </div>
 </div>
-</section></section><section id="aio-02-introduction-to-bioconductor"><p>Content from <a href="02-introduction-to-bioconductor.html">Bioconductorの概要</a></p>
+</section></section><section id="aio-02-introduction-to-bioconductor"><p>Content from <a href="02-introduction-to-bioconductor.html">Introduction to Bioconductor</a></p>
 <hr>
 <p>Last updated on 2025-07-21 |
 
@@ -553,10 +553,11 @@ that is easily accessible from an R session.</li>
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>Bioconductorプロジェクトには何が含まれていますか？</li>
-<li>BioconductorプロジェクトはCRANリポジトリとどのように関連していますか？</li>
-<li>Bioconductorのパッケージを効果的に使用するにはどうすればいいですか？</li>
-<li>Bioconductorコミュニティに参加し、コミュニケーションをとるにはどうすればいいですか？</li>
+<li>What does the Bioconductor project comprise?</li>
+<li>How does the Bioconductor project relate to the CRAN
+repository?</li>
+<li>How can I learn to use Bioconductor packages effectively?</li>
+<li>How do I join and communicate with the Bioconductor community?</li>
 </ul>
 </div>
 </div>
@@ -566,123 +567,197 @@ that is easily accessible from an R session.</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Bioconductorプロジェクトについて全体を説明する。</li>
-<li>RエコシステムにおけるBioconductorプロジェクトの全体像を把握する。</li>
-<li>Bioconductorプロジェクトの今後の更新情報を監視するための情報源を特定する。</li>
+<li>Describe the Bioconductor project globally.</li>
+<li>Gain a global view of the Bioconductor project in the R
+ecosystem.</li>
+<li>Identify sources of information to watch for future updates about
+the Bioconductor project.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="bioconductorとは何ですか">Bioconductorとは何ですか？<a class="anchor" aria-label="anchor" href="#bioconductor%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%A7%E3%81%99%E3%81%8B"></a>
+<section><h2 class="section-heading" id="what-is-bioconductor">What is Bioconductor?<a class="anchor" aria-label="anchor" href="#what-is-bioconductor"></a>
 </h2>
 <hr class="half-width">
 <div class="section level3">
-<h3 id="bioconductorの簡単な歴史">Bioconductorの簡単な歴史<a class="anchor" aria-label="anchor" href="#bioconductor%E3%81%AE%E7%B0%A1%E5%8D%98%E3%81%AA%E6%AD%B4%E5%8F%B2"></a>
+<h3 id="a-brief-history-of-bioconductor">A brief history of Bioconductor<a class="anchor" aria-label="anchor" href="#a-brief-history-of-bioconductor"></a>
 </h3>
-<p>Bioconductorプロジェクトは2001年秋に始まり、計算生物学とバイオインフォマティクスのための拡張可能なソフトウェアの共同制作のためのイニシアティブとして立ち上げられました
-(Gentleman, Carey, Bates, Bolstad, Dettling, Dudoit, Ellis, Gautier, Ge,
-Gentry, Hornik, Hothorn, Huber, Iacus, Irizarry, Leisch, Li, Maechler,
-Rossini, Sawitzki, Smith, Smyth, Tierney, Yang, and Zhang, 2004)。
-プロジェクトの初めから、記載された使命は、大規模データセットと厳密かつ堅牢に設計された実験の技術的成果物のための統計分析と理解のためのツールを開発することでした。
-統計分析を超えて、統計結果の解釈は、生物学的文脈、視覚化、および再現性を提供するパッケージによってサポートされています。</p>
-<p>年月が経つにつれて、Bioconductorプロジェクトに貢献したソフトウェアパッケージは、マイクロアレイから単一細胞ゲノミクスまで、さまざまな高スループット技術の進化と出現を反映してきました。シーケンシング実験の多くのバリエーション（例：RNA-seq、ChIP-seq、DNA-seq）、分析（例：塩基配列のばらつき、コピー数の変動、単一ヌクレオチド多型）、およびデータモダリティ（例：フローサイトメトリー、プロテオミクス、顕微鏡および画像分析）を通じて。</p>
-<p>重要なのは、プロジェクトは新しい統計テストと方法論を実装するソフトウェアパッケージをリリースするだけでなく、分子注釈と実験データセットのデータベースへのアクセスを提供する多様なパッケージタイプを生産してきたことです。</p>
-<p>Bioconductorプロジェクトは、夏に北アメリカで開催される年次会議でクライマックスに達し、地域会議はいずれもヨーロッパ、アジア、北アメリカでのネットワーキングに優れた機会を提供します。
-このプロジェクトは多様で包括的なコミュニティの促進に取り組んでおり、<a href="https://www.bioconductor.org/about/code-of-conduct/" class="external-link">行動規範</a>を含む、行動規範委員会によって施行されています。</p>
-<figure><img src="fig/bioc-timeline.svg" alt="Major Bioconductor milestonesと技術の進歩のタイムライン。" class="figure mx-auto d-block"></figure><p><strong>Major Bioconductor
-milestonesと技術の進歩のタイムライン。</strong>
-タイムラインの上部には、主要イベントの初めの発生が示されています。
-タイムライン内では、コアインフラを提供するパッケージの名前がリリース日を示しています。
-タイムラインの下部では、主要な技術的進歩がBioconductorプロジェクトの進化を時系列で文脈化します。</p>
+<p>The Bioconductor project was started in the Fall of 2001, as an
+initiative for the collaborative creation of extensible software for
+computational biology and bioinformatics (Gentleman, Carey, Bates,
+Bolstad, Dettling, Dudoit, Ellis, Gautier, Ge, Gentry, Hornik, Hothorn,
+Huber, Iacus, Irizarry, Leisch, Li, Maechler, Rossini, Sawitzki, Smith,
+Smyth, Tierney, Yang, and Zhang, 2004). From the very start, the stated
+mission of the project was to develop tools for the statistical analysis
+and comprehension of large datasets and technological artifacts in
+rigorously and robustly designed experiments. Beyond statistical
+analyses, the interpretation of statistical results is supported by
+packages providing biological context, visualization, and
+reproducibility.</p>
+<p>Over the years, software packages contributed to the Bioconductor
+project have reflected the evolution and emergence of several
+high-throughput technologies, from microarrays to single-cell genomics,
+through many variations of sequencing experiments (e.g., RNA-seq,
+ChIP-seq, DNA-seq), analyses (e.g., sequence variation, copy number
+variation, single nucleotide polymorphisms), and data modalities (e.g.,
+flow cytometry, proteomics, microscopy and image analysis).</p>
+<p>Crucially, the project has not only released software packages
+implementing novel statistical tests and methodologies, but also
+produced a diverse range of packages types granting access to databases
+of molecular annotations and experimental datasets.</p>
+<p>The Bioconductor project culminates at an annual conference in North
+America in the summer, while regional conferences offer great
+opportunities for networking in Europe, Asia, and North America. The
+project is committed to promote a diverse and inclusive community,
+including a <a href="https://www.bioconductor.org/about/code-of-conduct/" class="external-link">Code of
+Conduct</a> enforced by a Code of Conduct committee.</p>
+<figure><img src="fig/bioc-timeline.svg" alt="Timeline of major Bioconductor milestones alongside technological advancements." class="figure mx-auto d-block"></figure><p><strong>Timeline of major Bioconductor milestones alongside
+technological advancements.</strong> Above the timeline, the figure
+marks the first occurence of major events. Within the timeline, the name
+of packages providing core infrastructure indicate the release date.
+Below the timeline, major technological advancements contextualise the
+evolution of the Bioconductor project over time.</p>
 </div>
 <div class="section level3">
-<h3 id="科学プロジェクト">科学プロジェクト<a class="anchor" aria-label="anchor" href="#%E7%A7%91%E5%AD%A6%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88"></a>
+<h3 id="a-scientific-project">A scientific project<a class="anchor" aria-label="anchor" href="#a-scientific-project"></a>
 </h3>
-<p>元の出版物では、プロジェクトの設立時の目的と方法が説明されています
-Gentleman, Carey, Bates et al. (2004)。</p>
+<p>The original publication describes the aims and methods of the
+project at its inception Gentleman, Carey, Bates et al. (2004).</p>
 <p>Huber, Carey, Gentleman, Anders, Carlson, Carvalho, Bravo, Davis,
 Gatto, Girke, Gottardo, Hahne, Hansen, Irizarry, Lawrence, Love,
 MacDonald, Obenchain, Oles, Pages, Reyes, Shannon, Smyth, Tenenbaum,
-Waldron, and Morgan
-(2015)は、コアインフラとケーススタディの説明を含むプロジェクトの進展を、ユーザーと開発者の両方の視点から説明しています。</p>
+Waldron, and Morgan (2015) illustrates the progression of the project,
+including descriptions of core infrastructure and case studies, from the
+perspective of both users and developers.</p>
 <p>Amezquita, Lun, Becht, Carey, Carpp, Geistlinger, Marini,
 Rue-Albrecht, Risso, Soneson, Waldron, Pages, Smith, Huber, Morgan,
-Gottardo, and Hicks
-(2020)は、単一細胞ゲノミクス技術の目覚めに続くプロジェクトのさらなる発展をレビューしています。</p>
-<p>多くの出版物や書籍の章がBioconductorプロジェクトを引用しており、最近の例は<a href="https://www.bioconductor.org/help/publications/" class="external-link">Bioconductorウェブサイト</a>にリストされています。</p>
+Gottardo, and Hicks (2020) reviewed further developments of the project
+in the wake of single-cell genomics technologies.</p>
+<p>Many more publications and book chapters cite the Bioconductor
+project, with recent example listed on the <a href="https://www.bioconductor.org/help/publications/" class="external-link">Bioconductor
+website</a>.</p>
 </div>
 <div class="section level3">
-<h3 id="パッケージリポジトリ">パッケージリポジトリ<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA"></a>
+<h3 id="a-package-repository">A package repository<a class="anchor" aria-label="anchor" href="#a-package-repository"></a>
 </h3>
 <div class="section level4">
-<h4 id="概要およびcranとの関係">概要およびCRANとの関係<a class="anchor" aria-label="anchor" href="#%E6%A6%82%E8%A6%81%E3%81%8A%E3%82%88%E3%81%B3cran%E3%81%A8%E3%81%AE%E9%96%A2%E4%BF%82"></a>
+<h4 id="overview-and-relationship-to-cran">Overview and relationship to CRAN<a class="anchor" aria-label="anchor" href="#overview-and-relationship-to-cran"></a>
 </h4>
-<p>間違いなく、ソフトウェアパッケージはBioconductorプロジェクトの最も知られている側面です。
-2001年に設立されて以来、リポジトリは時間とともに成長し、数千のパッケージをホストするようになりました。</p>
-<p>Bioconductorプロジェクトは、Rパッケージが主にバイオインフォマティクスと計算生物学の分析を対象にしている既存のCRANリポジトリを拡張しました。</p>
-<div id="さらに進む" class="callout">
+<p>Undoubtedly, software packages are the best-known aspect of the
+Bioconductor project. Since its inception in 2001, the repository has
+grown over time to host thousands of packages.</p>
+<p>The Bioconductor project has extended the preexisting CRAN repository
+– much larger and general-purpose in scope – to comprise R packages
+primarily catering for bioinformatics and computational biology
+analyses.</p>
+<div id="going-further" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="さらに進む" class="callout-inner">
-<h3 class="callout-title">さらに進む</h3>
+<div id="going-further" class="callout-inner">
+<h3 class="callout-title">Going further</h3>
 <div class="callout-content">
-<p>このレッスンの<a href="discuss.html#bioconductor-and-CRAN">ディスカッション</a>記事には、BioconductorとCRANの関係についてさらに詳しく説明しているセクションが含まれています。</p>
+<p>The <a href="discuss.html#bioconductor-and-CRAN">Discussion</a>
+article of this lesson includes a section discussing the relationship of
+Bioconductor and CRAN in further details.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="section level4">
-<h4 id="bioconductorリリースサイクル">Bioconductorリリースサイクル<a class="anchor" aria-label="anchor" href="#bioconductor%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB"></a>
+<h4 id="the-bioconductor-release-cycle">The Bioconductor release cycle<a class="anchor" aria-label="anchor" href="#the-bioconductor-release-cycle"></a>
 </h4>
-<p>Bioconductorプロジェクトは、CRANリポジトリのパッケージ管理インフラを拡張して、ユーザーのレベルでのパッケージの展開と管理をより良くサポートしました
-(Gentleman, Carey, Bates et al., 2004)。
-特に、Bioconductorプロジェクトは、6か月のリリースサイクル（通常は4月と10月頃）を特徴としており、Bioconductorリポジトリ内のすべてのパッケージの現在のバージョンのスナップショットが特定のRバージョン用に指定されています。
-R自体は年に1回リリースされ（通常は4月頃）、Rの各リリースごとに2つのBioconductorパッケージの互換性のあるリリースが利用可能になります。</p>
-<p>そのため、Bioconductorパッケージ開発者は、次のBioconductorプロジェクトのリリースに関連付けられるRのバージョンを常に使用する必要があります。
-これは、10月から4月の間はRの開発バージョンを使用し、4月から10月の間はRのリリースバージョンを使用することを意味します。</p>
-<p>重要なのは、厳格なBioconductorリリースサイクルが、ユーザーが互いに非常に遠く離れたバージョンのパッケージをインストールできないようにし、テストを受ける可能性が低いパッケージをインストールできなくすることです。
-この慣行は、CRANとBioconductorの両方のパッケージの開発サイクルを反映しており、同時のパッケージが自動化されたシステムによって定期的にテストされ、パッケージ依存関係内の最新のソフトウェア更新が下流のパッケージに壊れることがないことを保証します。これにより、パッケージのメンテナが自分のソフトウェアを更新することを促します。</p>
-<p>各Bioconductorリリースの前に、必要な自動テストスイートを通過しないパッケージは廃止され、その後リポジトリから削除されます。
-これにより、各Bioconductorリリースは、相互に互換性があり、追跡可能で、関連するRのバージョンで機能するパッケージのスイートを提供することが保証されます。</p>
-<figure><img src="fig/bioc-release-cycle.svg" alt="選択されたBioconductorおよびRのバージョンのリリース日タイムライン。" class="figure mx-auto d-block"></figure><p><strong>選択されたBioconductorおよびRのバージョンのリリース日タイムライン。</strong>
-タイムラインの上部には、Rプロジェクトのバージョンとおおよそのリリース日が示されています。
-タイムラインの下部には、Bioconductorプロジェクトのバージョンとリリース日が示されています。
-出典: <a href="https://bioconductor.org/about/release-announcements/" class="external-link">Bioconductor</a>。</p>
+<p>The Bioconductor project also extended the packaging infrastructure
+of the CRAN repository to better support the deployment and management
+of packages at the user level (Gentleman, Carey, Bates et al., 2004). In
+particular, the Bioconductor projects features a 6-month release cycle
+(typically around April and October), which sees a snapshot of the
+current version of all packages in the Bioconductor repository earmarked
+for a specific version of R. R itself is released on an annual basis
+(typically around April), meaning that for each release of R, two
+compatible releases of Bioconductor packages are available.</p>
+<p>As such, Bioconductor package developers are required to always use
+the version of R that will be associated with the next release of the
+Bioconductor project. This means using the development version of R
+between October and April, and the release version of R between April
+and October.</p>
+<p>Crucially, the strict Bioconductor release cycle prevents users from
+installing temporally distant versions of packages that were very likely
+never tested together. This practice reflects the development cycle of
+packages of both CRAN and Bioconductor, where contemporaneous packages
+are regularly tested by automated systems to ensure that the latest
+software updates in package dependencies do not break downstream
+packages, or prompts those package maintainers to update their own
+software as a consequence.</p>
+<p>Prior to each Bioconductor release, packages that do not pass the
+requires suites of automated tests are deprecated and subsequently
+removed from the repository. This ensures that each Bioconductor release
+provides a suite of packages that are mutually compatible, traceable,
+and guaranteed to function for the associated version of R.</p>
+<figure><img src="fig/bioc-release-cycle.svg" alt="Timeline of release dates for selected Bioconductor and R versions." class="figure mx-auto d-block"></figure><p><strong>Timeline of release dates for selected Bioconductor and R
+versions.</strong> The upper section of the timeline indicates versions
+and approximate release dates for the R project. The lower section of
+the timeline indicates versions and release dates for the Bioconductor
+project. Source: <a href="https://bioconductor.org/about/release-announcements/" class="external-link">Bioconductor</a>.</p>
 </div>
 <div class="section level4">
-<h4 id="パッケージタイプ">パッケージタイプ<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%BF%E3%82%A4%E3%83%97"></a>
+<h4 id="package-types">Package types<a class="anchor" aria-label="anchor" href="#package-types"></a>
 </h4>
-<p>パッケージは、主に4つの主要カテゴリに分けられます。</p>
+<p>Packages are broadly divided in four major categories:</p>
 <ul>
-<li>ソフトウェア</li>
-<li>注釈データ</li>
-<li>実験データ</li>
-<li>ワークフロー</li>
+<li>software</li>
+<li>annotation data</li>
+<li>experiment data</li>
+<li>workflows</li>
 </ul>
-<p><a href="reference.html#software-package">ソフトウェアパッケージ</a>自体は、データを保存してアクセスするためのインフラ（すなわち、クラス）を提供するパッケージと、そのデータ構造に保存されたデータを処理するための方法論的ツールを提供するパッケージに再分割できます。
-この構造と分析の分離はBioconductorプロジェクトの中心にあり、新しい方法論的ソフトウェアパッケージの開発者が可能な限り既存のデータコンテナを再利用することを奨励し、異なるデータ構造間の学習と変換の必要なく、ユーザーが代替ワークフローをより容易に試すことができるようにします。</p>
-<p><a href="reference.html#annotationdata-package">注釈データパッケージ</a>は、多様なゲノム注釈の自己完結型データベース（例：遺伝子識別子、生物学的経路）を提供します。
-さまざまなコレクションの注釈パッケージはBioconductorプロジェクトに存在します。
-それらは、それぞれの命名パターンや含まれている情報によって識別できます。
-たとえば、いわゆる<code>OrgDb</code>パッケージ（例として<em><a href="https://bioconductor.org/packages/3.19/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em>パッケージ）は、異なるタイプの遺伝子識別子および経路データベースをマッピングする情報を提供します。
-いわゆる<code>EnsDb</code>（例として<em><a href="https://bioconductor.org/packages/3.19/EnsDb.Hsapiens.v86" class="external-link">EnsDb.Hsapiens.v86</a></em>）パッケージは、BioconductorパッケージのEnsembl注釈の個別バージョンをカプセル化します。いわゆる<code>TxDb</code>パッケージ（例として<em><a href="https://bioconductor.org/packages/3.19/TxDb.Hsapiens.UCSC.hg38.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg38.knownGene</a></em>）は、個別バージョンのUCSC遺伝子注釈テーブルをカプセル化します。</p>
-<p><a href="reference.html#experimentdata-package">実験データパッケージ</a>は、ソフトウェアパッケージの開発者が、<a href="reference.html#vignette">パッケージのビネット</a>において自分のパッケージの使用を示すためによく使用される自己完結型データセットを提供します。</p>
-<p>最後に、<a href="reference.html#workflow-package">ワークフローパッケージ</a>は、他のパッケージの結合使用を示すビネットのコレクションを提供しますが、新しいソースコードや機能は提供しません。</p>
-<div id="チャレンジ-bioconductorウェブサイト" class="callout challenge">
+<p><a href="reference.html#software-package">Software packages</a>
+themselves can be subdivided into packages that provide infrastructure
+(i.e., classes) to store and access data, and packages that provide
+methodological tools to process data stored in those data structures.
+This separation of structure and analysis is at the core of the
+Bioconductor project, encouraging developers of new methodological
+software packages to thoughtfully re-use existing data containers where
+possible, and reducing the cognitive burden imposed on users who can
+more easily experiment with alternative workflows without the need to
+learn and convert between different data structures.</p>
+<p><a href="reference.html#annotationdata-package">Annotation data
+packages</a> provide self-contained databases of diverse genomic
+annotations (e.g., gene identifiers, biological pathways). Different
+collections of annotation packages can be found in the Bioconductor
+project. They are identifiable by their respective naming pattern, and
+the information that they contain. For instance, the so-called
+<code>OrgDb</code> packages (e.g., the <em><a href="https://bioconductor.org/packages/3.19/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em>
+package) provide information mapping different types of gene identifiers
+and pathway databases; the so-called <code>EnsDb</code> (e.g., <em><a href="https://bioconductor.org/packages/3.19/EnsDb.Hsapiens.v86" class="external-link">EnsDb.Hsapiens.v86</a></em>)
+packages encapsulate individual versions of the Ensembl annotations in
+Bioconductor packages; and the so-called <code>TxDb</code> packages
+(e.g., <em><a href="https://bioconductor.org/packages/3.19/TxDb.Hsapiens.UCSC.hg38.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg38.knownGene</a></em>)
+encapsulate individual versions UCSC gene annotation tables.</p>
+<p><a href="reference.html#experimentdata-package">Experiment data
+packages</a> provide self-contained datasets that are often used by
+software package developers to demonstrate the use of their package on
+well-known standard datasets in their <a href="reference.html#vignette">package vignettes</a>.</p>
+<p>Finally, <a href="reference.html#workflow-package">workflow
+packages</a> exclusively provide collections of vignettes that
+demonstrate the combined usage of several other packages as a coherent
+workflow, but do not provide any new source code or functionality
+themselves.</p>
+<div id="challenge-the-bioconductor-website" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="チャレンジ-bioconductorウェブサイト" class="callout-inner">
-<h3 class="callout-title">チャレンジ: Bioconductorウェブサイト</h3>
+<div id="challenge-the-bioconductor-website" class="callout-inner">
+<h3 class="callout-title">Challenge: The Bioconductor website</h3>
 <div class="callout-content">
-<p>Bioconductorウェブサイトは<a href="https://bioconductor.org/" class="external-link">https://bioconductor.org/</a>からアクセス可能です。</p>
-<p>ウェブサイトをブラウズして、次の質問に答える情報を見つけてください：</p>
+<p>The Bioconductor website is accessible at <a href="https://bioconductor.org/" class="external-link">https://bioconductor.org/</a>.</p>
+<p>Browse the website to find information answering the following
+questions:</p>
 <ol style="list-style-type: decimal">
-<li>現在のBioconductorプロジェクトのリリースにはいくつのパッケージが含まれていますか？</li>
-<li>この数には各タイプのパッケージがいくつ含まれていますか？</li>
+<li>How many packages does the current release of the Bioconductor
+project include?</li>
+<li>How many packages of each type does this number include?</li>
 </ol>
 </div>
 </div>
@@ -690,36 +765,38 @@ R自体は年に1回リリースされ（通常は4月頃）、Rの各リリー�
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
-  解決策
-  </h4>
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<p>以下の解決策には、執筆時点で有効だった数字（Bioconductorリリース3.13）が含まれています；
-Bioconductorプロジェクトの将来のリリースでは、数字が異なることは避けられません。</p>
+<p>The following solution includes numbers that were valid at the time
+of writing (Bioconductor release 3.13); numbers will inevitably be
+different for future releases of the Bioconductor project.</p>
 <ol style="list-style-type: decimal">
-<li>
-<a href="https://bioconductor.org/" class="external-link">https://bioconductor.org/</a>のページで、「インストール」というセクションを読むことができます。</li>
+<li>On the page <a href="https://bioconductor.org/" class="external-link">https://bioconductor.org/</a>, in the
+section “Install”, we can read:</li>
 </ol>
 <blockquote>
-<p>Bioconductorリリース3.13で利用可能な2042ソフトウェアパッケージを発見する。</p>
+<p>Discover 2042 software packages available in Bioconductor release
+3.13.</p>
 </blockquote>
 <ol start="2" style="list-style-type: decimal">
-<li>
-<a href="https://bioconductor.org/" class="external-link">https://bioconductor.org/</a>の「ニュース」セクションで、「Bioconductor
-Bioc
-<code>X.Y</code>リリース」というリンクをクリックしてください（<code>X.Y</code>は、この演習を通じて行くときの現在のBioconductorリリースのバージョン）。
-リンクされたページでは、以下の内容を読むことができます：</li>
+<li>On the page <a href="https://bioconductor.org/" class="external-link">https://bioconductor.org/</a>, in the
+section “News”, click on the link that reads “Bioconductor Bioc
+<code>X.Y</code> Released” (<code>X.Y</code> being the version of the
+current Bioconductor release when you go through this exercise
+yourself). On the linked page, we can read:</li>
 </ol>
 <blockquote>
-<p>Bioconductor
-3.13を発表できることを嬉しく思います。これは2042ソフトウェアパッケージ、406の実験データパッケージ、965の注釈パッケージ、29のワークフローから構成されています。</p>
-<p>新しいソフトウェアパッケージは133、新しいデータ実験パッケージは22、新しい注釈パッケージは7、新しいワークフローは1、新しい書籍はなく、多くの更新と既存パッケージの改善があります。Bioconductor
-3.13はR
-4.1.0と互換性があり、Linux、32ビットおよび64ビットのWindows、macOS
-10.14.6 Mojave以上でサポートされています。
-このリリースには更新されたBioconductor Dockerコンテナが含まれます。</p>
+<p>We are pleased to announce Bioconductor 3.13, consisting of 2042
+software packages, 406 experiment data packages, 965 annotation
+packages, and 29 workflows.</p>
+<p>There are 133 new software packages, 22 new data experiment packages,
+7 new annotation packages, 1 new workflow, no new books, and many
+updates and improvements to existing packages; Bioconductor 3.13 is
+compatible with R 4.1.0, and is supported on Linux, 32- and 64-bit
+Windows, and macOS 10.14.6 Mojave or higher. This release will include
+an updated Bioconductor Docker containers.</p>
 </blockquote>
 </div>
 </div>
@@ -727,28 +804,37 @@ Bioc
 </div>
 </div>
 <div class="section level4">
-<h4 id="biocviewsを使用したパッケージ分類">biocViewsを使用したパッケージ分類<a class="anchor" aria-label="anchor" href="#biocviews%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9F%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%88%86%E9%A1%9E"></a>
+<h4 id="package-classification-using-biocviews">Package classification using biocViews<a class="anchor" aria-label="anchor" href="#package-classification-using-biocviews"></a>
 </h4>
-<p>Bioconductorプロジェクトは、Bioconductorパッケージを分類し、<a href="https://www.bioconductor.org/packages/release/BiocViews.html" class="external-link">Bioconductorウェブサイト</a>でのテーマ別検索を介してその発見を容易にするために、制御語彙からの用語の集合である<a href="reference.html#biocviews">biocViews</a>を使用します。</p>
-<p>各Bioconductorパッケージは、パッケージのタイプと機能を説明するために選ばれた制御語彙からの小さな用語セットでタグ付けされます。
-用語は最初にパッケージの著者によって選択され、次にパッケージレビューや制御語彙の更新中に精査されます。</p>
-<div id="チャレンジ" class="callout challenge">
+<p>The Bioconductor project uses <a href="reference.html#biocviews">biocViews</a>, a set of terms from a
+controlled vocabulary, to classify Bioconductor packages and facilitate
+their discovery by thematic search on the <a href="https://www.bioconductor.org/packages/release/BiocViews.html" class="external-link">Bioconductor
+website</a>.</p>
+<p>Each Bioconductor package is tagged with a small set of terms chosen
+from the available controlled vocabulary, to describe the type and
+functionality of the package. Terms are initially selected by the
+package authors, and subsequently refined during package review or
+updates to the controlled vocabulary.</p>
+<div id="challenge" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="チャレンジ" class="callout-inner">
-<h3 class="callout-title">チャレンジ</h3>
+<div id="challenge" class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
-<p>BioconductorのすべてのパッケージのリストをBioconductor <a href="https://www.bioconductor.org/packages/release/BiocViews.html" class="external-link">biocViews</a>のウェブページで訪れてください。
-左上の「Autocomplete biocViews
-search」ボックスを使用して、カテゴリ別にパッケージをフィルタリングし、個々の用語を展開および収縮させてソフトウェアパッケージのグラフを探ります。</p>
+<p>Visit the listing of all packages on the Bioconductor <a href="https://www.bioconductor.org/packages/release/BiocViews.html" class="external-link">biocViews</a>
+web page. Use the “Autocomplete biocViews search” box in the upper left
+to filter packages by category and explore the graph of software
+packages by expanding and contracting individual terms.</p>
 <ol style="list-style-type: decimal">
-<li>RNAシーケンシング解析のためにタグ付けされたパッケージを識別するために使用できるbiocView用語は何ですか？
-ChIP-seq？ エピジェネティクス？ バリアント注釈？ プロテオミクス？
-単一細胞ゲノミクス？</li>
-<li>
-<code>RNASeq</code>カテゴリでは、非常に人気のある2つのパッケージがあり、<em><a href="https://bioconductor.org/packages/3.19/DESeq2" class="external-link">DESeq2</a></em>と、<em><a href="https://bioconductor.org/packages/3.19/edgeR" class="external-link">edgeR</a></em>です。
-ダウンロード統計（すなわち、低いランク）という点で、どちらがより人気がありますか？</li>
+<li>What biocView terms can be used to identify packages that have been
+tagged for RNA sequencing analysis? ChIP-seq? Epigenetics? Variant
+annotation? Proteomics? Single-cell genomics?</li>
+<li>In the <code>RNASeq</code> category, two very popular packages are
+<em><a href="https://bioconductor.org/packages/3.19/DESeq2" class="external-link">DESeq2</a></em> and
+<em><a href="https://bioconductor.org/packages/3.19/edgeR" class="external-link">edgeR</a></em>.
+Which one is more popular in terms of download statistics (i.e., lower
+rank)?</li>
 </ol>
 </div>
 </div>
@@ -756,166 +842,204 @@ ChIP-seq？ エピジェネティクス？ バリアント注釈？ プロテオ
 <div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">
-  解決策
-  </h4>
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
-<li><p><code>RNAseq</code>, <code>ChIPSeq</code>,
-<code>Epigenetics</code>, <code>VariantAnnotation</code>,
-<code>Proteomics</code>, <code>SingleCell</code>.</p></li>
-<li><p>Bioconductorリリース<code>3.14</code>では、<em><a href="https://bioconductor.org/packages/3.19/DESeq2" class="external-link">DESeq2</a></em>と<em><a href="https://bioconductor.org/packages/3.19/edgeR" class="external-link">edgeR</a></em>がそれぞれランク23と28にリストされています。
-言い換えれば、2つのパッケージはBioconductorプロジェクトで最も頻繁にダウンロードされるパッケージの中にあり、この場合、<em><a href="https://bioconductor.org/packages/3.19/edgeR" class="external-link">edgeR</a></em>に小さな利点があります。</p></li>
+<li>
+<code>RNAseq</code>, <code>ChIPSeq</code>, <code>Epigenetics</code>,
+<code>VariantAnnotation</code>, <code>Proteomics</code>,
+<code>SingleCell</code>.</li>
+<li>For Bioconductor release <code>3.14</code>, <em><a href="https://bioconductor.org/packages/3.19/DESeq2" class="external-link">DESeq2</a></em> and
+<em><a href="https://bioconductor.org/packages/3.19/edgeR" class="external-link">edgeR</a></em> are
+listed at ranks 23 and 28 respectively. In other words, the two packages
+are among the most frequently downloaded packages in the Bioconductor
+project, in this instance with a small advantage in favour of <em><a href="https://bioconductor.org/packages/3.19/edgeR" class="external-link">edgeR</a></em>.</li>
 </ol>
 </div>
 </div>
 </div>
 </div>
-<div id="さらに進む-1" class="callout">
+<div id="going-further-1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="さらに進む-1" class="callout-inner">
-<h3 class="callout-title">さらに進む</h3>
+<div id="going-further-1" class="callout-inner">
+<h3 class="callout-title">Going further</h3>
 <div class="callout-content">
-<p>Bioconductorパッケージ<em><a href="https://bioconductor.org/packages/3.19/biocViews" class="external-link">biocViews</a></em>は、制御語彙のインフラをサポートおよび管理するために使用されます。
-また、用語のリストをプログラム的に検査し、グラフとしてその関係によってサブセットを取得するためにも使用されます。</p>
-<p>さらに、<em><a href="https://bioconductor.org/packages/3.19/BiocPkgTools" class="external-link">BiocPkgTools</a></em>パッケージを使用して、異なる<a href="reference.html#biocviews">biocViews</a>のもとにあるパッケージをブラウズすることができます
-(Su, Carey, Shepherd, Ritchie, Morgan, and Davis, 2019)。</p>
+<p>The Bioconductor package <em><a href="https://bioconductor.org/packages/3.19/biocViews" class="external-link">biocViews</a></em>
+is used to support and manage the infrastructure of the controlled
+vocabulary. It can also be used to programmatically inspect and subset
+the list of terms available using their relationship as a graph.</p>
+<p>Furthermore, the <em><a href="https://bioconductor.org/packages/3.19/BiocPkgTools" class="external-link">BiocPkgTools</a></em>
+package can be used to browse packages under different <a href="reference.html#biocviews">biocViews</a> (Su, Carey, Shepherd,
+Ritchie, Morgan, and Davis, 2019).</p>
 </div>
 </div>
 </div>
 </div>
 <div class="section level4">
-<h4 id="パッケージの相互運用性">パッケージの相互運用性<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AE%E7%9B%B8%E4%BA%92%E9%81%8B%E7%94%A8%E6%80%A7"></a>
+<h4 id="packages-interoperability">Packages interoperability<a class="anchor" aria-label="anchor" href="#packages-interoperability"></a>
 </h4>
-<p>Bioconductorの哲学の中心には、相互運用性の概念があります。
-つまり、パッケージが同じデータ構造で動作する能力です。
-重要なのは、相互運用性はユーザーと開発者の両方に利益をもたらすことです。</p>
-<p>ユーザーは、複数のパッケージを組み合わせた任意の複雑なワークフローを書くことがより簡単になります。
-同じデータ構造に基づくパッケージがあるため、ユーザーはワークフローの実際のステップに最大限注意を払い、各パッケージに特有の異なるデータ構造間で行う複雑かつエラーが発生しやすい変換に費やす時間を最小限に抑えることができます。
-同様に、新しいパッケージの開発者は、情報の保存、検証、およびインデックスを行うために堅牢で信頼されるインフラを提供する既存のデータ構造を借用し、革新的な機能の実装に焦点を当てることができます。</p>
-<p>最終的に、下図は、さまざまなBioconductorパッケージとベースRパッケージがどのように組み合わされて、シーケンシングデータをRセッションにインポートし、データと結果の注釈、統合、視覚化を実行するさまざまな分析を実行できるかを示しています。</p>
-<figure><img src="fig/bioc-sequencing-ecosystem.svg" alt="シーケンシングエコシステム。" class="figure mx-auto d-block"></figure><p><strong>シーケンシングエコシステム</strong>
-主要データ処理ステップ（青）と関連ソフトウェアパッケージ（ピンク）が、さまざまなタイプのゲノム分析の典型的なワークフローの文脈で一覧表示されます。</p>
-<p>ワークフローのステップとソフトウェアパッケージの連続的な関係は、完全なエンドツーエンドのワークフローを構成するためのソフトウェアパッケージ間の相互運用性の重要性を示しています。
-ワークフローのステップとソフトウェアパッケージの逐次関係は、完全なエンドツーエンドのワークフローを構成するために、ソフトウェアパッケージ間の相互運用性の重要性を示しています。</p>
+<p>At the core of the Bioconductor philosophy is the notion of
+interoperability. Namely, the capacity of packages to operate on the
+same data structures. Importantly, interoperability benefits both users
+and developers.</p>
+<p>Users can more easily write arbitrarily complex workflows that
+combine multiple packages. With packages operating on the same data
+structure, users can maximize their attention to the practical steps of
+their workflow, and minimize time spent in often complex and error-prone
+conversions between different data structures specific to each package.
+Comparative benchmarks are also easier to implement and can be evaluated
+more fairly when competing software packages offering similar
+functionality operate on input and outputs stored in the same data
+structures.</p>
+<p>Similarly, developers of new packages can focus on the implementation
+of novel functionality, borrowing existing data structures that offer
+robust and trusted infrastructure for storage, verification, and
+indexing of information.</p>
+<p>Ultimately, the figure below illustrates how many different
+Bioconductor packages - as well as base R packages - can be combined to
+carry out a diverse range of analyses, from importing sequencing data
+into an R session, to the annotation, integration and visualization of
+data and results.</p>
+<figure><img src="fig/bioc-sequencing-ecosystem.svg" alt="Sequencing Ecosystem." class="figure mx-auto d-block"></figure><p><strong>Sequencing Ecosystem</strong> Major data processing steps
+(blue) and relevant software packages (pink) are listed in the context
+of archetypal workflows for various types of genomics analyses. The
+sequential relation of workflow steps and software package illustrates
+the importance of interoperability between software package in order to
+assemble complete end-to-end workflows.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="会議コースワークショップ">会議、コース、ワークショップ<a class="anchor" aria-label="anchor" href="#%E4%BC%9A%E8%AD%B0%E3%82%B3%E3%83%BC%E3%82%B9%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97"></a>
+<h3 id="conferences-courses-and-workshops">Conferences, courses and workshops<a class="anchor" aria-label="anchor" href="#conferences-courses-and-workshops"></a>
 </h3>
-<p>Bioconductorコミュニティは、年中世界中の数多くのイベントを定期的に開催しています。
-例えば：</p>
+<p>The Bioconductor community regularly organizes a number of events
+throughout the year and across the world. For example:</p>
 <ul>
-<li>北アメリカでの年次BioCサマー会議</li>
-<li>冬の地域会議（例：BioC Europe、BioC Asia）</li>
-<li>サマー学校（例：CSAMA）</li>
-<li>すべてのコミュニティメンバーが参加できるオンラインミーティング（例：Bioconductor
-Developers Forum）</li>
+<li>The annual BioC summer conference in North America</li>
+<li>Regional conference in winter (e.g. BioC Europe, BioC Asia)</li>
+<li>Summer schools (e.g., CSAMA)</li>
+<li>Online meetings open to all community members (e.g., Bioconductor
+Developers Forum)</li>
 </ul>
-<p>コース教材は、これらのイベントの各後に定期的に<a href="https://bioconductor.org/help/course-materials/" class="external-link">Bioconductorウェブサイト</a>にアップロードされます。
-特に、<a href="https://www.bioconductor.org/books/release/" class="external-link">オンライン書籍</a>はコミュニティメンバーによって開発および維持されています。</p>
-<p>Bioconductorの<a href="https://www.youtube.com/user/bioconductor" class="external-link">YouTubeチャンネル</a>は、会議の発表のビデオ録画（講演やワークショップを含む）を公開するために使用され、通常のBioconductor開発者フォーラムの版（リンクが必要）も含まれています。</p>
-<div id="貢献しよう" class="callout">
+<p>Course materials are regularly uploaded on the <a href="https://bioconductor.org/help/course-materials/" class="external-link">Bioconductor
+website</a> following each of those events. In particular, <a href="https://www.bioconductor.org/books/release/" class="external-link">online books</a> are
+being developed and maintained by community members.</p>
+<p>The Bioconductor <a href="https://www.youtube.com/user/bioconductor" class="external-link">YouTube channel</a> is
+used to publish video recordings of conference presentations including
+talks and workshops, as well as editions of the regular Bioconductor
+developers forum (link needed).</p>
+<div id="contribute" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="貢献しよう" class="callout-inner">
-<h3 class="callout-title">貢献しよう！</h3>
+<div id="contribute" class="callout-inner">
+<h3 class="callout-title">Contribute!</h3>
 <div class="callout-content">
-<p>年を通じての会議の典型的なサイクルを示すことができれば素晴らしいでしょう。例えば、</p>
+<p>It could be great to illustrate a typical cycle of conferences over a
+year, e.g.</p>
 <ul>
-<li>7月末頃の北アメリカでのBioC会議</li>
-<li>12月頃のヨーロッパでのEuroBioC会議</li>
-<li>11月頃のアジアでのBioCAsia会議</li>
+<li>BioC conference in North America around late July</li>
+<li>EuroBioC conference in Europe around December</li>
+<li>BioCAsia conference in Asia around November</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="オンラインコミュニケーションチャネル">オンラインコミュニケーションチャネル<a class="anchor" aria-label="anchor" href="#%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%81%E3%83%A3%E3%83%8D%E3%83%AB"></a>
+<h3 id="online-communication-channels">Online communication channels<a class="anchor" aria-label="anchor" href="#online-communication-channels"></a>
 </h3>
 <div class="section level4">
-<h4 id="サポートサイト">サポートサイト<a class="anchor" aria-label="anchor" href="#%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%82%B5%E3%82%A4%E3%83%88"></a>
+<h4 id="support-site">Support site<a class="anchor" aria-label="anchor" href="#support-site"></a>
 </h4>
-<p>Bioconductorの<a href="https://support.bioconductor.org/" class="external-link">サポートサイト</a>は、ユーザーと開発者が自由にコミュニケーションをとるためのプラットフォームを提供し（Bioconductorの<a href="https://www.bioconductor.org/about/code-of-conduct/" class="external-link">行動規範</a>に従って）、パッケージに関する問題やベストプラクティスに関する概念的な質問について議論します。</p>
+<p>The Bioconductor <a href="https://support.bioconductor.org/" class="external-link">support
+site</a> provides a platform where users and developers can communicate
+freely (following the Bioconductor <a href="https://www.bioconductor.org/about/code-of-conduct/" class="external-link">Code of
+Conduct</a>) to discuss issues on a range of subjects, ranging from
+packages to conceptual questions about best practices.</p>
 </div>
 <div class="section level4">
-<h4 id="slackワークスペース">Slackワークスペース<a class="anchor" aria-label="anchor" href="#slack%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9"></a>
+<h4 id="slack-workspace">Slack workspace<a class="anchor" aria-label="anchor" href="#slack-workspace"></a>
 </h4>
-<p>Bioconductorの<a href="https://bioc-community.herokuapp.com/" class="external-link">Slackワークスペース</a>は、すべてのコミュニティメンバーが参加（無料）して、迅速な相互作用を行うことができるオープンスペースです。
-現在、「Pro」プランの価格設定は、コア資金によって支援されています。</p>
+<p>The Bioconductor <a href="https://bioc-community.herokuapp.com/" class="external-link">Slack workspace</a> is an
+open space that all community members are welcome to join (for free) and
+use for rapid interactions. Currently, the “Pro” pricing plan kindly
+supported by core funding provides:</p>
 <ul>
-<li>無制限のメッセージアーカイブ</li>
-<li>無制限のアプリ</li>
-<li>画面共有付きのグループビデオ通話</li>
-<li>Slack Connectを使用して他の組織と安全に作業する</li>
+<li>Unlimited message archive</li>
+<li>Unlimited apps</li>
+<li>Group video calls with screen sharing</li>
+<li>Work securely with other organizations using Slack Connect</li>
 </ul>
-<p>さまざまなトピックについて議論するために多くのチャンネルが作成されており、コミュニティメンバーはそのチャンネルに自由に参加することができ、また新しいチャンネルを作成して新しいトピックについて議論することもできます。</p>
-<p>重要な発表は<code>#general</code>チャンネルに投稿されます。</p>
-<div id="注意" class="callout">
+<p>A wide range of channels have been created to discuss a range of
+subjects, and community members can freely join the discussion on those
+channels of create new ones to discuss new subjects.</p>
+<p>Important announcements are posted on the <code>#general</code>
+channel.</p>
+<div id="note" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="注意" class="callout-inner">
-<h3 class="callout-title">注意</h3>
+<div id="note" class="callout-inner">
+<h3 class="callout-title">Note</h3>
 <div class="callout-content">
-<p>ユーザーは、Bioconductorの<a href="https://support.bioconductor.org/" class="external-link">サポートサイト</a>を使用して、より広いコミュニティに関連する問題を提起することを奨励されています。
-Slack
-ワークスペースは、ライブディスカッションに最も便利で、広く参加しているチャンネル（例：<code>#general</code>）は適度に使用する必要があります。</p>
+<p>Users are encouraged to use the Bioconductor <a href="https://support.bioconductor.org/" class="external-link">support site</a> to raise
+issues that are relevant to the wider community. The Slack workspace is
+often most useful for live discussions, and widely subscribed channels
+(e.g. <code>#general</code>) should be used with moderation.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="section level4">
-<h4 id="開発者メーリングリスト">開発者メーリングリスト<a class="anchor" aria-label="anchor" href="#%E9%96%8B%E7%99%BA%E8%80%85%E3%83%A1%E3%83%BC%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%AA%E3%82%B9%E3%83%88"></a>
+<h4 id="developer-mailing-list">Developer Mailing List<a class="anchor" aria-label="anchor" href="#developer-mailing-list"></a>
 </h4>
-<p><a href="mailto:bioc-devel@r-project.org">bioc-devel@r-project.org</a>
-メーリングリストは、パッケージ開発者間のコミュニケーションや
-Bioconductor コアチームからの発表に使用されます。</p>
+<p>The <a href="mailto:bioc-devel@r-project.org">bioc-devel@r-project.org</a>
+mailing list is used for communication between package developers, and
+announcements from the Biocondutor core team.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="科学技術コミュニティ">科学技術コミュニティ<a class="anchor" aria-label="anchor" href="#%E7%A7%91%E5%AD%A6%E6%8A%80%E8%A1%93%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3"></a>
+<h3 id="a-scientific-and-technical-community">A scientific and technical community<a class="anchor" aria-label="anchor" href="#a-scientific-and-technical-community"></a>
 </h3>
 <ul>
 <li>
-<a href="https://bioconductor.org/about/scientific-advisory-board/" class="external-link">科学諮問委員会
-(SAB)</a>
-年に1度の会合、プロジェクトアドバイザーとして活動する外部および内部のリーダー。
-任期の制限なし。</li>
+<a href="https://bioconductor.org/about/scientific-advisory-board/" class="external-link">Scientific
+Advisory Board (SAB)</a> Meet Annually, External and Internal leader in
+the field who act as project advisors. No Term limits.</li>
 <li>
-<a href="https://bioconductor.org/about/technical-advisory-board/" class="external-link">技術技術委員会
-(TAB)</a>。
-月に一度、プロジェクトのコアインフラストラクチャと科学的方向性の技術的側面を検討します。
-メンバーは 15 人、任期は 3 年。
-年に一度の公開選挙でメンバーを交代します。
-現在の役員は、ビンス・ケアリー（議長）、リーヴァイ・ウォルドロン（副議長）、シャーロット・ソネソン（書記）。</li>
+<a href="https://bioconductor.org/about/technical-advisory-board/" class="external-link">Technical
+Advisory Board (TAB)</a>. Meet monthly to consider technical aspects of
+core infastructure and scientific direction of the project. 15 members,
+3 year term. Annual open-to-all elections to rotate members. Current
+officers are Vince Carey (chair), Levi Waldron (vice Chair) Charlotte
+Soneson (Secretary).</li>
 <li>
-<a href="https://bioconductor.org/about/community-advisory-board/" class="external-link">コミュニティ諮問委員会
-(CAB)</a> 月に一度、地域社会への
-outreach、イベント、教育、トレーニングを考慮します。 メンバーは 15
-人、任期は 3 年。 年に一度の公開選挙でメンバーを交代します。
-現在の役員は、エイディン・カルハン（議長）、マット・リッチー（共同議長）、ローリ・カーン（書記）。</li>
-<li><a href="https://www.bioconductor.org/about/code-of-conduct/" class="external-link">行動規範委員会</a></li>
+<a href="https://bioconductor.org/about/community-advisory-board/" class="external-link">Community
+Advisory Board (CAB)</a> Meet monthly to consider community outreach,
+events, education and training. 15 members, 3 year term. Annual
+open-to-all elections to rotate members. Current officers are Aedin
+Culhane (chair), Matt Ritchie (co Chair), Lori Kern (Secretary).</li>
+<li><a href="https://www.bioconductor.org/about/code-of-conduct/" class="external-link">Code
+of Conduct committee</a></li>
 </ul>
-<div id="注意-1" class="callout">
+<div id="note-1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="注意-1" class="callout-inner">
-<h3 class="callout-title">注意</h3>
+<div id="note-1" class="callout-inner">
+<h3 class="callout-title">Note</h3>
 <div class="callout-content">
-<p>TAB/CABの少なくとも1名のメンバーが両方に参加し、ボードのコミュニケーションを確保するための連絡役を果たします。</p>
+<p>At least 1 member of TAB/CAB sits on both to act at the liason to
+ensure communication of the board.</p>
 </div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="参考文献">参考文献<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"></a>
+</section><section><h2 class="section-heading" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <hr class="half-width">
 <p>[1] R. A. Amezquita, A. T. L. Lun, E. Becht, et al. “Orchestrating
@@ -942,17 +1066,21 @@ approved, 1 approved with reservations]”. In: <em>F1000Research</em>
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
-<li>R パッケージは Bioconductor プロジェクトの一側面に過ぎません。</li>
-<li>Bioconductor プロジェクトは CRAN
-リポジトリを拡張し、補完します。</li>
-<li>異なる種類のパッケージは、ソフトウェアだけでなく、アノテーション、実験データも提供し、統合されたワークフローで複数のパッケージの使用方法を示します。</li>
-<li>Bioconductor
-パッケージ間の相互運用性は、統合ワークフローの作成を容易にし、ユーザーの認知的負担を最小限に抑えます。</li>
-<li>コースや会議の教育資料はアーカイブされ、Bioconductor ウェブサイトと
-YouTube チャンネルでアクセス可能です。</li>
-<li>異なるコミュニケーションのチャネルを使用して、コミュニティのメンバーが会話し、ユーザーとパッケージ開発者の両方として互いに助け合います。</li>
-<li>Bioconductor
-プロジェクトは、科学、技術、諮問の各委員会および行動規範委員会によって運営されています。</li>
+<li>R packages are but one aspect of the Bioconductor project.</li>
+<li>The Bioconductor project extends and complements the CRAN
+repository.</li>
+<li>Different types of packages provide not only software, but also
+annotations, experimental data, and demonstrate the use of multiple
+packages in integrated workflows.</li>
+<li>Interoperability beteen Bioconductor packages facilitates the
+writing of integrated workflows and minimizes the cognitive burden on
+users.</li>
+<li>Educational materials from courses and conferences are archived and
+accessible on the Bioconductor website and YouTube channel.</li>
+<li>Different channels of communication enable community members to
+converse and help each other, both as users and package developers.</li>
+<li>The Bioconductor project is governed by scientific, technical, and
+advisory boards, as well as a Code of Conduct committee.</li>
 </ul>
 </div>
 </div>
@@ -1303,7 +1431,7 @@ number of numbers that could be installed using <em><a href="https://bioconducto
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 26057</code></pre>
+<pre class="output" tabindex="0"><code>[1] 26059</code></pre>
 </div>
 <p>Specifically, the union of current Bioconductor repositories and
 other repositories on the search path can be displayed as follows.</p>
@@ -2218,7 +2346,7 @@ return? Why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre><code>&gt; DF2["name1", ]
 DataFrame with 1 row and 3 columns
@@ -2272,7 +2400,7 @@ different?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <pre><code>&gt; DF3["a", ]
 DataFrame with 1 row and 3 columns
@@ -3079,7 +3207,7 @@ DNA and RNA sequences.</p>
 <p>To demonstrate the use of the <code>translate()</code> method, we
 first load a set of open reading frames (ORFs) identified by the <a href="https://www.ncbi.nlm.nih.gov/orffinder/" class="external-link">NIH Open Reading Frame
 Finder</a> for the <em>Homo sapiens</em> actin beta (ACTB) mRNA (RefSeq:
-NM\_001101), using the standard genetic code, a minimal ORF length of 75
+NM_001101), using the standard genetic code, a minimal ORF length of 75
 nucleotides, and starting with the “ATG” start codon only.</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4174,7 +4302,7 @@ constructor function.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4948,7 +5076,7 @@ what does this number represent biologically?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb61">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -6117,7 +6245,7 @@ about the samples – are possible.</p>
 <p>In the example below, we create a <code>SummarizedExperiment</code>
 object in which we store the matrix of count data under the name
 ‘counts’. Note that the argument ‘assays=’ (plural) can accept more than
-one assay -- as discussed above – which is why we encapsulate our only
+one assay – as discussed above – which is why we encapsulate our only
 assay matrix in a named <code>list</code> that also gives us the
 opportunity to assign a name to the assay. Naming assays becomes crucial
 during workflows that contain multiple assays, in order to identify and
@@ -6144,7 +6272,7 @@ colnames(4): sample_1 sample_2 sample_3 sample_4
 colData names(0):</code></pre>
 </div>
 <p>In the output above, the summary view of the object reminds us that
-the assay -- and thus the overall <code>SummarizedExperiment</code>
+the assay – and thus the overall <code>SummarizedExperiment</code>
 object – contains information for 25 features in 4 samples, it contains
 a single assay named ‘counts’, the features seem to be named from
 ‘gene_1’ to ‘gene_25’ (only the first and last ones are shown), and the
