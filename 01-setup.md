@@ -84,9 +84,11 @@ Ideally, participants might want to create a new [RStudio project][external-rstu
 Using an RStudio project sets the working directory to the root directory of that project.
 As a consequence, code is executed relative to that root directory, often avoiding the need for using absolute file paths to import/export data from/to files.
 
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 [external-rstudio-project]: https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects
+
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 

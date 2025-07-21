@@ -411,7 +411,7 @@ but also lists of DNA and RNA sequences in objects of class `DNAStringSet` and `
 To demonstrate the use of the `translate()` method, we first load a set of open
 reading frames (ORFs) identified by the
 [NIH Open Reading Frame Finder][orf-finder]
-for the _Homo sapiens_ actin beta (ACTB) mRNA (RefSeq: NM\\_001101),
+for the *Homo sapiens* actin beta (ACTB) mRNA (RefSeq: NM\_001101),
 using the standard genetic code, a minimal ORF length of 75 nucleotides,
 and starting with the "ATG" start codon only.
 
@@ -1197,6 +1197,7 @@ pattern contain [IUPAC ambiguity codes][external-iupac].
 [iupac-alphabet]: https://www.bioinformatics.org/sms/iupac.html
 [external-truseq]: https://emea.illumina.com/products/by-type/sequencing-kits/library-prep-kits.html
 [orf-finder]: https://www.ncbi.nlm.nih.gov/orffinder/
+
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 

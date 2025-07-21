@@ -70,6 +70,7 @@ For instance:
 Those functions are beyond the scope of this lesson, and should be used with caution and adequate knowledge of their specific behaviors.
 The general recommendation is to use `BiocManager::install()` over any other installation mechanism because it ensures proper versioning of Bioconductor packages.
 
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Bioconductor releases and current version
@@ -277,7 +278,7 @@ length(BiocManager::available())
 ```
 
 ``` output
-[1] 26057
+[1] 26059
 ```
 
 Specifically, the union of current Bioconductor repositories and other repositories on the search path can be displayed as follows.
@@ -365,6 +366,7 @@ However, if any package cannot be found in the Bioconductor repository, the func
 Add an example of non-Bioconductor package that can be installed using BioManager.
 Preferably, a package that will be used later in this lesson.
 
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Uninstalling packages
@@ -384,6 +386,7 @@ remove.packages("S4Vectors")
 [crossref-intro-biocviews]: https://carpentries-incubator.github.io/bioc-project/02-introduction-to-bioconductor/index.html#package-classification-using-biocviews
 [glossary-software-package]: reference.html#software-package
 [glossary-annotation-package]: reference.html#annotationdata-package
+
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 

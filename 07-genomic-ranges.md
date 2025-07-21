@@ -145,7 +145,7 @@ For instance, genomic ranges spanning a common range of coordinates on opposite
 strands of the same DNA sequence may not be considered to overlap (e.g., for the
 purpose of strand-specific next-generation sequencing assays).
 
-Genomic ranges are _closed_ intervals - the start and end positions are included
+Genomic ranges are *closed* intervals - the start and end positions are included
 in the interval; in the example of nucleic acids, the start position indicates
 the first nucleotide in the interval, and the end position indicates the last
 nucleotide in the interval.
@@ -234,8 +234,8 @@ IRanges object with 2 ranges and 0 metadata columns:
   [2]        15        19         5
 ```
 
-We note how the object displays not only the _start_ and _width_ information
-that we requested for each range, but also the _end_ position that is naturally
+We note how the object displays not only the *start* and *width* information
+that we requested for each range, but also the *end* position that is naturally
 computed from the other two pieces of information.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -683,12 +683,12 @@ Various file formats are commonly used to store genomic ranges in bioinformatics
 workflows.
 For instance, the BED (Browser Extensible Data) format is commonly found in
 Chromatin Immunoprecipitation Sequencing (ChIP-Seq), while GTF
-(Gene Transfer Format, GTF2.2) is the _de facto_ standard file format to
+(Gene Transfer Format, GTF2.2) is the *de facto* standard file format to
 describe genomic features such as exons, transcripts, and genes.
 
 In the following example, we import the gene model for Actin Beta (ACTB) from
 a small GTF file as a set of genomic ranges.
-The example file represents a subset of a GTF file for the _Homo sapiens_
+The example file represents a subset of a GTF file for the *Homo sapiens*
 species, downloaded from the [Ensembl FTP][ensembl-ftp] site.
 The original file contains more than 3 millions lines and 22 metadata fields,
 from which a subset was extracted into a smaller file for this lesson.
@@ -758,6 +758,7 @@ version 2 file format, we could have directly invoked the function
 
 Refer to the documentation of the *[rtracklayer](https://bioconductor.org/packages/3.19/rtracklayer)*
 package for the full list of methods available.
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -1051,6 +1052,7 @@ You can also find more examples and use cases in the package vignettes, accessib
 [glossary-s4-class]: reference.html#s4-class
 [ensembl-ftp]: https://www.ensembl.org/info/data/ftp/
 [ucsc-genome-data]: https://hgdownload.soe.ucsc.edu/downloads.html
+
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 

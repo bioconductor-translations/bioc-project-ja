@@ -175,7 +175,7 @@ require information about the samples -- are possible.
 In the example below, we create a `SummarizedExperiment` object in which we
 store the matrix of count data under the name 'counts'.
 Note that the argument 'assays=' (plural) can accept more than one assay
-\-- as discussed above -- which is why we encapsulate our only assay matrix
+-- as discussed above -- which is why we encapsulate our only assay matrix
 in a named `list` that also gives us the opportunity to assign a name to the
 assay.
 Naming assays becomes crucial during workflows that contain multiple assays,
@@ -201,7 +201,7 @@ colData names(0):
 ```
 
 In the output above, the summary view of the object reminds us that the assay
-\-- and thus the overall `SummarizedExperiment` object -- contains information
+-- and thus the overall `SummarizedExperiment` object -- contains information
 for 25 features in 4 samples,
 it contains a single assay named 'counts',
 the features seem to be named from 'gene_1' to 'gene_25'
@@ -210,7 +210,7 @@ and the samples are named from `sample_1` to `sample_4`.
 The object does not contain any row metadata nor column metadata.
 
 To create a more comprehensive `SummarizedExperiment` object,
-let us import gene metadata and sample metadata for another two files
+let us import gene metadata and sample metadata for another two files 
 that we downloaded during the lesson setup.
 
 The files are formatted similarly to the count data,
@@ -348,7 +348,7 @@ gene_5       82       97      112       83
 gene_6       89       96       90      116
 ```
 
-The `colData()` and `rowData()` functions can be used to retrieve
+The `colData()` and `rowData()` functions can be used to retrieve 
 sample metadata and row metadata, respectively.
 
 

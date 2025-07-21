@@ -35,6 +35,7 @@ In this lesson, you will learn:
 ## Prerequisites
 
 - Learning objectives of the [Introduction to data analysis with R and Bioconductor][lesson-intro-r-bioconductor] workshop.
+  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
