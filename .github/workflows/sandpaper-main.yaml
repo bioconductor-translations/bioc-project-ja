@@ -110,9 +110,8 @@ jobs:
           renv::install("joelnitta/dovetail")
           sandpaper::package_cache_trigger(TRUE)
           lesson_trans_dir <- paste0(tempdir(), "/dovetail-", Sys.Date())
-          lang_code <- Sys.getenv("LANG_CODE", unset = "en")
           dovetail:::make_translated_dir(
-            translated_dir = lesson_trans_dir, overwrite = TRUE, lang = lang_code,
+            translated_dir = lesson_trans_dir, overwrite = TRUE, lang = "ja",
             l10n_branch = NULL, clean = FALSE)
           sandpaper:::ci_deploy(path = lesson_trans_dir, reset = reset)
         shell: Rscript {0}
