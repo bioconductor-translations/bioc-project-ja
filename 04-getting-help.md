@@ -72,7 +72,6 @@ Later in this episode, we provide advice for reporting bugs and including suffic
 
 In doubt, the [Biocondutor support site][bioc-support-site] can also be a great place to discuss individual experiences and share knowledge about packages and best practices.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Additionally, the landing page provides many other pieces of information, from daily build reports indicating whether the package passed all tests on a range of operating systems, to software dependencies indicating the number of other Bioconductor packages that must be installed before the package itself can be installed and used on the user's system.
@@ -91,7 +90,6 @@ In the URL of a package landing page, we can replace the version number by the w
 
 - [https://www.bioconductor.org/packages/release/bioc/html/BiocPkgTools.html](https://www.bioconductor.org/packages/release/bioc/html/BiocPkgTools.html)
 - [https://www.bioconductor.org/packages/devel/bioc/html/BiocPkgTools.html](https://www.bioconductor.org/packages/devel/bioc/html/BiocPkgTools.html)
-  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -195,7 +193,6 @@ Conversely, direct messages and private channels are limited to the users invite
 
 As a consequence, the [Bioconductor support site][bioc-support-site] remains the preferred way to publicly ask questions of interest to the community, in a way that both the question, discussion, and answers are easily searchable and indexed by major search engines.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## How to efficiently ask for help
@@ -238,7 +235,6 @@ This is because questions are visible to the entire community, including many ex
 [bioc-slack]: https://community-bioc.slack.com/
 [bioc-slack-heroku]: https://bioc-community.herokuapp.com/
 [bioc-core-team]: https://www.bioconductor.org/about/core-team/
-
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 

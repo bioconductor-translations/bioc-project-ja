@@ -70,7 +70,6 @@ For instance:
 Those functions are beyond the scope of this lesson, and should be used with caution and adequate knowledge of their specific behaviors.
 The general recommendation is to use `BiocManager::install()` over any other installation mechanism because it ensures proper versioning of Bioconductor packages.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Bioconductor releases and current version
@@ -148,8 +147,61 @@ If everything is up-to-date, the function will simply print `TRUE`.
 BiocManager::valid()
 ```
 
+``` warning
+Warning: 5 packages out-of-date; 0 packages too new
+```
+
 ``` output
-[1] TRUE
+
+* sessionInfo()
+
+R version 4.4.3 (2025-02-28)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 22.04.5 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+time zone: UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] BiocStyle_2.32.1
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37          assertthat_0.2.1       R6_2.6.1              
+ [4] fastmap_1.2.0          xfun_0.52              magrittr_2.0.3        
+ [7] glue_1.8.0             knitr_1.50             sandpaper_0.16.13.9000
+[10] htmltools_0.5.8.1      rmarkdown_2.29         lifecycle_1.0.4       
+[13] xml2_1.3.8             ps_1.9.1               cli_3.6.5             
+[16] processx_3.8.6         callr_3.7.6            vctrs_0.6.5           
+[19] renv_1.1.4             withr_3.0.2            compiler_4.4.3        
+[22] purrr_1.1.0            tools_4.4.3            tinkr_0.3.0           
+[25] evaluate_1.0.4         yaml_2.3.10            BiocManager_1.30.26   
+[28] pegboard_0.7.9         rlang_1.1.6           
+
+Bioconductor version '3.19'
+
+  * 5 packages out-of-date
+  * 0 packages too new
+
+create a valid installation with
+
+  BiocManager::install(c(
+    "httr2", "pillar", "purrr", "Rcpp", "RSQLite"
+  ), update = TRUE, ask = FALSE, force = TRUE)
+
+more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date
 ```
 
 Conveniently, if any package can be updated, the function generates and displays the command needed to update those packages.
@@ -225,7 +277,7 @@ length(BiocManager::available())
 ```
 
 ``` output
-[1] 25976
+[1] 26057
 ```
 
 Specifically, the union of current Bioconductor repositories and other repositories on the search path can be displayed as follows.
@@ -313,7 +365,6 @@ However, if any package cannot be found in the Bioconductor repository, the func
 Add an example of non-Bioconductor package that can be installed using BioManager.
 Preferably, a package that will be used later in this lesson.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Uninstalling packages
@@ -333,7 +384,6 @@ remove.packages("S4Vectors")
 [crossref-intro-biocviews]: https://carpentries-incubator.github.io/bioc-project/02-introduction-to-bioconductor/index.html#package-classification-using-biocviews
 [glossary-software-package]: reference.html#software-package
 [glossary-annotation-package]: reference.html#annotationdata-package
-
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
