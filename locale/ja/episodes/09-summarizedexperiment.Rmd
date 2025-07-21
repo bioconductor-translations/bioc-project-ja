@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: The SummarizedExperiment class
+title: SummarizedExperimentクラス
 teaching: XX
 exercises: XX
 ---
@@ -13,15 +13,15 @@ source("download_data.R")
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Describe how both experimental data and metadata can be stored in a single object.
-- Explain why this is crucial to keep data and metadata synchronised throughout analyses.
+- 実験データとメタデータがどのように1つのオブジェクトに保存されるかを説明してください。
+- データとメタデータを分析の過程全体で同期させることが重要な理由を説明してください。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- How is information organized in SummarizedExperiment objects?
-- How can that information be added, edited, and accessed?
+- SummarizedExperimentオブジェクトの情報はどのように整理されていますか？
+- その情報はどのように追加、編集、アクセスできますか？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -36,14 +36,11 @@ library(bibtex)
 bib <- ReadBib("files/bibliography.bib")
 ```
 
-## Install packages
+## パッケージのインストール
 
-Before we can proceed into the following sections, we install some Bioconductor
-packages that we will need.
-First, we check that the `r BiocStyle::Biocpkg("BiocManager")` package is
-installed before trying to use it; otherwise we install it.
-Then we use the `BiocManager::install()` function to install the necessary
-packages.
+次のセクションに進む前に、必要なBioconductorのパッケージをいくつかインストールします。
+最初に、`r BiocStyle::Biocpkg("BiocManager")`パッケージがインストールされているか確認します。それがない場合はインストールします。
+その後、`BiocManager::install()`関数を使用して必要なパッケージをインストールします。
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -52,111 +49,80 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install(c("SummarizedExperiment"))
 ```
 
-## Motivation
+## モチベーション
 
-Experiments are multifaceted data sets typically composed of at least two key
-pieces of information necessary for any analysis:
+実験は多面的なデータセットで、通常、分析に必要な少なくとも2つの重要な情報を含んでいます：
 
-- Assay data, typically a matrix representing measurements of a set of features
-  in a set of samples
-  (e.g., RNA-sequencing).
-- Sample metadata, typically a `data.frame` of metadata representing information
-  about samples
-  (e.g., treatment group).
+- アッセイデータは、通常、サンプルのセット内の特徴のセットの測定を表す行列です
+  (例：RNAシーケンシング)。
+- サンプルメタデータは、通常、サンプルに関する情報を表す`data.frame`です
+  (例：治療群)。
 
-All those pieces of information must be kept synchronised -- same samples,
-same order -- for downstream analyses to accurately process the information
-and produce reliable results.
+これらすべての情報は、下流の分析で情報を正確に処理し、信頼できる結果を生成するために、
+同じサンプルで同じ順序に保たれる必要があります。
 
-It is also very common for analytical workflows to analyse subsets of samples or
-identify outliers that need to be removed to allow for more accurate downstream
-analyses.
-In such cases, all aspects of the experiments must be subsetted to the same set
-of samples -- in the same order -- to preserve consistency in the data set
-and correct results.
+分析ワークフローで、サンプルのサブセットを分析したり、より正確な下流の分析を可能にするために削除する必要のある外れ値を特定したりすることは非常に一般的です。
+そのような場合、実験のすべての側面は同じサンプルのセットにサブセットされる必要があります
+\-- 同じ順序で -- データセットの一貫性と正確な結果を保つために。
 
-The `SummarizedExperiment` -- implemented in the
-`r BiocStyle::Biocpkg("SummarizedExperiment")` package -- provides a container
-that accommodates those essential aspects of individual experiments into a
-single object coordinates data and metadata during subsetting and reordering
-operations.
-Its flexibility accommodating many biological data types
-and comprehensive set of features make it a popular data
-structure re-used throughout the Bioconductor and a key part of the Bioconductor
-ecosystem.
-For instance, familiarity with the `SummarizedExperiment` is a prerequisite
-for working with the `r BiocStyle::Biocpkg("DESeq2")` package for differential
-expression analysis, and the `r BiocStyle::Biocpkg("SingleCellExperiment")`
-extension class for single-cell analyses.
+`SummarizedExperiment` -- `r BiocStyle::Biocpkg("SummarizedExperiment")`パッケージで実装されている
+\-- は、個々の実験の重要な側面を単一のオブジェクトに統合するコンテナを提供し、サブセットや再配置の操作中にデータとメタデータを調整します。
+多くの生物学的データ型と包括的な機能セットを受け入れる柔軟性があり、
+Bioconductor全体で再利用される人気のあるデータ構造です。
+例えば、`SummarizedExperiment`に慣れていることは、
+`r BiocStyle::Biocpkg("DESeq2")`パッケージや、シングルセル解析のための`r BiocStyle::Biocpkg("SingleCellExperiment")`拡張クラスで作業するために必要です。
 
-## Class structure
+## クラス構造
 
-`SummarizedExperiment` is a matrix-like container where rows represent features of
-interest (e.g. genes, transcripts, exons, etc.) and columns represent samples.
+`SummarizedExperiment`は、行が対象の特徴（例：遺伝子、転写、エクソンなど）を表す行列のようなコンテナです。 列はサンプルを表します。
 
-The objects can contain one or more assays, each represented by a matrix-like
-object, as long as they be of the same dimensions.
+オブジェクトは1つ以上のアッセイを含むことができ、各アッセイは同じ次元の行列のようなオブジェクトで表されます。
 
-Information about the features is stored in a `DataFrame` object,
-nested within the `SummarizedExperiment` object,
-and accessible using the function `rowData()`.
-Each row of the `DataFrame` provides information on the feature in the
-corresponding row of the SummarizedExperiment object.
-That information may include annotations independent of the experiment
-(e.g., gene identifier) as well as quality control metrics computed from
-assay data during workflows.
+特徴に関する情報は、`SummarizedExperiment`オブジェクト内にネストされた`DataFrame`オブジェクトに保存され、
+関数`rowData()`を使用してアクセスできます。
+`DataFrame`の各行は、SummarizedExperimentオブジェクトの対応する行の特徴に関する情報を提供します。
+その情報には、実験とは無関係な注釈（例：遺伝子識別子）や、ワークフロー中にアッセイデータから計算された品質管理メトリックが含まれる場合があります。
 
-Similarly, information about the samples is stored in another `DataFrame` object,
-also nested within the `SummarizedExperiment` object,
-and accessible using the function `colData()`.
+同様に、サンプルに関する情報は、別の`DataFrame`オブジェクトに保存され、これも`SummarizedExperiment`オブジェクトにネストされ、
+関数`colData()`を使用してアクセスできます。
 
-The following graphic displays the class geometry and highlights the
-vertical (column) and horizontal (row) relationships.
-It was obtained from the vignette of the
-`r BiocStyle::Biocpkg("SummarizedExperiment")` package.
+次のグラフィックは、クラスのジオメトリを表示し、縦（列）および横（行）関係を強調します。
+これは、`r BiocStyle::Biocpkg("SummarizedExperiment")`パッケージのビネットから得られました。
 
-![](fig/summarizedexperiment.svg){alt='Schematic representation of the SummarizedExperiment class.'}
+![](fig/summarizedexperiment.svg){alt='SummarizedExperimentクラスの模式図です。'}
 
-## Creating a SummarizedExperiment object
+## SummarizedExperimentオブジェクトの作成
 
-Let us first load the package:
+はじめにパッケージをロードしましょう：
 
 ```{r, message=FALSE, warning=FALSE}
 library(SummarizedExperiment)
 ```
 
-Then, let us import assay data from a file that we downloaded during the lesson
-setup.
+それでは、レッスンセッティング中にダウンロードしたファイルからアッセイデータをインポートします。
 
-The file is a simple text file in which
-the first column contains made-up feature identifiers
-and all other columns contain simulated data for made-up samples.
-As such, we can use the base R function `read.csv` to parse the file
-into a `data.frame` object.
+そのファイルは単純なテキストファイルで、
+最初の列には作られた特徴識別子が含まれ、
+他のすべての列には作られたサンプルのシミュレーションデータが含まれています。
+そのため、基本R関数`read.csv`を使用してファイルを解析し、
+`data.frame`オブジェクトに変換できます。
 
-In the example below, we indicate that the row names can be found in the first
-column, so that the function immediately sets the row names accordingly
-in the output object.
-Hadn't we specified it, the function would have parsed it as a regular column
-and left the row names to the default integer indexing.
+以下の例では、行名は最初の列にあることを示しており、
+関数は出力オブジェクト内ですぐに行名を設定します。
+指定しなければ、関数は通常の列として解析し、デフォルトの整数インデックスで行名をそのままに 設定します。
 
 ```{r}
 count_data <- read.csv("data/counts.csv", row.names = 1)
 count_data
 ```
 
-One assay data matrix is enough to create a `SummarizedExperiment` object,
-although without sample metadata, only unsupervised analyses -- that do not
-require information about the samples -- are possible.
+1つのアッセイデータ行列があれば、`SummarizedExperiment`オブジェクトを作成できますが、
+サンプルメタデータがなければ、サンプルに関する情報を必要としない無監督分析のみが可能です。
 
-In the example below, we create a `SummarizedExperiment` object in which we
-store the matrix of count data under the name 'counts'.
-Note that the argument 'assays=' (plural) can accept more than one assay
-\-- as discussed above -- which is why we encapsulate our only assay matrix
-in a named `list` that also gives us the opportunity to assign a name to the
-assay.
-Naming assays becomes crucial during workflows that contain multiple assays,
-in order to identify and retrieve individual assays unambiguously.
+以下の例では、カウントデータの行列を'counts'という名前で保存する`SummarizedExperiment`オブジェクトを作成します。
+引数'Без'（複数形）は1つ以上のアッセイを受け入れることができ、
+\-- 上記で説明されているように --、そのため、唯一のアッセイ行列を名前付きの`list`にカプセル化します。
+アッセイに名前を付けることは、複数のアッセイを含むワークフローで、各アッセイを明確に識別し、取得するために重要です。
 
 ```{r}
 se <- SummarizedExperiment(
@@ -165,22 +131,14 @@ se <- SummarizedExperiment(
 se
 ```
 
-In the output above, the summary view of the object reminds us that the assay
-\-- and thus the overall `SummarizedExperiment` object -- contains information
-for 25 features in 4 samples,
-it contains a single assay named 'counts',
-the features seem to be named from 'gene_1' to 'gene_25'
-(only the first and last ones are shown),
-and the samples are named from `sample_1` to `sample_4`.
-The object does not contain any row metadata nor column metadata.
+上の出力では、オブジェクトの要約ビューがアッセイを確認でき、
+そのため、全体的な`SummarizedExperiment`オブジェクトが4つのサンプル内の25の特徴に関する情報を含んでいることを思い出させます。
+オブジェクトには、行メタデータや列メタデータは含まれていません。
 
-To create a more comprehensive `SummarizedExperiment` object,
-let us import gene metadata and sample metadata for another two files
-that we downloaded during the lesson setup.
+より包括的な`SummarizedExperiment`オブジェクトを作成するために、他の2つのファイルから遺伝子メタデータとサンプルメタデータをインポートします。
 
-The files are formatted similarly to the count data,
-so we use again the base R function `read.csv()` to parse them into `data.frame`
-objects.
+ファイルはカウントデータと同様にフォーマットされているため、
+再び基本R関数`read.csv()`を使用して、`data.frame`オブジェクトに解析します。
 
 ```{r}
 sample_metadata <- read.csv("data/sample_metadata.csv", row.names = 1)
@@ -192,8 +150,7 @@ gene_metadata <- read.csv("data/gene_metadata.csv", row.names = 1)
 gene_metadata
 ```
 
-We can re-create the `SummarizedExperiment` object, this time including
-the gene and sample metadata:
+これで、遺伝子とサンプルメタデータを含めた`SummarizedExperiment`オブジェクトを再作成できます：
 
 ```{r}
 se <- SummarizedExperiment(
@@ -204,44 +161,38 @@ se <- SummarizedExperiment(
 se
 ```
 
-Comparing the output above with the previous 'assay-only' version of the
-`SummarizedExperiment` object, we can see that the `rowData` and `colData`
-components now contain 1 and 4 metadata, respectively.
+この出力を前の'アッセイのみ'バージョンと比較すると、`rowData`と`colData`
+のコンポーネントがそれぞれ1つと4つのメタデータを含むことがわかります。
 
-## Accessing information
+## 情報にアクセスする
 
-A number of functions give access to the various components of
-`SummarizedExperiment` objects.
+いくつかの関数が`SummarizedExperiment`オブジェクトのさまざまなコンポーネントにアクセスできます。
 
-The `assays()` function returns the list of assays stored in the object.
-The output is always a `List`, event if the object contains a single assay.
+`assays()`関数は、オブジェクトに保存されたアッセイのリストを返します。
+出力は常に`List`であり、オブジェクトに単一のアッセイが含まれている場合でもです。
 
 ```{r}
 assays(se)
 ```
 
-The `assayNames()` function returns a character vector of the assay names.
-This is most useful when the object contains larger numbers of assays,
-as the `assays()` function (see above) may not display all of them.
-Knowing the names of the various assays is key to accessing any individual
-assay.
+`assayNames()`関数は、アッセイ名の文字ベクトルを返します。
+これは、オブジェクトに大量のアッセイが含まれる場合に最も便利です。
+`assays()`関数（上記参照）は、すべてを表示しないかもしれません。
+さまざまなアッセイの名前を知ることは、個々のアッセイにアクセスするための鍵です。
 
 ```{r}
 assayNames(se)
 ```
 
-The `assay()` function can be used to retrieve a single assay from the object.
-For this, the function should be given the name or the integer position of the
-desired assay.
-If unspecified, the function automatically returns the first assay in the
-object.
+`assay()`関数を使用して、オブジェクトから単一のアッセイを取得できます。
+これに対して、関数には目的のアッセイの名前または整数位置を指定する必要があります。
+未指定の場合、関数は自動的にオブジェクト内の最初のアッセイを返します。
 
 ```{r}
 head(assay(se, "counts"))
 ```
 
-The `colData()` and `rowData()` functions can be used to retrieve
-sample metadata and row metadata, respectively.
+`colData()`および`rowData()`関数を使用して、サンプルメタデータおよび行メタデータを取得できます。
 
 ```{r}
 colData(se)
@@ -251,67 +202,60 @@ colData(se)
 rowData(se)
 ```
 
-Separately, the `$` operator can be used to access a single column of sample
-metadata.
-A useful feature of this operator is the autocompletion that is triggered
-automatically in RStudio or using the tabulation key in terminal applications.
+また、 `$`演算子を使用して、サンプルメタデータの単一列にアクセスできます。
+この演算子の便利な機能は、RStudioで自動的にトリガーされるオートコンプリートと、ターミナルアプリケーションでのタブキーを使用して自動的にトリガーされることです。
 
 ```{r}
 se$batch
 ```
 
-Notably, there is no operator for accessing a single column of feature metadata.
-For this, users need to first access the full `DataFrame` returned by
-`rowData()` before accessing a column using the standard `$` or `[[` operators,
-e.g.
+特に、特徴メタデータの単一列にアクセスするための演算子はありません。
+そのため、ユーザーはまず`rowData()`によって返される完全な`DataFrame`にアクセスし、
+その後、標準の$または[[演算子を使用して列にアクセスする必要があります。
 
 ```{r}
 rowData(se)[["chromosome"]]
 ```
 
-### Adding and editing information
+### 情報の追加と編集
 
-Information can be added to `SummarizedExperiment` after their creation.
-In fact, this is the basis for workflows that compute normalised assay values --
-adding those to the list of assays --, and
-quality control metrics for either features or samples -- adding those to the
-`rowData` and `colData` components, as appropriate -- progressively growing
-the amount of information stored within the overall object.
+情報は、`SummarizedExperiment`作成後に追加することができます。
+実際、これは、正規化されたアッセイ値を計算し、
+それをアッセイのリストに追加し、
+特徴またはサンプルに対する品質管理メトリックを計算し、
+それを`rowData`と`colData`のコンポーネントに適切に追加し、
+全体のオブジェクト内に保存された情報の量を徐々に増やすプロセスの基礎となります。
 
-Most of the functions for accessing information, described in the previous
-section, have a counterpart function for adding new values or editing existing
-ones.
-Note that editing is merely the result of adding values under a name already in
-use, which has the effect of replacing existing values.
+情報にアクセスするための多くの関数が、上記のセクションで説明されていますが、
+新しい値を追加したり、既存の値を編集したりするための対応関数があります。
+編集は、既に使用されている名前の下に値を追加するだけの結果であり、
+既存の値を置き換える効果があります。
 
-In the example below, we add an assay named 'logcounts' which is the result
-of applying a log-transformation to the 'counts' assay after adding a
-pseucocount of one:
+以下の例では、'counts'アッセイに対して1の擬似カウントを追加した後に、
+その結果としてアッセイ名'logcounts'を追加します。
 
 ```{r}
 assay(se, "logcounts") <- log1p(assay(se, "counts"))
 se
 ```
 
-In the output above, we see that the object now contains two assays:
-the 'counts' assay included in the object when it was first created,
-and the 'logcounts' assay added just now.
+上の出力では、オブジェクトが現在2つのアッセイを持っていることがわかります：
+最初に作成されたオブジェクトに含まれている'counts'アッセイと、
+今追加した'logcounts'アッセイです。
 
-Similarly, the `colData()` and `rowData()` functions -- as well as the `$`
-operator -- can be used to add and edit values in the corresponding components.
+同様に、`colData()`および`rowData()`関数、
+ならびに`$`演算子を使用して、対応するコンポーネントの値を追加および編集することができます。
 
-In the example below, we compute the sum of counts for each sample,
-and store the result in the sample metadata table under the new name
-'sum_counts'.
+以下の例では、各サンプルのカウントの合計を計算し、
+結果を新しい名前'sum_counts'のサンプルメタデータテーブルに保存します。
 
 ```{r}
 colData(se)[["sum_counts"]] <- colSums(assay(se, "counts"))
 colData(se)
 ```
 
-In this next example, we compute the average count for each feature,
-and store the result in the feature metadata table under the new name
-'mean_counts'.
+次の例では、各特徴の平均カウントを計算し、
+新しい名前'mean_counts'の特徴メタデータテーブルに保存します。
 
 ```{r}
 rowData(se)[["mean_counts"]] <- rowSums(assay(se, "counts"))
@@ -320,13 +264,9 @@ rowData(se)
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- The `SummarizedExperiment` class provides a single container for storing both
-  assay data and metadata.
-- Assay data and metadata are kept synchronised through subsetting and
-  reordering operations.
-- A comprehensive set of functions are available to access, add, and edit
-  information stored in the various components of the `SummarizedExperiment`
-  objects.
+- `SummarizedExperiment`クラスは、アッセイデータとメタデータの両方を保存するための単一のコンテナを提供します。
+- アッセイデータとメタデータは、サブセット化と再配置の操作を通じて同期が保たれます。
+- `SummarizedExperiment`オブジェクトのさまざまなコンポーネントに保存された情報にアクセスしたり、追加したり、編集したりするための包括的な関数セットが利用可能です。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 [biocviews]: https://www.bioconductor.org/packages/release/BiocViews.html
