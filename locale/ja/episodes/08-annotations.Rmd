@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Working with annotations
+title: 注釈の取り扱い
 teaching: XX
 exercises: XX
 ---
@@ -13,15 +13,15 @@ exercises: XX
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how gene annotations are managed in the Bioconductor project.
-- Identify Bioconductor packages and methods available to fetch and use gene annotations.
+- バイオコンダクタープロジェクトでの遺伝子アノテーションの管理方法を説明してください。
+- 遺伝子アノテーションを取得および使用するためのバイオコンダクターパッケージとメソッドを特定します。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What Bioconductor packages provides methods to efficiently fetch and use gene annotations?
-- How can I use gene annotation packages to convert between different gene identifiers?
+- どのバイオコンダクターパッケージが、遺伝子アノテーションを効率的に取得および使用するためのメソッドを提供していますか？
+- 異なる遺伝子識別子間を変換するために、遺伝子アノテーションパッケージをどのように使用できますか？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -36,14 +36,11 @@ library(bibtex)
 bib <- ReadBib("files/bibliography.bib")
 ```
 
-## Install packages
+## パッケージのインストール
 
-Before we can proceed into the following sections, we install some Bioconductor
-packages that we will need.
-First, we check that the `r BiocStyle::Biocpkg("BiocManager")` package is
-installed before trying to use it; otherwise we install it.
-Then we use the `BiocManager::install()` function to install the necessary
-packages.
+次のセクションに進む前に、必要なバイオコンダクターパッケージをインストールします。
+まず、`r BiocStyle::Biocpkg("BiocManager")`パッケージがインストールされていることを確認します。そうでない場合は、それをインストールします。
+次に、`BiocManager::install()`関数を使用して必要なパッケージをインストールします。
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -52,228 +49,161 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install(c("biomaRt", "org.Hs.eg.db"))
 ```
 
-## Overview
+## 概要
 
-Packages dedicated to query gene annotations exist in the 'Software' and
-'Annotation' categories of the Bioconductor [biocViews][biocviews], according to
-their nature.
+遺伝子アノテーションをクエリするために特化したパッケージは、それぞれの特性に基づいてバイオコンダクターの「ソフトウェア」と「アノテーション」カテゴリに存在します。
 
-In the 'Software' section, we find packages that do not actually contain gene
-annotations, but rather dynamically _query_ them from online resources
-(e.g.,[Ensembl BioMart][biomart-ensembl]).
-One such Bioconductor package is `r BiocStyle::Biocpkg("biomaRt")`.
+「ソフトウェア」セクションでは、実際に遺伝子アノテーションを含まないパッケージを見つけますが、それらはオンラインリソースから動的に取得します（例えば、[Ensembl BioMart][biomart-ensembl]）。
+そのようなバイオコンダクターパッケージの一つが`r BiocStyle::Biocpkg("biomaRt")`です。
 
-Instead, in the 'Annotation' section, we find packages that do contain
-annotations.
-Examples include `r BiocStyle::Biocpkg("org.Hs.eg.db")`,
-`r BiocStyle::Biocpkg("EnsDb.Hsapiens.v86")`,
-and `r BiocStyle::Biocpkg("TxDb.Hsapiens.UCSC.hg38.knownGene")`.
+その代わりに、「アノテーション」セクションでは、アノテーションを含むパッケージを見つけます。
+例として、`r BiocStyle::Biocpkg("org.Hs.eg.db")`、`r BiocStyle::Biocpkg("EnsDb.Hsapiens.v86")`、および`r BiocStyle::Biocpkg("TxDb.Hsapiens.UCSC.hg38.knownGene")`があります。
 
-In this episode, we will demonstrate the two approaches:
+このエピソードでは、2つのアプローチを示します：
 
-- Querying annotations from the Ensembl Biomart API using the `r BiocStyle::Biocpkg("biomaRt")` package.
-- Querying annotations from the `r BiocStyle::Biocpkg("org.Hs.eg.db")` annotation package.
+- `r BiocStyle::Biocpkg("biomaRt")`パッケージを使用してEnsembl BioMart APIからアノテーションをクエリします。
+- `r BiocStyle::Biocpkg("org.Hs.eg.db")`アノテーションパッケージからアノテーションをクエリします。
 
-## Online resources or Bioconductor annotation packages?
+## オンラインリソースまたはバイオコンダクタアノテーションパッケージ？
 
-### Accessing the latest information
+### 最新情報へのアクセス
 
-Bioconductor's 6-month release cycle implies that packages available from the
-latest stable release branch will not be updated for six months
-(only bugfixes are allowed, not functional updates).
-As a result, annotation packages may contain information that is out-of-date
-by up to six months.
+バイオコンダクターの6ヶ月のリリースサイクルは、最新の安定版リリースブランチから提供されるパッケージが6ヶ月間更新されないことを示唆しています（バグ修正のみが許可され、機能の更新はありません）。
+その結果、アノテーションパッケージは最大で6ヶ月間の古い情報を含む可能性があります。
 
-Instead, independent online resources often have different policies driving
-the release of updated information.
-Some databases are frequently updated, while others may not have been updated
-in years.
+その代わりに、独立したオンラインリソースは、更新情報のリリースを促進する異なるポリシーを持ちます。
+一部のデータベースは頻繁に更新されますが、他のデータベースは数年にわたって更新されていない場合があります。
 
-Accessing up-to-date information must also be balanced with reproducibility.
-Having downloaded the 'latest' information at one point is time is no good if
-one hasn't recorded at least _when_ that information was downloaded.
+最新の情報へのアクセスは、再現性とのバランスも考慮しなければなりません。
+最新の情報を1回ダウンロードしただけでは、いつその情報がダウンロードされたかを記録していなければ意味がありません。
 
-### Storage requirements
+### ストレージ要件
 
-By nature, Bioconductor annotation packages are larger than software packages.
-Just like any other R package, annotation packages must be installed on the
-user's computer before they can be used.
-This can rapidly use add up to using an amount of disk space that is not
-negligible.
+本質的に、バイオコンダクターアノテーションパッケージはソフトウェアパッケージよりも大きいです。
+他のRパッケージと同様に、アノテーションパッケージは使用する前にユーザーのコンピューターにインストールする必要があります。
+これにより、無視できない量のディスクスペースを使用する可能性があります。
 
-Conversely, online resources are generally accessed programmatically, and
-generally only require users to record code to replicate analyses reproducibly.
+逆に、オンラインリソースは一般にプログラムでアクセスされ、通常、ユーザーが再現可能な分析を行うためにコードを記録するだけで済みます。
 
-### Internet connectivity
+### インターネット接続
 
-When using online resources, it is often a good idea to write annotations
-ownloaded from online resources to a local file,
-and refer to that local file during analyses.
+オンラインリソースを使用しているときは、オンラインリソースからダウンロードしたアノテーションをローカルファイルに書き込み、分析中にそのローカルファイルを参照するのが良いアイデアです。
 
-If online resources were to become unavailable for any reason
-(e.g., downtime, loss of internet connection), analyses that use local files
-can carry on while those that rely on those online resources cannot.
+オンラインリソースが何らかの理由で使用できなくなる（例えば、ダウンタイムやインターネット接続の喪失）と、ローカルファイルを使用する分析は続行できますが、オンラインリソースに依存する分析はできません。
 
-In contrast, Bioconductor annotation packages only require internet connectivity
-at the time of installation.
-Once installed, they do not require internet connectivity, as they rely on
-information stored locally.
+対照的に、バイオコンダクターアノテーションパッケージは、インストール時にのみインターネット接続が必要です。
+一度インストールされると、ローカルに保存された情報に依存するため、インターネット接続は必要ありません。
 
-### Reproducibility
+### 再現性
 
-Bioconductor annotation packages are naturally versioned, meaning that users
-can confidently report the version of the package used in their analysis.
-Just like software packages, users control if and when annotation packages
-should be updated on their computer.
+バイオコンダクターアノテーションパッケージは自然にバージョン管理されているため、ユーザーは分析で使用したパッケージのバージョンを自信を持って報告できます。
+ソフトウェアパッケージと同様に、ユーザーはアノテーションパッケージをいつ、どのように更新するかを制御します。
 
-Online resources have different policies to facilitate reproducible analyses.
-Some online resources keep archived versions of their annotations, allowing
-users to consistently access the same information over time.
-When this is not the case, it may be necessary to download a copy of the
-annotation at one point in time, and preciously keep that copy throughout
-the lifetime of the project to ensure the use of a consistent set of
-annotations.
+オンラインリソースは再現可能な分析を促進するための異なるポリシーを持っています。
+オンラインリソースの一部はアノテーションの過去のバージョンを保持しており、ユーザーは時間の経過とともに同じ情報に一貫してアクセスできます。
+これがない場合、一つの時点でアノテーションのコピーをダウンロードし、そのコピーをプロジェクトの存続期間中保持する必要があるかもしれません。一貫したアノテーションセットを使用することを保証するために。
 
-### Consistency
+### 一貫性
 
-As we will see in the practical examples of this episode,
-Bioconductor annotation packages generally re-use a consistent set of data
-structures.
-This allows users familiar with one annotation package to rapidly get started
-with others.
+今後のこのエピソードの実用例で見るように、バイオコンダクターアノテーションパッケージは一般的に一貫したデータ構造のセットを再利用します。
+これにより、1つのアノテーションパッケージに精通しているユーザーは、他のパッケージを迅速に開始できます。
 
-Independent online resources often organise their data in different ways,
-which requires users to write custom code to access, retrieve, and process
-their respective data.
+独立したオンラインリソースは、データをさまざまな方法で整理していることが多く、ユーザーはそれぞれのデータにアクセス、取得、処理するためのカスタムコードを書く必要があります。
 
-## Querying annotations from Ensembl BioMart
+## Ensembl BioMartからアノテーションをクエリする
 
-### The Ensembl BioMart
+### Ensembl BioMart
 
-[Ensembl BioMart][biomart-ensembl] is a robust data mining tool designed to
-facilitate access to the vast array of biological data available through the
-Ensembl project.
+[Ensembl BioMart][biomart-ensembl]は、生物学的データの広範な配列へのアクセスを容易にするために設計された堅牢なデータマイニングツールです。
 
-The [BioMart web interface][biomart-ensembl] enables researchers to efficiently
-query and retrieve data on genes, proteins, and other genomic features
-across multiple species.
-It allows users to filter, sort, and export data based on various attributes
-such as gene IDs, chromosomal locations, and functional annotations.
+[BioMart web interface][biomart-ensembl]は、研究者が複数の種にわたって遺伝子、タンパク質、およびその他のゲノムの特徴に関するデータを効率的にクエリし、取得できるようにします。
+ユーザーに対して遺伝子ID、染色体位置、機能的アノテーションなどのさまざまな属性に基づいてデータをフィルタリング、並べ替え、エクスポートすることを許可します。
 
-### The Bioconductor `biomaRt` package
+### バイオコンダクター`biomaRt`パッケージ
 
-`r BiocStyle::Biocpkg("biomaRt")` is a Bioconductor software package that
-enables retrieval of large amounts of data from Ensembl BioMart tables
-directly from an R session where those annotations can be used.
+`r BiocStyle::Biocpkg("biomaRt")`は、Rセッションから直接Ensembl BioMartテーブルから大量のデータを取得できるバイオコンダクターパッケージです。
 
-Let us first load the package:
+まずパッケージを読み込みます：
 
 ```{r, message=FALSE, warning=FALSE}
 library(biomaRt)
 ```
 
-### Listing available marts
+### 利用可能なマートのリスト
 
-Ensembl BioMart organises its diverse biological information into four databases
-also known as 'marts' or 'biomarts'.
-Each mart focuses on a different type of data.
+Ensembl BioMartは、それぞれ「マート」または「バイオマート」とも呼ばれる4つのデータベースに多様な生物学的信息を整理します。
+各マートは異なるタイプのデータに焦点を合わせています。
 
-Users must select the mart corresponds to the type of data they are interested
-in before they can query any information from it.
+ユーザーは、関心のあるデータタイプに対応するマートを選択する必要があります。その後、情報をクエリできます。
 
-The function `listMarts()` can be used to display the names of those marts.
-This is convenient as users do not need to memorise the name of the marts,
-and the function will also return an updated list of names if any mart is
-renamed, added, or removed.
+関数`listMarts()`は、これらのマートの名前を表示するために使用できます。
+これによりユーザーはマートの名前を記憶する必要がなくなり、また、関数はマートが名前変更、追加、または削除される場合にも更新された名前リストを返します。
 
 ```{r}
 listMarts()
 ```
 
-In this demonstration, we will use the biomart called `ENSEMBL_MART_ENSEMBL`,
-which contains the Ensembl gene set.
+このデモでは、Ensembl遺伝子セットを含む`ENSEMBL_MART_ENSEMBL`というバイオマートを使用します。
 
-Notably, the `version` columns also indicates the version of the biomart.
-The Ensembl BioMart is updated regularly (multiple times per year).
-By default, `r BiocStyle::Biocpkg("biomaRt")` functions access the latest
-version of each biomart.
-This is not ideal for reproducibility.
+特に、`version`カラムはバイオマートのバージョンも示しています。
+Ensembl BioMartは定期的に更新されます（年に複数回）。
+デフォルトでは、`r BiocStyle::Biocpkg("biomaRt")`関数は各バイオマートの最新バージョンにアクセスします。
+これは再現性には理想的ではありません。
 
-Thankfully, Ensembl BioMart archives past versions of its mars in a way that
-is accessible both programmatically, and on its website.
+幸いなことに、Ensembl BioMartは、過去のバージョンのアーカイブを行い、プログラムからでも、ウェブサイトからでもアクセスできます。
 
-The function `listEnsemblArchives()` can be used to display all the versions of
-Ensembl Biomart accessible.
+関数`listEnsemblArchives()`は、アクセス可能なすべてのEnsembl BioMartのバージョンを表示するために使用できます。
 
 ```{r}
 listEnsemblArchives()
 ```
 
-In the output above, the key piece of information is the `url` column, which
-provides the URL that `r BiocStyle::Biocpkg("biomaRt")` functions will need to
-access data from the corresponding snapshot of the Ensembl BioMart.
+上記の出力での重要な情報は、`url`カラムです。これは、`r BiocStyle::Biocpkg("biomaRt")`関数が対応するEnsembl BioMartのスナップショットからデータにアクセスするために必要なURLを提供します。
 
-At the time of writing, the current release is Ensembl 112, so let us use
-the corresponding url `https://may2024.archive.ensembl.org` to ensure
-reproducible results no matter when this lesson is delivered.
+執筆時点では、現在のリリースはEnsembl 112であるため、対応するurl`https://may2024.archive.ensembl.org`を使用して、いつこのレッスンが配信されても再現可能な結果を確保します。
 
-### Connecting to a biomart
+### バイオマートへの接続
 
-The two pieces of information collected above -- the name of a biomart
-and the URL of a snapshot -- is all that is needed to connect to a BioMart
-database reproducibly.
+上記で収集した2つの情報、すなわちバイオマートの名前とスナップショットのURLが、バイオマートデータベースに再現可能に接続するために必要なすべてです。
 
-The function `useMart()` can then be used to create a connection.
-The connection is traditionally stored in an object called `mart`,
-to be reused in subsequent steps for querying information from the online mart.
+関数`useMart()`を使用して接続を作成します。
+接続は伝統的に`mart`というオブジェクトに保存され、次のステップでオンラインマートから情報をクエリするために再利用されます。
 
 ```{r}
 mart <- useMart(biomart = "ENSEMBL_MART_ENSEMBL", host = "https://may2024.archive.ensembl.org")
 ```
 
-### Listing available data sets
+### 利用可能なデータセットのリスト
 
-Each biomart contains a number of data sets.
+各バイオマートには複数のデータセットが含まれています。
 
-The function `listDatasets()` can be used to display information about those
-data sets.
-This is convenient as users do not need to memorise the name of the data sets,
-and the information returned by the function includes a short description of
-each data set, as well as its version.
+関数`listDatasets()`は、これらのデータセットの情報を表示するために使用されます。
+これにより、ユーザーはデータセットの名前を記憶する必要がなくなり、関数が返す情報には各データセットの簡単な説明とそのバージョンが含まれます。
 
-In the example below, we restrict the output table to the first few rows,
-as the full table comprises `r nrow(listDatasets(mart))` rows.
+以下の例では、出力テーブルを最初の数行に制限します。完全なテーブルは`r nrow(listDatasets(mart))`行です。
 
 ```{r}
 head(listDatasets(mart))
 ```
 
-In the output above, the key piece of information is the `dataset` column, which
-provides the identifier that `r BiocStyle::Biocpkg("biomaRt")` functions will
-need to access data from the corresponding biomart table.
+上記の出力での重要な情報は、`dataset`カラムです。これは、`r BiocStyle::Biocpkg("biomaRt")`関数が対応するバイオマートテーブルからデータにアクセスするために必要な識別子を提供します。
 
-In this demonstration, we will use the Ensembl gene set for Homo sapiens,
-which is not visible in the output above.
+このデモでは、出力に表示されていないヒトのEnsembl遺伝子セットを使用します。
 
-Given the number of data sets available,
-let us programmatically filter the table of information using pattern matching
-rather than searching the table manually:
+利用可能なデータセットの数を考えると、手動でテーブルを検索するのではなく、パターンマッチングを使用して情報のテーブルをプログラムでフィルタリングしてみましょう：
 
 ```{r}
 subset(listDatasets(mart), grepl("sapiens", dataset))
 ```
 
-From the output above, we identify the desired data set identifier as
-`hsapiens_gene_ensembl`.
+上記の出力から、欲しいデータセットの識別子が`hsapiens_gene_ensembl`であることが分かります。
 
-### Connecting to a data set
+### データセットへの接続
 
-Having chosen the data set that we want to use, we need to call the function
-`useMart()` again, this time specifying the selected data set.
+使用したいデータセットを選択したら、再度関数`useMart()`を呼び出し、選択したデータセットを指定する必要があります。
 
-Typically, one would copy paste the previous call to `useMart()` and edit as
-needed.
-It is also common practice to replace the `mart` object with the new connection.
+一般的には、以前の`useMart()`の呼び出しをコピーして必要に応じて編集することが多いです。
+また、通常、`mart`オブジェクトを新しい接続で置き換えることが一般的な慣行です。
 
 ```{r}
 mart <- useMart(
@@ -282,68 +212,53 @@ mart <- useMart(
   host = "https://may2024.archive.ensembl.org")
 ```
 
-### Listing information available in a data set
+### データセット内の情報をリスト表示する
 
-BioMart tables contain many pieces of information also known as 'attributes'.
-So many, in fact, that they have been grouped into categories also known as
-'pages'.
+BioMartテーブルには、属性としても知られる多くの情報が含まれています。
+実際には、それらは「ページ」として知られるカテゴリにグループ化されています。
 
-The function `listAttributes()` can be used to display information about
-those attributes.
-This is convenient as users do not need to memorise the name of the attributes,
-and the information returned by the function includes a short description of
-each attribute, as well as its page categorisation.
+関数`listAttributes()`は、それらの属性に関する情報を表示するために使用できます。
+これにより、ユーザーはパッケージ内の利用可能な属性の名前を記憶する必要がなくなり、関数が返す情報には各属性の簡単な説明とそのページ分類が含まれます。
 
-In the example below, we restrict the output table to the first few rows,
-as the full table comprises `r nrow(listAttributes(mart))` rows.
+以下の例では、出力テーブルを最初の数行に制限します。完全なテーブルは`r nrow(listAttributes(mart))`行です。
 
 ```{r}
 head(listAttributes(mart))
 ```
 
-In the output above, the key piece of information is the `name` column, which
-provides the identifier that `r BiocStyle::Biocpkg("biomaRt")` functions will
-need to query that information from the corresponding biomart data set.
+上記の出力での重要な情報は、`name`カラムです。これは、`r BiocStyle::Biocpkg("biomaRt")`関数が対応するバイオマートデータセットからその情報をクエリするために必要な識別子を提供します。
 
-The choice of attributes to query now depends on what it is we wish to achieve.
+クエリしたい属性の選択は、達成したいことによって決まります。
 
-For instance, let us imagine that we have a set of gene identifiers,
-for which we wish to query:
+例えば、遺伝子識別子のセットがあり、それに対してクエリしたいことを想像しましょう：
 
-- The gene symbol
-- The name of the chromosome where the gene is located
-- The start and end position of the gene on that chromosome
-- The strand on which the gene is encoded
+- 遺伝子符号
+- 遺伝子が位置する染色体の名前
+- その染色体上の遺伝子の開始位置と終了位置
+- 遺伝子がコーディングされているストランド
 
-Users would often manually explore the full table of attributes to identify
-the ones they wish to include in their query.
-It is also possible to programmatically filter the table of attribute,
-based on experience and intuition, to narrow down the search:
+ユーザーは通常、含めたい属性を特定するために、属性テーブルを手動で調べます。
+また、経験と直感に基づいて属性テーブルをプログラム的にフィルタリングして、検索を絞り込むことも可能です：
 
 ```{r}
 subset(listAttributes(mart), grepl("position", name) & grepl("feature", page))
 ```
 
-### Querying information from a BioMart table
+### BioMartテーブルから情報をクエリする
 
-We have now all the information that we need to perform the actual query:
+これで、実際のクエリを実行するために必要な情報がすべて揃いました：
 
-- A connection to a BioMart data set
-- The list of attributes available in that data set
+- BioMartデータセットへの接続
+- そのデータセット内の利用可能な属性のリスト
 
-The function `getBM()` is the main `r BiocStyle::Biocpkg("biomaRt")` query
-function.
-Given a set of filters and corresponding values, it retrieves the attributes
-requested by the user from the BioMart data set it is connected to.
+関数`getBM()`は、主な`r BiocStyle::Biocpkg("biomaRt")`クエリ関数です。
+フィルターとそれに対応する値のセットを指定すると、接続されているBioMartデータセットからユーザーが要求した属性を取得します。
 
-In the example below, we manually create a vector of arbitrary gene identifiers
-for our query.
-In practice, the query will often originate from an earlier analysis
-(e.g., differential gene expression).
+以下の例では、クエリ用の任意の遺伝子識別子のベクトルを手動で作成します。
+実際には、クエリは先行する分析から始まることがよくあります（例えば、差次的な遺伝子発現）。
 
-The example below also queries attributes that we have not introduced yet.
-In the previous section, we described how one may search the table of attributes
-returned by `listAttributes()` to identify attributes to include in their query.
+以下の例では、まだ紹介していない属性もクエリされます。
+前のセクションで、`listAttributes()`から返される属性テーブルを検索して、クエリに含める属性を特定する方法を説明しました。
 
 ```{r}
 query_gene_ids <- c(
@@ -368,130 +283,97 @@ getBM(
 )
 ```
 
-Note that we also included the filtering attribute `ensembl_gene_id` to the
-attributes retrieved from the data set.
-This is key to reliably match the newly retrieved attributes to those used
-in the query.
+フィルタリング属性`ensembl_gene_id`をデータセットから取得した属性に含めたことに注意してください。
+これは、新しく取得された属性をクエリで使用される属性と確実に一致させるための鍵です。
 
-## Querying annotations from annotation packages
+## アノテーションパッケージからアノテーションをクエリする
 
-### Families of annotation packages
+### アノテーションパッケージのファミリー
 
-To balance the need for comprehensive information
-while maintaining reasonable package sizes,
-Bioconductor annotation packages are organised by release, data type, and
-species.
+包括的な情報を必要としつつ、適切なパッケージサイズを維持するために、バイオコンダクターアノテーションパッケージはリリース、データタイプ、種によって編成されています。
 
-The major families of Bioconductor annotation packages are:
+バイオコンダクターアノテーションパッケージの主要なファミリーは以下の通りです：
 
-- `OrgDb` packages provide mapping between various types of gene identifiers
-  and pathway information.
-- `EnsDb` packages provide individual releases of Ensembl annotations.
-- `TxDb` packages provide individual releases of UCSC annotations.
+- `OrgDb`パッケージは、さまざまなタイプの遺伝子識別子と経路情報の間のマッピングを提供します。
+- `EnsDb`パッケージは、Ensemblアノテーションの個々のリリースを提供します。
+- `TxDb`パッケージは、UCSCアノテーションの個々のリリースを提供します。
 
-All those families of annotations derive from the `AnnotationDb` base class
-defined in the `r BiocStyle::Biocpkg("AnnotationDbi")` package.
-As a result, any of those annotation packages can be accessed using the same set
-of R functions, as demonstrated in the following sections.
+これらのアノテーションファミリーは、`r BiocStyle::Biocpkg("AnnotationDbi")`パッケージで定義された`AnnotationDb`基底クラスから派生しています。
+その結果、これらのアノテーションパッケージは、以下のセクションで示される同じ一連のR関数を使用してアクセスします。
 
-### Using an OrgDb package
+### OrgDbパッケージの使用
 
-In this example, we will use the `r BiocStyle::Biocannopkg("org.Hs.eg.db")`
-package to demonstrate the use of gene annotations for the human species.
+この例では、`r BiocStyle::Biocannopkg("org.Hs.eg.db")`パッケージを使用して、ヒト種の遺伝子アノテーションの使用方法を示します。
 
-Let us first load the package:
+最初にパッケージを読み込みましょう：
 
 ```{r, message=FALSE, warning=FALSE}
 library(org.Hs.eg.db)
 ```
 
-Each `OrgDb` package contains an object named identically to the package itself.
-That object contains the annotations that the package is meant to disseminate.
+各`OrgDb`パッケージには、パッケージ自体と同名のオブジェクトが含まれています。
+そのオブジェクトには、パッケージが提供することを目的とするアノテーションが含まれています。
 
-Aside from querying information, the whole object can be called to print
-information about the annotations it contains, including the date at which
-the snapshots of annotations that it contains were made.
+情報をクエリすることに加えて、オブジェクト全体を呼び出すことができ、含まれるアノテーションのスナップショットが作成された日付などの情報を印刷します。
 
 ```{r}
 org.Hs.eg.db
 ```
 
-That same object is the one that needs to be supplied to
-`r BiocStyle::Biocpkg("AnnotationDbi")` functions for running queries and
-retrieving annotations.
+そのオブジェクトは、クエリを実行し、アノテーションを取得するための`r BiocStyle::Biocpkg("AnnotationDbi")`関数に供給する必要があるものです。
 
-### Listing information available in an annotation package
+### アノテーションパッケージ内の利用可能な情報をリスト表示する
 
-The function `columns()` can be used to display the annotations available
-in the object.
+関数`columns()`を使用してオブジェクト内で利用可能なアノテーションを表示できます。
 
-Here, the word 'column' refers to columns of tables used to store information in
-database, the very same concept as 'attributes' in BioMart.
-In other words, columns represent all the types of annotations that may be
-retrieved from the object.
+ここで「カラム」という言葉は、データベース内の情報を格納するために使用されるテーブルのカラムを指し、BioMartの「属性」と同じ概念です。
+言い換えれば、カラムはオブジェクトから取得可能なすべてのアノテーションのタイプを表します。
 
-This is convenient as users do not need to memorise the names of the columns of
-annotations available in the package.
+これにより、ユーザーはパッケージ内の利用可能なアノテーションのカラムの名前を記憶する必要がなくなります。
 
 ```{r}
 columns(org.Hs.eg.db)
 ```
 
-### Listing keys and key types
+### キーとキータイプのリスト
 
-In database terminology, _keys_ are the values by which information may be
-queried from a database table.
+データベース用語で言う_キー_は、データベーステーブルから情報をクエリするための値です。
 
-Information being organised in columns, _key types_ are the names of the columns
-in which the key values are stored.
+カラムに整理されている情報のため、_キータイプ_はキー値が保存されているカラムの名前です。
 
-Given the variable number of columns in database tables, some tables may allow
-information to be queried by more than one key.
-As a result, it is crucial to specify both the keys and the type of key as part
-of the query.
+データベーステーブル内のカラムの可変数を考慮すると、一部のテーブルでは複数のキーで情報をクエリできる場合があります。
+その結果、クエリの一部としてキーとキーの型の両方を指定することが重要です。
 
-The function `keytypes()` can be used to display the names of the columns that
-may be used to query information from the object.
+関数 `keytypes()` を使用すると、オブジェクトから情報をクエリするために使用できる列の名前を表示できます。
 
 ```{r}
 keytypes(org.Hs.eg.db)
 ```
 
-The function `keys()` can be used to display all the possible values for a given
-key type.
+関数 `keys()` を使用すると、特定のキータイプのすべての可能な値を表示できます。
 
-It is generally better practice to specify the type of key being queried
-(to avoid ambiguity), although database tables typically have a 'primary key'
-used if users do not specify a type themselves.
+一般的には、クエリされるキーの型を指定する方が良い慣行です（あいまいさを避けるため）。ただし、データベーステーブルには、ユーザーが自分で型を指定しない場合に使用される「主キー」が通常あります。
 
-In the example below, we restrict the list of gene symbol keys to the first few
-values,
-as the full set comprises `r length(keys(org.Hs.eg.db, keytype = "SYMBOL"))`
-values.
+以下の例では、遺伝子記号のキーのリストを最初のいくつかの値に制限します。
+完全なセットは `r length(keys(org.Hs.eg.db, keytype = "SYMBOL"))` 値を含みます。
 
 ```{r}
 head(keys(org.Hs.eg.db, keytype = "SYMBOL"))
 ```
 
-### Querying information from an annotation package
+### アノテーションパッケージから情報をクエリする
 
-The function `select()` is the main `r BiocStyle::Biocpkg("AnnotationDbi")`
-query function.
-Given an `AnnotationDb` object, key values, and columns
-(and optionally the type of key supplied if not the primary key),
-it retrieves the columns requested by the user from the annotation object.
+関数 `select()` は、主な `r BiocStyle::Biocpkg("AnnotationDbi")` クエリ関数です。
+`AnnotationDb` オブジェクト、キー値、および列（および必要に応じて、主キーでない場合は指定されたキーの型）を考えると、アノテーションオブジェクトからユーザーが要求した列を取得します。
 
-In the example below, we re-use the vector of arbitrary gene identifiers
-used in the BioMart example a few sections above.
+以下の例では、いくつかのセクション上の BioMart 例で使用された任意の遺伝子識別子のベクターを再利用します。
 
-As you can see from the output of the `columns()` function, the annotation
-object does not contain some of the attributes that we queried in the Biomart
-example.
-In this case, let us query:
+`columns()` 関数の出力からわかるように、アノテーションオブジェクトには、BioMart 例でクエリした一部の属性が含まれていません。
+この場合、クエリしてみましょう：
 
-- the gene symbol
-- the gene name
-- the gene type
+- 遺伝子記号
+- 遺伝子名
+- 遺伝子タイプ
 
 ```{r}
 select(
@@ -506,47 +388,31 @@ select(
 )
 ```
 
-One small but notable difference with `r BiocStyle::Biocpkg("biomaRt")` is that
-the output of `select()` automatically contains the column that correspond to
-the key type used in the query.
-In other words, there is no need to specify the key type(s) again in the
-column(s) to retrieve.
+`r BiocStyle::Biocpkg("biomaRt")` との小さな違いは、`select()` の出力は、クエリで使用されたキータイプに対応する列を自動的に含むことです。
+言い換えれば、取得する列にキータイプを再度指定する必要はありません。
 
-### Vectorized 1:1 mapping
+### ベクトル化された 1:1 マッピング
 
-It is sometimes possible for annotations to display 1-to-many relationships.
-For instance, individual genes typically have a unique Ensembl gene identifier,
-while they may be known under multiple gene name aliases.
+アノテーションが 1 対 多の関係を表示することがある場合があります。
+例えば、個々の遺伝子には通常、ユニークな Ensembl 遺伝子識別子があり、複数の遺伝子名別名の下で知られることがあります。
 
-The `select()` function demonstrated in the previous section automatically
-returns _all_ values in the columns requested, for the key specified.
-This is possible thanks to the tabular format in which annotations are returned;
-rows are added, repeating values as necessary to display them on the same row
-as every other values they are associated with.
+前のセクションで示した `select()` 関数は、指定されたキーに対して要求された列の _すべて_ の値を自動的に返します。
+これは、アノテーションが返される表形式であるため可能です。
+行が追加され、関連するすべての値と同じ行に表示するために、必要に応じて値を繰り返します。
 
-In some cases, that behaviour is not desirable.
-Instead, users may wish to retrieve a single value for each key that they input.
-One common scenario arises during differential gene expression (DGE),
-where gene identifiers are used to uniquely identify genes throughout the
-analysis, while gene symbols are added to the final table of DGE statistics,
-to provide more readable human-friendly gene identifiers.
-However, it is not desirable to duplicate rows of DGE statistics, and thus
-only a single gene symbol is required to annotate each gene.
+場合によっては、その動作は望ましくないことがあります。
+その代わりに、ユーザーは入力した各キーに対して単一の値を取得したいと考える場合があります。
+一般的なシナリオは、差次的遺伝子発現 (DGE) の際に発生し、遺伝子識別子が分析全体で遺伝子を一意に識別するために使用され、遺伝子記号が DGE 統計の最終表に追加され、読みやすい人間に優しい遺伝子識別子を提供します。
+ただし、DGE 統計の行を複製することは望ましくないため、各遺伝子に注釈を付けるために単一の遺伝子記号が必要です。
 
-The function `mapIds()` can be used for this purpose.
-A major difference between the functions `mapIds()` and `select()`
-are their arguments `column` (singular) and `columns` (plural), respectively.
-The function `mapIds()` accepts a single column name and returns a named
-character vector where names are the input query values, and values are the
-corresponding values in the requested column.
+この目的には `mapIds()` 関数を使用できます。
+関数 `mapIds()` と `select()` の主な違いは、それぞれの引数 `column`（単数）と `columns`（複数）です。
+関数 `mapIds()` は単一の列名を受け入れ、名前付けされた文字ベクターを返します。ここで名前は入力クエリ値であり、値は要求された列内の対応する値です。
 
-To deal with 1-to-many relationships, the function `mapIds()` has an argument
-`multiVals` which can be used to specify how the function should handle multiple
-values.
-The default is to take the first value and ignore any other value.
+1 対 多の関係を処理するために、関数 `mapIds()` には `multiVals` という引数があり、関数が複数の値を処理する方法を指定できます。
+デフォルトは最初の値を取得し、他の値は無視することです。
 
-In the example below, we query the gene symbol for a set of Ensembl gene
-identifiers.
+以下の例では、一連の Ensembl 遺伝子識別子の遺伝子記号をクエリします。
 
 ```{r}
 mapIds(
@@ -561,9 +427,8 @@ mapIds(
 
 ### Challenge
 
-Load the packages `r BiocStyle::Biocannopkg("EnsDb.Hsapiens.v86")` and
-`r BiocStyle::Biocannopkg("TxDb.Hsapiens.UCSC.hg38.knownGene")`.
-Then, display the columns of annotations available in those packages.
+パッケージ `r BiocStyle::Biocannopkg("EnsDb.Hsapiens.v86")` と `r BiocStyle::Biocannopkg("TxDb.Hsapiens.UCSC.hg38.knownGene")` を読み込みます。
+次に、それらのパッケージで利用可能なアノテーションの列を表示します。
 
 :::::::::::::::  solution
 
@@ -585,9 +450,9 @@ columns(TxDb.Hsapiens.UCSC.hg38.knownGene)
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Bioconductor provides a wide range annotation packages.
-- Some Bioconductor software packages can be used to programmatically access online resources.
-- Users should carefully choose their source of annotations based on their needs and expectations.
+- Bioconductor は幅広いアノテーションパッケージを提供します。
+- いくつかの Bioconductor ソフトウェアパッケージは、オンラインリソースにプログラム的にアクセスするために使用できます。
+- ユーザーは、自分のニーズと期待に基づいてアノテーションのソースを慎重に選択するべきです。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
