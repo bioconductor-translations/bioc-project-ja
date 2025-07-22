@@ -245,7 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="01-setup.html">1. Introduction and setup</a>
+        <a href="01-setup.html">1. イントロダクションとセットアップ</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -406,7 +406,7 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="aio-01-setup"><p>Content from <a href="01-setup.html">Introduction and setup</a></p>
+<section id="aio-01-setup"><p>Content from <a href="01-setup.html">イントロダクションとセットアップ</a></p>
 <hr>
 <p>Last updated on 2025-07-22 |
 
@@ -423,9 +423,9 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>Am I using the correct version of R for this lesson?</li>
-<li>Why does my version of R matter?</li>
-<li>How do I obtain the files that are used in this lesson?</li>
+<li>このレッスンのために正しいバージョンのRを使用していますか？</li>
+<li>なぜ私のRのバージョンが重要なのですか？</li>
+<li>このレッスンで使用されるファイルをどうやって取得しますか？</li>
 </ul>
 </div>
 </div>
@@ -435,23 +435,20 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Ensure that participants are using the correct version of R to
-reproduce exactly the contents of this lesson.</li>
-<li>Download the example files for this lesson.</li>
+<li>受講者がこのレッスンの内容を正確に再現するために、正しいバージョンのRを使用していることを確認してください。</li>
+<li>このレッスンのサンプルファイルをダウンロードしてください。</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="version-of-r">Version of R<a class="anchor" aria-label="anchor" href="#version-of-r"></a>
+<section><h2 class="section-heading" id="rのバージョン">Rのバージョン<a class="anchor" aria-label="anchor" href="#r%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3"></a>
 </h2>
 <hr class="half-width">
-<p>This lesson was developed and tested with R version 4.4.3
-(2025-02-28).</p>
-<p>Take a moment to launch RStudio and verify that you are using R
-version 4.4.x, with <code>x</code> being any patch version,
-e.g. 4.4.3.</p>
+<p>このレッスンはR version 4.4.3
+(2025-02-28)を使用して開発およびテストされました。</p>
+<p>RStudioを起動し、あなたが4.4.xのRバージョンを使用しているか確認してください。xは任意のパッチバージョン、例えば4.4.3です。</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -463,19 +460,13 @@ e.g. 4.4.3.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "R version 4.4.3 (2025-02-28)"</code></pre>
 </div>
-<p>This is important because Bioconductor uses the version of R running
-in the current session to determine the version of Bioconductor packages
-that can be installed in the R library associated with the current R
-session. Using a different version of R while following this lesson may
-lead to unexpected results.</p>
-</section><section><h2 class="section-heading" id="download-files">Download files<a class="anchor" aria-label="anchor" href="#download-files"></a>
+<p>これは重要です。なぜなら、Bioconductorは現在のセッションで実行されているRのバージョンを使用して、現在のRセッションに関連付けられたRライブラリにインストールできるBioconductorパッケージのバージョンを決定するからです。
+このレッスンに従いながら異なるバージョンのRを使用すると、予期しない結果が生じる可能性があります。</p>
+</section><section><h2 class="section-heading" id="ファイルをダウンロードする">ファイルをダウンロードする<a class="anchor" aria-label="anchor" href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B"></a>
 </h2>
 <hr class="half-width">
-<p>Several episodes in this lesson rely on example files that
-participants need to download.</p>
-<p>Run the code below programmatically create a folder called
-<code>data</code> in the current working directory, and download the
-lesson files in that folder.</p>
+<p>このレッスンのいくつかのエピソードは、参加者がダウンロードする必要があるサンプルファイルに依存しています。</p>
+<p>以下のコードを実行して、現在の作業ディレクトリに<code>data</code>というフォルダーをプログラムで作成し、そのフォルダー内にレッスンファイルをダウンロードします。</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -506,20 +497,16 @@ lesson files in that folder.</p>
 <span>  destfile <span class="op">=</span> <span class="st">"data/sample_metadata.csv"</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div id="note" class="callout">
+<div id="注意" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note</h3>
+<div id="注意" class="callout-inner">
+<h3 class="callout-title">注意</h3>
 <div class="callout-content">
-<p>Ideally, participants might want to create a new <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects" class="external-link">RStudio
-project</a> and download the lesson files in a sub-directory of that
-project.</p>
-<p>Using an RStudio project sets the working directory to the root
-directory of that project. As a consequence, code is executed relative
-to that root directory, often avoiding the need for using absolute file
-paths to import/export data from/to files.</p>
+<p>理想的には、参加者は新しい<a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects" class="external-link">RStudioプロジェクト</a>を作成し、そのプロジェクトのサブディレクトリにレッスンファイルをダウンロードしたいと思うかもしれません。</p>
+<p>RStudioプロジェクトを使用すると、作業ディレクトリがそのプロジェクトのルートディレクトリに設定されます。
+その結果、コードはそのルートディレクトリに対して実行されるため、ファイルからデータをインポート/エクスポートするために絶対パスを使用する必要がない場合がよくあります。</p>
 </div>
 </div>
 </div>
@@ -531,11 +518,8 @@ paths to import/export data from/to files.</p>
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
-<li>Participants will only be able to install the version of
-Bioconductor packages described in this lesson and reproduce their exact
-outputs if they use the correct version of R.</li>
-<li>The files used in this lesson should be downloaded in a local path
-that is easily accessible from an R session.</li>
+<li>参加者は、このレッスンで説明されているBioconductorパッケージのバージョンをインストールし、その出力を正確に再現するには、正しいバージョンのRを使用する必要があります。</li>
+<li>このレッスンで使用されるファイルは、Rセッションから簡単にアクセスできるローカルパスにダウンロードする必要があります。</li>
 </ul>
 </div>
 </div>
@@ -2398,7 +2382,7 @@ system</a> –
   解決策
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>はい、これは <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC</a>
 表記で定義されたノンアンビギュリティのコードを使用した有効な DNA
@@ -2582,7 +2566,7 @@ views:
   解決策
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>countPattern()</code> メソッドは 3
 回のヒットを報告します。なぜなら、オプション <code>fixed = FALSE</code>
@@ -2720,7 +2704,7 @@ R コードを使用してみましょう。
   解決策
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre><code>&gt; setdiff(AA_PROTEINOGENIC, AA_STANDARD)
 [1] "U" "O"</code></pre>
@@ -2860,7 +2844,7 @@ mRNA (RefSeq: NM\_001101) の標準的な遺伝コードを使用し、最小の
   解決策
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <pre><code><span><span class="fu">width</span><span class="op">(</span><span class="va">actb_aa</span><span class="op">)</span></span>
 <span><span class="co"># または</span></span>
@@ -5266,7 +5250,7 @@ DGE
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
