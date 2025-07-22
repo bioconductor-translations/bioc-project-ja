@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: ゲノミクスの範囲での作業
+title: Genomics ranges を扱う
 teaching: XX
 exercises: XX
 ---
