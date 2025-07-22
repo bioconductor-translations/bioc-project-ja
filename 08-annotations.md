@@ -63,8 +63,8 @@ and *[TxDb.Hsapiens.UCSC.hg38.knownGene](https://bioconductor.org/packages/3.19/
 
 In this episode, we will demonstrate the two approaches:
 
-* Querying annotations from the Ensembl Biomart API using the *[biomaRt](https://bioconductor.org/packages/3.19/biomaRt)* package.
-* Querying annotations from the *[org.Hs.eg.db](https://bioconductor.org/packages/3.19/org.Hs.eg.db)* annotation package.
+- Querying annotations from the Ensembl Biomart API using the *[biomaRt](https://bioconductor.org/packages/3.19/biomaRt)* package.
+- Querying annotations from the *[org.Hs.eg.db](https://bioconductor.org/packages/3.19/org.Hs.eg.db)* annotation package.
 
 ## Online resources or Bioconductor annotation packages?
 
@@ -83,7 +83,7 @@ in years.
 
 Accessing up-to-date information must also be balanced with reproducibility.
 Having downloaded the 'latest' information at one point is time is no good if
-one hasn't recorded at least *when* that information was downloaded.
+one hasn't recorded at least _when_ that information was downloaded.
 
 ### Storage requirements
 
@@ -326,7 +326,7 @@ which is not visible in the output above.
 
 Given the number of data sets available,
 let us programmatically filter the table of information using pattern matching
-rather than searching the table manually: 
+rather than searching the table manually:
 
 
 ``` r
@@ -397,10 +397,10 @@ The choice of attributes to query now depends on what it is we wish to achieve.
 For instance, let us imagine that we have a set of gene identifiers,
 for which we wish to query:
 
-* The gene symbol
-* The name of the chromosome where the gene is located
-* The start and end position of the gene on that chromosome
-* The strand on which the gene is encoded
+- The gene symbol
+- The name of the chromosome where the gene is located
+- The start and end position of the gene on that chromosome
+- The strand on which the gene is encoded
 
 Users would often manually explore the full table of attributes to identify
 the ones they wish to include in their query.
@@ -422,8 +422,8 @@ subset(listAttributes(mart), grepl("position", name) & grepl("feature", page))
 
 We have now all the information that we need to perform the actual query:
 
-* A connection to a BioMart data set
-* The list of attributes available in that data set
+- A connection to a BioMart data set
+- The list of attributes available in that data set
 
 The function `getBM()` is the main *[biomaRt](https://bioconductor.org/packages/3.19/biomaRt)* query
 function.
@@ -483,10 +483,10 @@ species.
 
 The major families of Bioconductor annotation packages are:
 
-* `OrgDb` packages provide mapping between various types of gene identifiers
+- `OrgDb` packages provide mapping between various types of gene identifiers
   and pathway information.
-* `EnsDb` packages provide individual releases of Ensembl annotations.
-* `TxDb` packages provide individual releases of UCSC annotations.
+- `EnsDb` packages provide individual releases of Ensembl annotations.
+- `TxDb` packages provide individual releases of UCSC annotations.
 
 All those families of annotations derive from the `AnnotationDb` base class
 defined in the *[AnnotationDbi](https://bioconductor.org/packages/3.19/AnnotationDbi)* package.
@@ -588,10 +588,10 @@ columns(org.Hs.eg.db)
 
 ### Listing keys and key types
 
-In database terminology, *keys* are the values by which information may be
+In database terminology, _keys_ are the values by which information may be
 queried from a database table.
 
-Information being organised in columns, *key types* are the names of the columns
+Information being organised in columns, _key types_ are the names of the columns
 in which the key values are stored.
 
 Given the variable number of columns in database tables, some tables may allow
@@ -653,9 +653,9 @@ object does not contain some of the attributes that we queried in the Biomart
 example.
 In this case, let us query:
 
-* the gene symbol
-* the gene name
-* the gene type
+- the gene symbol
+- the gene name
+- the gene type
 
 
 ``` r
@@ -697,7 +697,7 @@ For instance, individual genes typically have a unique Ensembl gene identifier,
 while they may be known under multiple gene name aliases.
 
 The `select()` function demonstrated in the previous section automatically
-returns *all* values in the columns requested, for the key specified.
+returns _all_ values in the columns requested, for the key specified.
 This is possible thanks to the tabular format in which annotations are returned;
 rows are added, repeating values as necessary to display them on the same row
 as every other values they are associated with.

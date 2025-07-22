@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Introduction to Bioconductor
+title: Bioconductorの概要
 teaching: XX
 exercises: XX
 ---
@@ -9,180 +9,175 @@ exercises: XX
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Describe the Bioconductor project globally.
-- Gain a global view of the Bioconductor project in the R ecosystem.
-- Identify sources of information to watch for future updates about the Bioconductor project.
+- Bioconductorプロジェクトについて全体を説明する。
+- RエコシステムにおけるBioconductorプロジェクトの全体像を把握する。
+- Bioconductorプロジェクトの今後の更新情報を監視するための情報源を特定する。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What does the Bioconductor project comprise?
-- How does the Bioconductor project relate to the CRAN repository?
-- How can I learn to use Bioconductor packages effectively?
-- How do I join and communicate with the Bioconductor community?
+- Bioconductorプロジェクトには何が含まれていますか？
+- BioconductorプロジェクトはCRANリポジトリとどのように関連していますか？
+- Bioconductorのパッケージを効果的に使用するにはどうすればいいですか？
+- Bioconductorコミュニティに参加し、コミュニケーションをとるにはどうすればいいですか？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
-## What is Bioconductor?
+## Bioconductorとは何ですか？
 
-### A brief history of Bioconductor
+### Bioconductorの簡単な歴史
 
-The Bioconductor project was started in the Fall of 2001, as an initiative for the collaborative creation of extensible software for computational biology and bioinformatics (Gentleman, Carey, Bates, Bolstad, Dettling, Dudoit, Ellis, Gautier, Ge, Gentry, Hornik, Hothorn, Huber, Iacus, Irizarry, Leisch, Li, Maechler, Rossini, Sawitzki, Smith, Smyth, Tierney, Yang, and Zhang, 2004).
-From the very start, the stated mission of the project was to develop tools for the statistical analysis and comprehension of large datasets and technological artifacts in rigorously and robustly designed experiments.
-Beyond statistical analyses, the interpretation of statistical results is supported by packages providing biological context, visualization, and reproducibility.
+Bioconductorプロジェクトは2001年秋に始まり、計算生物学とバイオインフォマティクスのための拡張可能なソフトウェアの共同制作のためのイニシアティブとして立ち上げられました (Gentleman, Carey, Bates, Bolstad, Dettling, Dudoit, Ellis, Gautier, Ge, Gentry, Hornik, Hothorn, Huber, Iacus, Irizarry, Leisch, Li, Maechler, Rossini, Sawitzki, Smith, Smyth, Tierney, Yang, and Zhang, 2004)。
+プロジェクトの初めから、記載された使命は、大規模データセットと厳密かつ堅牢に設計された実験の技術的成果物のための統計分析と理解のためのツールを開発することでした。
+統計分析を超えて、統計結果の解釈は、生物学的文脈、視覚化、および再現性を提供するパッケージによってサポートされています。
 
-Over the years, software packages contributed to the Bioconductor project have reflected the evolution and emergence of several high-throughput technologies, from microarrays to single-cell genomics, through many variations of sequencing experiments (e.g., RNA-seq, ChIP-seq, DNA-seq), analyses (e.g., sequence variation, copy number variation, single nucleotide polymorphisms), and data modalities (e.g., flow cytometry, proteomics, microscopy and image analysis).
+年月が経つにつれて、Bioconductorプロジェクトに貢献したソフトウェアパッケージは、マイクロアレイから単一細胞ゲノミクスまで、さまざまな高スループット技術の進化と出現を反映してきました。シーケンシング実験の多くのバリエーション（例：RNA-seq、ChIP-seq、DNA-seq）、分析（例：塩基配列のばらつき、コピー数の変動、単一ヌクレオチド多型）、およびデータモダリティ（例：フローサイトメトリー、プロテオミクス、顕微鏡および画像分析）を通じて。
 
-Crucially, the project has not only released software packages implementing novel statistical tests and methodologies, but also produced a diverse range of packages types granting access to databases of molecular annotations and experimental datasets.
+重要なのは、プロジェクトは新しい統計テストと方法論を実装するソフトウェアパッケージをリリースするだけでなく、分子注釈と実験データセットのデータベースへのアクセスを提供する多様なパッケージタイプを生産してきたことです。
 
-The Bioconductor project culminates at an annual conference in North America in the summer, while regional conferences offer great opportunities for networking in Europe, Asia, and North America.
-The project is committed to promote a diverse and inclusive community, including a [Code of Conduct][bioc-code-of-conduct] enforced by a Code of Conduct committee.
+Bioconductorプロジェクトは、夏に北アメリカで開催される年次会議でクライマックスに達し、地域会議はいずれもヨーロッパ、アジア、北アメリカでのネットワーキングに優れた機会を提供します。
+このプロジェクトは多様で包括的なコミュニティの促進に取り組んでおり、[行動規範][bioc-code-of-conduct]を含む、行動規範委員会によって施行されています。
 
-![](fig/bioc-timeline.svg){alt='Timeline of major Bioconductor milestones alongside technological advancements.'}
+![](fig/bioc-timeline.svg){alt='Major Bioconductor milestonesと技術の進歩のタイムライン。'}
 
-**Timeline of major Bioconductor milestones alongside technological advancements.**
-Above the timeline, the figure marks the first occurence of major events.
-Within the timeline, the name of packages providing core infrastructure indicate the release date.
-Below the timeline, major technological advancements contextualise the evolution of the Bioconductor project over time.
+**Major Bioconductor milestonesと技術の進歩のタイムライン。**
+タイムラインの上部には、主要イベントの初めの発生が示されています。
+タイムライン内では、コアインフラを提供するパッケージの名前がリリース日を示しています。
+タイムラインの下部では、主要な技術的進歩がBioconductorプロジェクトの進化を時系列で文脈化します。
 
-### A scientific project
+### 科学プロジェクト
 
-The original publication describes the aims and methods of the project at its inception Gentleman, Carey, Bates et al. (2004).
+元の出版物では、プロジェクトの設立時の目的と方法が説明されています Gentleman, Carey, Bates et al. (2004)。
 
-Huber, Carey, Gentleman, Anders, Carlson, Carvalho, Bravo, Davis, Gatto, Girke, Gottardo, Hahne, Hansen, Irizarry, Lawrence, Love, MacDonald, Obenchain, Oles, Pages, Reyes, Shannon, Smyth, Tenenbaum, Waldron, and Morgan (2015) illustrates the progression of the project, including descriptions of core infrastructure and case studies, from the perspective of both users and developers.
+Huber, Carey, Gentleman, Anders, Carlson, Carvalho, Bravo, Davis, Gatto, Girke, Gottardo, Hahne, Hansen, Irizarry, Lawrence, Love, MacDonald, Obenchain, Oles, Pages, Reyes, Shannon, Smyth, Tenenbaum, Waldron, and Morgan (2015)は、コアインフラとケーススタディの説明を含むプロジェクトの進展を、ユーザーと開発者の両方の視点から説明しています。
 
-Amezquita, Lun, Becht, Carey, Carpp, Geistlinger, Marini, Rue-Albrecht, Risso, Soneson, Waldron, Pages, Smith, Huber, Morgan, Gottardo, and Hicks (2020) reviewed further developments of the project in the wake of single-cell genomics technologies.
+Amezquita, Lun, Becht, Carey, Carpp, Geistlinger, Marini, Rue-Albrecht, Risso, Soneson, Waldron, Pages, Smith, Huber, Morgan, Gottardo, and Hicks (2020)は、単一細胞ゲノミクス技術の目覚めに続くプロジェクトのさらなる発展をレビューしています。
 
-Many more publications and book chapters cite the Bioconductor project, with recent example listed on the [Bioconductor website][bioc-publications].
+多くの出版物や書籍の章がBioconductorプロジェクトを引用しており、最近の例は[Bioconductorウェブサイト][bioc-publications]にリストされています。
 
-### A package repository
+### パッケージリポジトリ
 
-#### Overview and relationship to CRAN
+#### 概要およびCRANとの関係
 
-Undoubtedly, software packages are the best-known aspect of the Bioconductor project.
-Since its inception in 2001, the repository has grown over time to host thousands of packages.
+間違いなく、ソフトウェアパッケージはBioconductorプロジェクトの最も知られている側面です。
+2001年に設立されて以来、リポジトリは時間とともに成長し、数千のパッケージをホストするようになりました。
 
-The Bioconductor project has extended the preexisting CRAN repository -- much larger and general-purpose in scope -- to comprise R packages primarily catering for bioinformatics and computational biology analyses.
+Bioconductorプロジェクトは、Rパッケージが主にバイオインフォマティクスと計算生物学の分析を対象にしている既存のCRANリポジトリを拡張しました。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-The [Discussion][discuss-cran] article of this lesson includes a section discussing the relationship of Bioconductor and CRAN in further details.
+このレッスンの[ディスカッション][discuss-cran]記事には、BioconductorとCRANの関係についてさらに詳しく説明しているセクションが含まれています。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-#### The Bioconductor release cycle
+#### Bioconductorリリースサイクル
 
-The Bioconductor project also extended the packaging infrastructure of the CRAN repository to better support the deployment and management of packages at the user level (Gentleman, Carey, Bates et al., 2004).
-In particular, the Bioconductor projects features a 6-month release cycle (typically around April and October), which sees a snapshot of the current version of all packages in the Bioconductor repository earmarked for a specific version of R.
-R itself is released on an annual basis (typically around April), meaning that for each release of R, two compatible releases of Bioconductor packages are available.
+Bioconductorプロジェクトは、CRANリポジトリのパッケージ管理インフラを拡張して、ユーザーのレベルでのパッケージの展開と管理をより良くサポートしました (Gentleman, Carey, Bates et al., 2004)。
+特に、Bioconductorプロジェクトは、6か月のリリースサイクル（通常は4月と10月頃）を特徴としており、Bioconductorリポジトリ内のすべてのパッケージの現在のバージョンのスナップショットが特定のRバージョン用に指定されています。
+R自体は年に1回リリースされ（通常は4月頃）、Rの各リリースごとに2つのBioconductorパッケージの互換性のあるリリースが利用可能になります。
 
-As such, Bioconductor package developers are required to always use the version of R that will be associated with the next release of the Bioconductor project.
-This means using the development version of R between October and April, and the release version of R between April and October.
+そのため、Bioconductorパッケージ開発者は、次のBioconductorプロジェクトのリリースに関連付けられるRのバージョンを常に使用する必要があります。
+これは、10月から4月の間はRの開発バージョンを使用し、4月から10月の間はRのリリースバージョンを使用することを意味します。
 
-Crucially, the strict Bioconductor release cycle prevents users from installing temporally distant versions of packages that were very likely never tested together.
-This practice reflects the development cycle of packages of both CRAN and Bioconductor, where contemporaneous packages are regularly tested by automated systems to ensure that the latest software updates in package dependencies do not break downstream packages, or prompts those package maintainers to update their own software as a consequence.
+重要なのは、厳格なBioconductorリリースサイクルが、ユーザーが互いに非常に遠く離れたバージョンのパッケージをインストールできないようにし、テストを受ける可能性が低いパッケージをインストールできなくすることです。
+この慣行は、CRANとBioconductorの両方のパッケージの開発サイクルを反映しており、同時のパッケージが自動化されたシステムによって定期的にテストされ、パッケージ依存関係内の最新のソフトウェア更新が下流のパッケージに壊れることがないことを保証します。これにより、パッケージのメンテナが自分のソフトウェアを更新することを促します。
 
-Prior to each Bioconductor release, packages that do not pass the requires suites of automated tests are deprecated and subsequently removed from the repository.
-This ensures that each Bioconductor release provides a suite of packages that are mutually compatible, traceable, and guaranteed to function for the associated version of R.
+各Bioconductorリリースの前に、必要な自動テストスイートを通過しないパッケージは廃止され、その後リポジトリから削除されます。
+これにより、各Bioconductorリリースは、相互に互換性があり、追跡可能で、関連するRのバージョンで機能するパッケージのスイートを提供することが保証されます。
 
-![](fig/bioc-release-cycle.svg){alt='Timeline of release dates for selected Bioconductor and R versions.'}
+![](fig/bioc-release-cycle.svg){alt='選択されたBioconductorおよびRのバージョンのリリース日タイムライン。'}
 
-**Timeline of release dates for selected Bioconductor and R versions.**
-The upper section of the timeline indicates versions and approximate release dates for the R project.
-The lower section of the timeline indicates versions and release dates for the Bioconductor project.
-Source: [Bioconductor][bioc-release-dates].
+**選択されたBioconductorおよびRのバージョンのリリース日タイムライン。**
+タイムラインの上部には、Rプロジェクトのバージョンとおおよそのリリース日が示されています。
+タイムラインの下部には、Bioconductorプロジェクトのバージョンとリリース日が示されています。
+出典: [Bioconductor][bioc-release-dates]。
 
-#### Package types
+#### パッケージタイプ
 
-Packages are broadly divided in four major categories:
+パッケージは、主に4つの主要カテゴリに分けられます。
 
-- software
-- annotation data
-- experiment data
-- workflows
+- ソフトウェア
+- 注釈データ
+- 実験データ
+- ワークフロー
 
-[Software packages][glossary-software-package] themselves can be subdivided into packages that provide infrastructure (i.e., classes) to store and access data,
-and packages that provide methodological tools to process data stored in those data structures.
-This separation of structure and analysis is at the core of the Bioconductor project,
-encouraging developers of new methodological software packages to thoughtfully re-use existing data containers where possible,
-and reducing the cognitive burden imposed on users who can more easily experiment with alternative workflows without the need to learn and convert between different data structures.
+[ソフトウェアパッケージ][glossary-software-package]自体は、データを保存してアクセスするためのインフラ（すなわち、クラス）を提供するパッケージと、そのデータ構造に保存されたデータを処理するための方法論的ツールを提供するパッケージに再分割できます。
+この構造と分析の分離はBioconductorプロジェクトの中心にあり、新しい方法論的ソフトウェアパッケージの開発者が可能な限り既存のデータコンテナを再利用することを奨励し、異なるデータ構造間の学習と変換の必要なく、ユーザーが代替ワークフローをより容易に試すことができるようにします。
 
-[Annotation data packages][glossary-annotation-package] provide self-contained databases of diverse genomic annotations (e.g., gene identifiers, biological pathways).
-Different collections of annotation packages can be found in the Bioconductor project.
-They are identifiable by their respective naming pattern, and the information that they contain.
-For instance, the so-called `OrgDb` packages (e.g., the *[org.Hs.eg.db](https://bioconductor.org/packages/3.19/org.Hs.eg.db)* package) provide information mapping different types of gene identifiers and pathway databases;
-the so-called `EnsDb` (e.g., *[EnsDb.Hsapiens.v86](https://bioconductor.org/packages/3.19/EnsDb.Hsapiens.v86)*) packages encapsulate individual versions of the Ensembl annotations in Bioconductor packages;
-and the so-called `TxDb` packages (e.g., *[TxDb.Hsapiens.UCSC.hg38.knownGene](https://bioconductor.org/packages/3.19/TxDb.Hsapiens.UCSC.hg38.knownGene)*) encapsulate individual versions UCSC gene annotation tables.
+[注釈データパッケージ][glossary-annotation-package]は、多様なゲノム注釈の自己完結型データベース（例：遺伝子識別子、生物学的経路）を提供します。
+さまざまなコレクションの注釈パッケージはBioconductorプロジェクトに存在します。
+それらは、それぞれの命名パターンや含まれている情報によって識別できます。
+たとえば、いわゆる`OrgDb`パッケージ（例として*[org.Hs.eg.db](https://bioconductor.org/packages/3.19/org.Hs.eg.db)*パッケージ）は、異なるタイプの遺伝子識別子および経路データベースをマッピングする情報を提供します。
+いわゆる`EnsDb`（例として*[EnsDb.Hsapiens.v86](https://bioconductor.org/packages/3.19/EnsDb.Hsapiens.v86)*）パッケージは、BioconductorパッケージのEnsembl注釈の個別バージョンをカプセル化します。いわゆる`TxDb`パッケージ（例として*[TxDb.Hsapiens.UCSC.hg38.knownGene](https://bioconductor.org/packages/3.19/TxDb.Hsapiens.UCSC.hg38.knownGene)*）は、個別バージョンのUCSC遺伝子注釈テーブルをカプセル化します。
 
-[Experiment data packages][glossary-experiment-package] provide self-contained datasets that are often used by software package developers to demonstrate the use of their package on well-known standard datasets in their [package vignettes][glossary-vignette].
+[実験データパッケージ][glossary-experiment-package]は、ソフトウェアパッケージの開発者が、[パッケージのビネット][glossary-vignette]において自分のパッケージの使用を示すためによく使用される自己完結型データセットを提供します。
 
-Finally, [workflow packages][glossary-workflow-package] exclusively provide collections of vignettes that demonstrate the combined usage of several other packages as a coherent workflow, but do not provide any new source code or functionality themselves.
+最後に、[ワークフローパッケージ][glossary-workflow-package]は、他のパッケージの結合使用を示すビネットのコレクションを提供しますが、新しいソースコードや機能は提供しません。
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge: The Bioconductor website
+### チャレンジ: Bioconductorウェブサイト
 
-The Bioconductor website is accessible at [https://bioconductor.org/](https://bioconductor.org/).
+Bioconductorウェブサイトは[https://bioconductor.org/](https://bioconductor.org/)からアクセス可能です。
 
-Browse the website to find information answering the following questions:
+ウェブサイトをブラウズして、次の質問に答える情報を見つけてください：
 
-1. How many packages does the current release of the Bioconductor project include?
-2. How many packages of each type does this number include?
+1. 現在のBioconductorプロジェクトのリリースにはいくつのパッケージが含まれていますか？
+2. この数には各タイプのパッケージがいくつ含まれていますか？
 
 :::::::::::::::  solution
 
-### Solution
+### 解決策
 
-The following solution includes numbers that were valid at the time of writing (Bioconductor release 3.13);
-numbers will inevitably be different for future releases of the Bioconductor project.
+以下の解決策には、執筆時点で有効だった数字（Bioconductorリリース3.13）が含まれています；
+Bioconductorプロジェクトの将来のリリースでは、数字が異なることは避けられません。
 
-1. On the page [https://bioconductor.org/](https://bioconductor.org/), in the section "Install", we can read:
+1. [https://bioconductor.org/](https://bioconductor.org/)のページで、「インストール」というセクションを読むことができます。
 
-> Discover 2042 software packages available in Bioconductor release 3.13.
+> Bioconductorリリース3.13で利用可能な2042ソフトウェアパッケージを発見する。
 
-2. On the page [https://bioconductor.org/](https://bioconductor.org/), in the section "News", click on the link that reads "Bioconductor Bioc `X.Y` Released" (`X.Y` being the version of the current Bioconductor release when you go through this exercise yourself).
-  On the linked page, we can read:
+2. [https://bioconductor.org/](https://bioconductor.org/)の「ニュース」セクションで、「Bioconductor Bioc `X.Y`リリース」というリンクをクリックしてください（`X.Y`は、この演習を通じて行くときの現在のBioconductorリリースのバージョン）。
+  リンクされたページでは、以下の内容を読むことができます：
 
-> We are pleased to announce Bioconductor 3.13, consisting of 2042 software packages, 406 experiment data packages, 965 annotation packages, and 29 workflows.
-> 
-> There are 133 new software packages, 22 new data experiment packages, 7 new annotation packages, 1 new workflow, no new books, and many updates and improvements to existing packages; Bioconductor 3.13 is compatible with R 4.1.0, and is supported on Linux, 32- and 64-bit Windows, and macOS 10.14.6 Mojave or higher. This release will include an updated Bioconductor Docker containers.
+> Bioconductor 3.13を発表できることを嬉しく思います。これは2042ソフトウェアパッケージ、406の実験データパッケージ、965の注釈パッケージ、29のワークフローから構成されています。
+>
+> 新しいソフトウェアパッケージは133、新しいデータ実験パッケージは22、新しい注釈パッケージは7、新しいワークフローは1、新しい書籍はなく、多くの更新と既存パッケージの改善があります。Bioconductor 3.13はR 4.1.0と互換性があり、Linux、32ビットおよび64ビットのWindows、macOS 10.14.6 Mojave以上でサポートされています。 このリリースには更新されたBioconductor Dockerコンテナが含まれます。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-#### Package classification using biocViews
+#### biocViewsを使用したパッケージ分類
 
-The Bioconductor project uses [biocViews][glossary-biocviews], a set of terms from a controlled vocabulary, to classify Bioconductor packages and facilitate their discovery by thematic search on the [Bioconductor website][biocviews-site].
+Bioconductorプロジェクトは、Bioconductorパッケージを分類し、[Bioconductorウェブサイト][biocviews-site]でのテーマ別検索を介してその発見を容易にするために、制御語彙からの用語の集合である[biocViews][glossary-biocviews]を使用します。
 
-Each Bioconductor package is tagged with a small set of terms chosen from the available controlled vocabulary, to describe the type and functionality of the package.
-Terms are initially selected by the package authors, and subsequently refined during package review or updates to the controlled vocabulary.
+各Bioconductorパッケージは、パッケージのタイプと機能を説明するために選ばれた制御語彙からの小さな用語セットでタグ付けされます。
+用語は最初にパッケージの著者によって選択され、次にパッケージレビューや制御語彙の更新中に精査されます。
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### チャレンジ
 
-Visit the listing of all packages on the Bioconductor [biocViews][biocviews-site] web page.
-Use the "Autocomplete biocViews search" box in the upper left to filter packages by category and explore the graph of software packages by expanding and contracting individual terms.
+BioconductorのすべてのパッケージのリストをBioconductor [biocViews][biocviews-site]のウェブページで訪れてください。
+左上の「Autocomplete biocViews search」ボックスを使用して、カテゴリ別にパッケージをフィルタリングし、個々の用語を展開および収縮させてソフトウェアパッケージのグラフを探ります。
 
-1. What biocView terms can be used to identify packages that have been tagged for RNA sequencing analysis? ChIP-seq? Epigenetics? Variant annotation? Proteomics? Single-cell genomics?
-2. In the `RNASeq` category, two very popular packages are *[DESeq2](https://bioconductor.org/packages/3.19/DESeq2)* and *[edgeR](https://bioconductor.org/packages/3.19/edgeR)*.
-  Which one is more popular in terms of download statistics (i.e., lower rank)?
+1. RNAシーケンシング解析のためにタグ付けされたパッケージを識別するために使用できるbiocView用語は何ですか？ ChIP-seq？ エピジェネティクス？ バリアント注釈？ プロテオミクス？ 単一細胞ゲノミクス？
+2. `RNASeq`カテゴリでは、非常に人気のある2つのパッケージがあり、*[DESeq2](https://bioconductor.org/packages/3.19/DESeq2)*と、*[edgeR](https://bioconductor.org/packages/3.19/edgeR)*です。
+  ダウンロード統計（すなわち、低いランク）という点で、どちらがより人気がありますか？
 
 :::::::::::::::  solution
 
-### Solution
+### 解決策
 
 1. `RNAseq`, `ChIPSeq`, `Epigenetics`, `VariantAnnotation`, `Proteomics`, `SingleCell`.
-2. For Bioconductor release `3.14`, *[DESeq2](https://bioconductor.org/packages/3.19/DESeq2)* and *[edgeR](https://bioconductor.org/packages/3.19/edgeR)* are listed at ranks 23 and 28 respectively.
-  In other words, the two packages are among the most frequently downloaded packages in the Bioconductor project, in this instance with a small advantage in favour of *[edgeR](https://bioconductor.org/packages/3.19/edgeR)*.
-  
-  
+
+2. Bioconductorリリース`3.14`では、*[DESeq2](https://bioconductor.org/packages/3.19/DESeq2)*と*[edgeR](https://bioconductor.org/packages/3.19/edgeR)*がそれぞれランク23と28にリストされています。
+  言い換えれば、2つのパッケージはBioconductorプロジェクトで最も頻繁にダウンロードされるパッケージの中にあり、この場合、*[edgeR](https://bioconductor.org/packages/3.19/edgeR)*に小さな利点があります。
 
 :::::::::::::::::::::::::
 
@@ -190,113 +185,110 @@ Use the "Autocomplete biocViews search" box in the upper left to filter packages
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-The Bioconductor package *[biocViews](https://bioconductor.org/packages/3.19/biocViews)* is used to support and manage the infrastructure of the controlled vocabulary.
-It can also be used to programmatically inspect and subset the list of terms available using their relationship as a graph.
+Bioconductorパッケージ*[biocViews](https://bioconductor.org/packages/3.19/biocViews)*は、制御語彙のインフラをサポートおよび管理するために使用されます。
+また、用語のリストをプログラム的に検査し、グラフとしてその関係によってサブセットを取得するためにも使用されます。
 
-Furthermore, the *[BiocPkgTools](https://bioconductor.org/packages/3.19/BiocPkgTools)* package can be used to browse packages under different [biocViews][glossary-biocviews] (Su, Carey, Shepherd, Ritchie, Morgan, and Davis, 2019).
-
+さらに、*[BiocPkgTools](https://bioconductor.org/packages/3.19/BiocPkgTools)*パッケージを使用して、異なる[biocViews][glossary-biocviews]のもとにあるパッケージをブラウズすることができます (Su, Carey, Shepherd, Ritchie, Morgan, and Davis, 2019)。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-#### Packages interoperability
+#### パッケージの相互運用性
 
-At the core of the Bioconductor philosophy is the notion of interoperability.
-Namely, the capacity of packages to operate on the same data structures.
-Importantly, interoperability benefits both users and developers.
+Bioconductorの哲学の中心には、相互運用性の概念があります。
+つまり、パッケージが同じデータ構造で動作する能力です。
+重要なのは、相互運用性はユーザーと開発者の両方に利益をもたらすことです。
 
-Users can more easily write arbitrarily complex workflows that combine multiple packages.
-With packages operating on the same data structure, users can maximize their attention to the practical steps of their workflow, and minimize time spent in often complex and error-prone conversions between different data structures specific to each package.
-Comparative benchmarks are also easier to implement and can be evaluated more fairly
-when competing software packages offering similar functionality operate on input and outputs stored in the same data structures.
+ユーザーは、複数のパッケージを組み合わせた任意の複雑なワークフローを書くことがより簡単になります。
+同じデータ構造に基づくパッケージがあるため、ユーザーはワークフローの実際のステップに最大限注意を払い、各パッケージに特有の異なるデータ構造間で行う複雑かつエラーが発生しやすい変換に費やす時間を最小限に抑えることができます。
+同様に、新しいパッケージの開発者は、情報の保存、検証、およびインデックスを行うために堅牢で信頼されるインフラを提供する既存のデータ構造を借用し、革新的な機能の実装に焦点を当てることができます。
 
-Similarly, developers of new packages can focus on the implementation of novel functionality, borrowing existing data structures that offer robust and trusted infrastructure for storage, verification, and indexing of information.
+最終的に、下図は、さまざまなBioconductorパッケージとベースRパッケージがどのように組み合わされて、シーケンシングデータをRセッションにインポートし、データと結果の注釈、統合、視覚化を実行するさまざまな分析を実行できるかを示しています。
 
-Ultimately, the figure below illustrates how many different Bioconductor packages - as well as base R packages - can be combined to carry out a diverse range of analyses, from importing sequencing data into an R session, to the annotation, integration and visualization of data and results.
+![](fig/bioc-sequencing-ecosystem.svg){alt='シーケンシングエコシステム。'}
 
-![](fig/bioc-sequencing-ecosystem.svg){alt='Sequencing Ecosystem.'}
+**シーケンシングエコシステム**
+主要データ処理ステップ（青）と関連ソフトウェアパッケージ（ピンク）が、さまざまなタイプのゲノム分析の典型的なワークフローの文脈で一覧表示されます。
 
-**Sequencing Ecosystem**
-Major data processing steps (blue) and relevant software packages (pink) are listed in the context  of archetypal workflows for various types of genomics analyses.
-The sequential relation of workflow steps and software package illustrates the importance of interoperability between software package in order to assemble complete end-to-end workflows.
+ワークフローのステップとソフトウェアパッケージの連続的な関係は、完全なエンドツーエンドのワークフローを構成するためのソフトウェアパッケージ間の相互運用性の重要性を示しています。
+ワークフローのステップとソフトウェアパッケージの逐次関係は、完全なエンドツーエンドのワークフローを構成するために、ソフトウェアパッケージ間の相互運用性の重要性を示しています。
 
-### Conferences, courses and workshops
+### 会議、コース、ワークショップ
 
-The Bioconductor community regularly organizes a number of events throughout the year and across the world. For example:
+Bioconductorコミュニティは、年中世界中の数多くのイベントを定期的に開催しています。 例えば：
 
-- The annual BioC summer conference in North America
-- Regional conference in winter (e.g. BioC Europe, BioC Asia)
-- Summer schools (e.g., CSAMA)
-- Online meetings open to all community members (e.g., Bioconductor Developers Forum)
+- 北アメリカでの年次BioCサマー会議
+- 冬の地域会議（例：BioC Europe、BioC Asia）
+- サマー学校（例：CSAMA）
+- すべてのコミュニティメンバーが参加できるオンラインミーティング（例：Bioconductor Developers Forum）
 
-Course materials are regularly uploaded on the [Bioconductor website][bioc-course-materials] following each of those events.
-In particular, [online books][bioc-books] are being developed and maintained by community members.
+コース教材は、これらのイベントの各後に定期的に[Bioconductorウェブサイト][bioc-course-materials]にアップロードされます。
+特に、[オンライン書籍][bioc-books]はコミュニティメンバーによって開発および維持されています。
 
-The Bioconductor [YouTube channel][bioc-youtube] is used to publish video recordings of conference presentations including talks and workshops, as well as editions of the regular Bioconductor developers forum (link needed).
+Bioconductorの[YouTubeチャンネル][bioc-youtube]は、会議の発表のビデオ録画（講演やワークショップを含む）を公開するために使用され、通常のBioconductor開発者フォーラムの版（リンクが必要）も含まれています。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Contribute!
+### 貢献しよう！
 
-It could be great to illustrate a typical cycle of conferences over a year, e.g.
+年を通じての会議の典型的なサイクルを示すことができれば素晴らしいでしょう。例えば、
 
-- BioC conference in North America around late July
-- EuroBioC conference in Europe around December
-- BioCAsia conference in Asia around November
-  
+- 7月末頃の北アメリカでのBioC会議
+- 12月頃のヨーロッパでのEuroBioC会議
+- 11月頃のアジアでのBioCAsia会議
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Online communication channels
+### オンラインコミュニケーションチャネル
 
-#### Support site
+#### サポートサイト
 
-The Bioconductor [support site][bioc-support-site] provides a platform where users and developers can communicate freely (following the Bioconductor [Code of Conduct][bioc-code-of-conduct]) to discuss issues on a range of subjects, ranging from packages to conceptual questions about best practices.
+Bioconductorの[サポートサイト][bioc-support-site]は、ユーザーと開発者が自由にコミュニケーションをとるためのプラットフォームを提供し（Bioconductorの[行動規範][bioc-code-of-conduct]に従って）、パッケージに関する問題やベストプラクティスに関する概念的な質問について議論します。
 
-#### Slack workspace
+#### Slackワークスペース
 
-The Bioconductor [Slack workspace][bioc-slack] is an open space that all community members are welcome to join (for free) and use for rapid interactions.
-Currently, the "Pro" pricing plan kindly supported by core funding provides:
+Bioconductorの[Slackワークスペース][bioc-slack]は、すべてのコミュニティメンバーが参加（無料）して、迅速な相互作用を行うことができるオープンスペースです。
+現在、「Pro」プランの価格設定は、コア資金によって支援されています。
 
-- Unlimited message archive
-- Unlimited apps
-- Group video calls with screen sharing
-- Work securely with other organizations using Slack Connect
+- 無制限のメッセージアーカイブ
+- 無制限のアプリ
+- 画面共有付きのグループビデオ通話
+- Slack Connectを使用して他の組織と安全に作業する
 
-A wide range of channels have been created to discuss a range of subjects, and community members can freely join the discussion on those channels of create new ones to discuss new subjects.
+さまざまなトピックについて議論するために多くのチャンネルが作成されており、コミュニティメンバーはそのチャンネルに自由に参加することができ、また新しいチャンネルを作成して新しいトピックについて議論することもできます。
 
-Important announcements are posted on the `#general` channel.
+重要な発表は`#general`チャンネルに投稿されます。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Note
+### 注意
 
-Users are encouraged to use the Bioconductor [support site][bioc-support-site] to raise issues that are relevant to the wider community.
-The Slack workspace is often most useful for live discussions, and widely subscribed channels (e.g. `#general`) should be used with moderation.
+ユーザーは、Bioconductorの[サポートサイト][bioc-support-site]を使用して、より広いコミュニティに関連する問題を提起することを奨励されています。
+Slack ワークスペースは、ライブディスカッションに最も便利で、広く参加しているチャンネル（例：`#general`）は適度に使用する必要があります。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-#### Developer Mailing List
+#### 開発者メーリングリスト
 
-The [bioc-devel@r-project.org](mailto:bioc-devel@r-project.org) mailing list is used for communication between package developers, and announcements from the Biocondutor core team.
+[bioc-devel@r-project.org](mailto:bioc-devel@r-project.org) メーリングリストは、パッケージ開発者間のコミュニケーションや Bioconductor コアチームからの発表に使用されます。
 
-### A scientific and technical community
+### 科学技術コミュニティ
 
-- [Scientific Advisory Board (SAB)][bioc-scientific-advisory-board] Meet Annually, External and Internal leader in the field who act as project advisors. No Term limits.
-- [Technical Advisory Board (TAB)][bioc-technical-advisory-board]. Meet monthly to consider technical aspects of core infastructure and scientific direction of the project. 15 members, 3 year term. Annual open-to-all elections to rotate members. Current officers are Vince Carey (chair), Levi Waldron (vice Chair) Charlotte Soneson (Secretary).
-- [Community Advisory Board (CAB)][bioc-community-advisory-board] Meet monthly to consider community outreach, events, education and training. 15 members, 3 year term. Annual open-to-all elections to rotate members. Current officers are Aedin Culhane (chair), Matt Ritchie (co Chair), Lori Kern (Secretary).
-- [Code of Conduct committee][bioc-code-of-conduct]
+- [科学諮問委員会 (SAB)][bioc-scientific-advisory-board] 年に1度の会合、プロジェクトアドバイザーとして活動する外部および内部のリーダー。 任期の制限なし。
+- [技術技術委員会 (TAB)][bioc-technical-advisory-board]。 月に一度、プロジェクトのコアインフラストラクチャと科学的方向性の技術的側面を検討します。 メンバーは 15 人、任期は 3 年。 年に一度の公開選挙でメンバーを交代します。 現在の役員は、ビンス・ケアリー（議長）、リーヴァイ・ウォルドロン（副議長）、シャーロット・ソネソン（書記）。
+- [コミュニティ諮問委員会 (CAB)][bioc-community-advisory-board] 月に一度、地域社会への outreach、イベント、教育、トレーニングを考慮します。 メンバーは 15 人、任期は 3 年。 年に一度の公開選挙でメンバーを交代します。 現在の役員は、エイディン・カルハン（議長）、マット・リッチー（共同議長）、ローリ・カーン（書記）。
+- [行動規範委員会][bioc-code-of-conduct]
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Note
+### 注意
 
-At least 1 member of TAB/CAB sits on both to act at the liason to ensure communication of the board.
+TAB/CABの少なくとも1名のメンバーが両方に参加し、ボードのコミュニケーションを確保するための連絡役を果たします。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## References
+## 参考文献
 
 [1] R. A. Amezquita, A. T. L. Lun, E. Becht, et al. "Orchestrating
 single-cell analysis with Bioconductor". In: _Nat Methods_ 17.2 (2020),
@@ -341,16 +333,15 @@ approved, 1 approved with reservations] ". In: _F1000Research_ 8.752
 [bioc-technical-advisory-board]: https://bioconductor.org/about/technical-advisory-board/
 [bioc-community-advisory-board]: https://bioconductor.org/about/community-advisory-board/
 
-
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- R packages are but one aspect of the Bioconductor project.
-- The Bioconductor project extends and complements the CRAN repository.
-- Different types of packages provide not only software, but also annotations, experimental data, and demonstrate the use of multiple packages in integrated workflows.
-- Interoperability beteen Bioconductor packages facilitates the writing of integrated workflows and minimizes the cognitive burden on users.
-- Educational materials from courses and conferences are archived and accessible on the Bioconductor website and YouTube channel.
-- Different channels of communication enable community members to converse and help each other, both as users and package developers.
-- The Bioconductor project is governed by scientific, technical, and advisory boards, as well as a Code of Conduct committee.
+- R パッケージは Bioconductor プロジェクトの一側面に過ぎません。
+- Bioconductor プロジェクトは CRAN リポジトリを拡張し、補完します。
+- 異なる種類のパッケージは、ソフトウェアだけでなく、アノテーション、実験データも提供し、統合されたワークフローで複数のパッケージの使用方法を示します。
+- Bioconductor パッケージ間の相互運用性は、統合ワークフローの作成を容易にし、ユーザーの認知的負担を最小限に抑えます。
+- コースや会議の教育資料はアーカイブされ、Bioconductor ウェブサイトと YouTube チャンネルでアクセス可能です。
+- 異なるコミュニケーションのチャネルを使用して、コミュニティのメンバーが会話し、ユーザーとパッケージ開発者の両方として互いに助け合います。
+- Bioconductor プロジェクトは、科学、技術、諮問の各委員会および行動規範委員会によって運営されています。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
