@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Working with genomics ranges
+title: ゲノミクスの範囲での作業
 teaching: XX
 exercises: XX
 ---
@@ -11,16 +11,16 @@ source("download_data.R")
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how genomic coordinates and intervals are represented in the Bioconductor project.
-- Identify Bioconductor packages and methods available to process ranges of genomic coordinates.
+- ゲノム座標と区間がBioconductorプロジェクトでどのように表現されるかを説明します。
+- ゲノム座標の範囲を処理するために利用可能なBioconductorパッケージおよびメソッドを特定します。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What is the recommended way to represent coordinates on a genomic scale in Bioconductor?
-- What Bioconductor packages provides methods to efficiently process genomic ranges?
-- How can I import/export sets of genomic coordinates from/to various genomic file formats?
+- Bioconductorでゲノムスケールの座標を表現する推奨方法は何ですか？
+- ゲノムの範囲を効率的に処理するためのメソッドを提供するBioconductorパッケージはどれですか？
+- さまざまなゲノムファイル形式から/へのゲノム座標のセットをインポート/エクスポートする方法は？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -35,11 +35,11 @@ library(bibtex)
 bib <- ReadBib("files/bibliography.bib")
 ```
 
-## Install packages
+## パッケージのインストール
 
-Before we can proceed into the following sections, we install some Bioconductor packages that we will need.
-First, we check that the `r BiocStyle::Biocpkg("BiocManager")` package is installed before trying to use it; otherwise we install it.
-Then we use the `BiocManager::install()` function to install the necessary packages.
+次のセクションに進む前に、必要となるいくつかのBioconductorパッケージをインストールします。
+まず、`r BiocStyle::Biocpkg("BiocManager")`パッケージがインストールされているか確認し、ない場合はインストールします。
+次に、`BiocManager::install()`関数を使用して必要なパッケージをインストールします。
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -48,204 +48,131 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("GenomicRanges")
 ```
 
-## The GenomicRanges package and classes
+## GenomicRangesパッケージとクラス
 
-### Why do we need classes for genomic ranges?
+### ゲノム範囲のためにクラスが必要な理由は？
 
-In the era of genomics, many observations are reported as ranges of
-coordinates - i.e., intervals - on a genomic scale.
-Depending on the nature of the assay, those genomic ranges may represent genes,
-transcripts, exons, single nucleotide polymorphisms (SNPs), transcription factor
-binding sites, or peaks from next-generation sequencing assays such as ChIP-seq
-or ATAC-seq.
+ゲノミクスの時代に、多くの観察は遺伝子の座標の範囲、すなわちゲノムスケールの区間として報告されます。
+アッセイの性質に応じて、これらのゲノム範囲は遺伝子、トランスクリプト、エクソン、一塩基多型（SNP）、転写因子結合部位、またはChIP-seqやATAC-seqなどの次世代シーケンシングアッセイからのピークを表す場合があります。
 
-Genomic ranges tie those observations of assayed values (e.g., gene
-expression) to a physical location in the genome or an organism.
-For instance, those genomic ranges can be used to query physical proximity or
-overlap between assayed features and databases of known regulatory regions.
+ゲノム範囲は、アッセイされた値（例：遺伝子発現）の観察をゲノムまたは生物内の物理的位置に結びつけます。
+例えば、これらのゲノム範囲は、アッセイされた特徴と既知の調節領域のデータベースとの物理的近接性や重複を照会するために使用することができます。
 
-Often, the final genomic ranges used for reporting measurements are the result
-of combinations and operations on sets of genomic ranges in databases of
-known genomic features.
-For instance, in RNA-sequencing, next-generation sequencing reads are often
-counted within individual exons, and those counts are subsequently aggregated
-across all the exons of each gene.
-Separately, promoters are frequently defined as region of arbitrary width,
-partly upstream and/or downstream of known transcription start sites (TSS).
+最終的に報告される測定値に使用されるゲノム範囲は、既知のゲノム特徴のデータベース内のゲノム範囲のセットに対する組み合わせや操作の結果であることが多いです。
+例えば、RNAシーケンシングにおいて、次世代シーケンシングリードはしばしば個々のエクソン内でカウントされ、それらのカウントは後に各遺伝子のすべてのエクソンで集約されます。
+また、プロモーターは、既知の転写開始サイト（TSS）の上流および/または下流の任意の幅の領域として定義されることが多いです。
 
-Importantly, genomic ranges do not necessarily need to span multiple
-coordinates.
-The notion of range is meant in the mathematical way, and single-nucleotide
-genomic ranges (e.g., SNPs) can be described as opening and closing at the same
-coordinate (or at the next coordinate, in the case of a right-open interval).
+重要なことに、ゲノム範囲は必ずしも複数の座標を跨ぐ必要はありません。
+範囲の概念は数学的な方法で意味されており、単一塩基のゲノム範囲（例：SNP）は、同じ座標で開閉するか（または右開区間の場合は次の座標で開閉する）と説明できます。
 
-For many organisms, the genetic material is split into a number of separate
-nucleic acid molecules (e.g., chromosomes, plasmids).
-As such, genomic ranges are described by the name of the sequence and
-the numeric interval of coordinates on that sequence.
+多くの生物において、遺伝物質は複数の別々の核酸分子（例：染色体、プラスミド）に分割されています。
+そのため、ゲノム範囲は配列の名前とその配列上の座標の数値区間によって記述されます。
 
-![](fig/bioc-genomicranges.svg){alt='Example uses of the GenomicRanges algebra.'}
+![](fig/bioc-genomicranges.svg){alt='GenomicRanges代数の使用例。'}
 
-**Example uses of the GenomicRanges algebra.**
-Adapted from `r Citet(bib, "Huber2015")`.
-The figure illustrates the example of a gene model that comprises two
-transcripts, and the definition of various genomic ranges relative to that
-gene model.
-For instance - in this specific illustration - unspliced transcripts summarise
-the entire range of coordinates from the start of the first exon to the end of
-the last exon; while the gene region is defined as the set of coordinates
-included in at least one exon of one transcript.
+**GenomicRanges代数の使用例。**
+`r Citet(bib, "Huber2015")`から適応。
+この図は、2つのトランスクリプトからなる遺伝子モデルの例と、その遺伝子モデルに対するさまざまなゲノム範囲の定義を示しています。
+例えば、特定の図示において、スプライスされていないトランスクリプトは、最初のエクソンの開始から最後のエクソンの終了までのすべての座標の範囲を要約します。一方、遺伝子領域は、少なくとも1つのトランスクリプトの1エクソンに含まれる座標のセットとして定義されます。
 
-### A brief introduction to intervals
+### 区間の簡単な紹介
 
-Intervals are described in mathematical terms using a start and an end position
-on an axis of continuous coordinates.
-The interval then comprises all the real numbers between those two coordinates,
-and the width of each interval can be computed from the difference between the
-coordinates of the start and end positions.
+区間は、連続した座標の軸上の開始位置と終了位置を使用して数学的に説明されます。
+区間は、その二つの座標の間のすべての実数を含み、各区間の幅は開始位置と終了位置の座標の差から計算できます。
 
-Generally speaking, the start and end position can be any rational number,
-including floating-point numbers.
-However, in genomics, integer coordinates are typically used to represent the
-location of monomers (e.g., nucleotide, amino acid) in the sequence of polymers
-(e.g., nucleic acid, protein).
+一般的に、開始と終了の位置は、任意の有理数、包括浮動小数点数になり得ます。
+ただし、ゲノム学では、整数座標は通常、ポリマー（例：核酸、タンパク質）内のモノマー（例：ヌクレオチド、アミノ酸）の位置を表すために使用されます。
 
-You may come across packages, databases, and programming languages that use
-different rules to define intervals.
-In R, indexing is 1-based (meaning that the first position in a sequence is
-1\), which contrasts with Python that is 0-based (the index of the first
-position in a sequence is 0).
-Similarly, references files in the UCSC Genome Browser are 0-based, while
-those of the Ensembl Genome Browser are 1-based.
+さまざまなルールを使用して区間を定義するパッケージ、データベース、プログラミング言語に出会うかもしれません。
+Rでは、インデックスは1ベース（すなわちシーケンスの最初の位置は1）ですが、Pythonは0ベース（すなわちシーケンスの最初の位置のインデックスは0）です。
+同様に、UCSCゲノムブラウザの参照ファイルは0ベースであり、Ensemblゲノムブラウザのものは1ベースです。
 
-The definition of intervals in a shared coordinate system allows calculations
-such as the distance between two intervals - generally calculated as the
-distance between the two closest edges of those intervals -, and the
-identification of overlapping intervals.
+共有座標系における区間の定義は、二つの区間間の距離を計算したり、重複する区間を特定したりするなどの計算を可能にします。
 
-![](fig/intervals.svg){alt='Example of intervals.'}
+![](fig/intervals.svg){alt='区間の例。'}
 
-**Example of intervals.**
-Three intervals named A, B, and C, are represented.
-Interval A starts at position 5 and ends at position 9, for a width of 4 units;
-interval B starts at position 1 and ends at position 3, for a width of 2 units;
-interval C starts at position 3 and ends at position 6, for a width of 3 units.
-Intervals A and C overlap, from coordinates 5 to 6;
-while intervals B and C meet at coordinate 3, but do not strictly overlap each
-other.
+**区間の例。**
+A、B、およびCという名前の3つの区間が表されています。
+区間Aは位置5から始まり、位置9で終わり、幅は4ユニットです。
+区間Bは位置1から始まり、位置3で終わり、幅は2ユニットです。
+区間Cは位置3から始まり、位置6で終わり、幅は3ユニットです。
+区間AとCは、座標5から6の間で重複し、一方、区間BとCは座標3で会い、厳密には互いに重複していません。
 
-### A brief introduction to genomic ranges
+### ゲノム範囲の簡単な紹介
 
-Genomic ranges essentially extend the notion of mathematical intervals on
-sets of biological sequences (e.g., chromosomes).
-In other words, genomic ranges combine the name of the biological sequence on
-which they are located with the integer range of coordinates that the
-genomic ranges span in that sequence.
-This is key to distinguish genomic features that span an overlapping range of
-coordinates on different biological sequences.
+ゲノム範囲は、本質的に生物学的シーケンス（例：染色体）上の数学的な区間の概念を拡張します。
+つまり、ゲノム範囲は、それが存在する生物学的配列の名前と、その配列内でゲノム範囲が跨ぐ整数座標の範囲を結合します。
+これは、異なる生物学的配列上の重複する範囲のゲノム特徴を区別するための重要な要素です。
 
-Furthermore, the double-stranded nature of DNA sequences also adds the notion of
-strandedness to genomic ranges.
-If known, the strand information of genomic features is a key piece of
-information that should be tracked, so that it may be used for downstream
-analyses.
-For instance, genomic ranges spanning a common range of coordinates on opposite
-strands of the same DNA sequence may not be considered to overlap (e.g., for the
-purpose of strand-specific next-generation sequencing assays).
+さらに、DNA配列の二重鎖特性も、ゲノム範囲に対してストランド性の概念を加えます。
+もし知られている場合、ゲノム特徴のストランド情報は重要な情報であり、追跡されるべきで、後続の解析に使用されるかもしれません。
+たとえば、同じDNA配列の反対のストランドで共通の座標範囲を跨ぐゲノム範囲は、重なっていると見なされない場合があります（例：ストランド特異的な次世代シーケンシングアッセイの目的のため）。
 
-Genomic ranges are _closed_ intervals - the start and end positions are included
-in the interval; in the example of nucleic acids, the start position indicates
-the first nucleotide in the interval, and the end position indicates the last
-nucleotide in the interval.
+ゲノム範囲は_閉じた_区間です - 開始位置と終了位置は区間に含まれます。核酸の例では、開始位置は区間内の最初のヌクレオチドを示し、終了位置は区間内の最後のヌクレオチドを示します。
 
-![](fig/genomic-intervals.svg){alt='Example of genomic intervals.'}
+![](fig/genomic-intervals.svg){alt='ゲノム区間の例。'}
 
-**Example of genomic ranges.**
-Genomic ranges are defined by the name of the biological sequence in which they
-are located (here, "chr1"), and the positions of start and end in that sequence.
-Here, numeric positions are not explicitly shown, but implied by the sequence of
-nucleic acids and the arrow indicating coordinates increasing from the left to
-the right.
-In this example, genomic ranges can be used to describe individual exons,
-with metadata grouping those exons into transcripts and genes.
-Furthermore, the strandedness of exons, transcripts, and genes is an important
-piece of information to precisely describe the location of each genomic range
-in the double-stranded DNA polymer.
+**ゲノム範囲の例。**
+ゲノム範囲は、存在する生物学的配列の名前（ここでは「chr1」）と、その配列内での開始と終了の位置で定義されます。
+ここで、数値位置は明示的に示されていませんが、核酸のシーケンスと座標が左から右に増加していることを示す矢印によって暗示されています。
+この例では、ゲノム範囲を使用して個々のエクソンを記述でき、メタデータはそれらのエクソンをトランスクリプトと遺伝子にグループ化します。
+さらに、エクソン、トランスクリプト、遺伝子のストランド性は、各ゲノム範囲の正確な位置を記述するための重要な情報です。
 
-## The GenomicRanges package
+## GenomicRangesパッケージ
 
-### Overview
+### 概要
 
-The `r BiocStyle::Biocpkg("GenomicRanges")` package implements
-[S4 classes][glossary-s4-class] to represent genomic ranges as S4 objects.
+`r BiocStyle::Biocpkg("GenomicRanges")`パッケージは、ゲノム範囲をS4オブジェクトとして表現するための[S4クラス][glossary-s4-class]を実装しています。
 
-Specifically, the `GRanges` class is designed to store a set of intervals
-including the name of the sequence where features are located as well as the
-range of integer coordinates spanned by the feature in that sequence.
+具体的には、`GRanges`クラスは、機能が存在するシーケンスの名前と、そのシーケンス内で機能が跨ぐ整数座標の範囲を含む区間のセットを保存するために設計されています。
 
-More generally, the `IRanges` class is designed to store a set of intervals
-over a range of integer coordinates, without the notion of sequence names.
-As such, a `GRanges` object is merely the combination of an `IRanges` object and
-a vector of sequence names.
+より一般的には、`IRanges`クラスは、シーケンス名の概念なしで、整数座標の範囲にわたる区間のセットを保存するために設計されています。
+このように、`GRanges`オブジェクトは、`IRanges`オブジェクトとシーケンス名のベクターを組み合わせたものであるに過ぎません。
 
-Those S4 classes provide automatic validity-checking functionality,
-and a range of methods implementing common operations on integer intervals
-and genomic ranges,
-from the calculation of distance between pairs of intervals to the
-identification of overlapping genomic ranges.
+これらのS4クラスは、自動的な有効性チェック機能を提供し、整数区間およびゲノム範囲上の一般的な操作を実装するさまざまなメソッドを提供します。
+区間間の距離の計算から重複するゲノム範囲の特定まで。
 
-A short presentation of the basic classes defined in the
-`r BiocStyle::Biocpkg("GenomicRanges")` package is available in one of the
-package vignettes, accessible as `vignette("GenomicRangesIntroduction")`,
-while more detailed information is provided in the other package vignettes,
-accessible as `browseVignettes("GenomicRanges")`.
+`r BiocStyle::Biocpkg("GenomicRanges")`パッケージで定義されている基本クラスの簡単な説明は、パッケージのヴィネットの1つに利用可能で、`vignette("GenomicRangesIntroduction")`としてアクセス可能。本より詳細な情報は、他のパッケージのヴィネットに提供され、`browseVignettes("GenomicRanges")`としてアクセス可能です。
 
-### First steps
+### 最初のステップ
 
-To get started, we load the package.
+始めるには、パッケージをロードします。
 
 ```{r, message=FALSE, warning=FALSE}
 library(GenomicRanges)
 ```
 
-### The IRanges class
+### IRangesクラス
 
-While the genomic space of many organisms is subdivided into multiple sequences
-(e.g., chromosomes), many operations on genomic ranges take place within
-individual sequences, where only integer positions matter.
-The `IRanges` class provides a container for such "simple" ranges that are
-defined by two out of three pieces of information:
+多くの生物のゲノム空間は複数の配列（例：染色体）に分割されていますが、ゲノム範囲上での多くの操作は、整数位置のみが重要な個々の配列内で行われます。
+`IRanges`クラスは、次の三つの情報のうち二つに基づいて定義される「単純な」範囲のためのコンテナを提供します：
 
-- the start position of the range
-- the width of the range
-- the end position of the range
+- 範囲の開始位置
+- 範囲の幅
+- 範囲の終了位置
 
-The `IRanges()` constructor function accepts those three pieces of information
-in the arguments `start=`, `width=`, and `end=`.
-For instance, we create two integer ranges from their start position and width:
+`IRanges()`コンストラクタ関数は、`start=`, `width=`, `end=`の引数でこれら三つの情報を受け入れます。
+例えば、開始位置と幅から二つの整数範囲を作成します：
 
-- one range starts at position 10 and has width 10
-- one range starts at position 15 and has width 5
+- ある範囲は位置10から始まり、幅は10です。
+- 別の範囲は位置15から始まり、幅は5です。
 
 ```{r}
 demo_iranges <- IRanges(start = c(10, 15), width = c(10, 5))
 demo_iranges
 ```
 
-We note how the object displays not only the _start_ and _width_ information
-that we requested for each range, but also the _end_ position that is naturally
-computed from the other two pieces of information.
+オブジェクトは、要求した_開始_と_幅_の情報だけでなく、他の二つの情報から自然に算出される_終了_位置も表示されることに注意します。
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### チャレンジ
 
-Create the same two ranges as above, using the arguments `start=` and `end=`
-of the `IRanges()` constructor function.
+`IRanges()`コンストラクタ関数の`start=`および`end=`の引数を使用して、上記と同じ二つの範囲を作成します。
 
 :::::::::::::::  solution
 
-### Solution
+### ソリューション
 
 ```{r}
 IRanges(start = c(10, 15), end = c(19, 19))
@@ -255,9 +182,7 @@ IRanges(start = c(10, 15), end = c(19, 19))
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-The start and end positions as well as the width of every interval can be
-extracted as numeric vector using the functions `start()`, `end()` and
-`width()`, respectively.
+すべての区間の開始および終了位置、ならびに各区間の幅は、`start()`, `end()`および`width()`関数を使用して数値ベクターとして抽出できます。
 
 ```{r}
 start(demo_iranges)
@@ -265,26 +190,20 @@ end(demo_iranges)
 width(demo_iranges)
 ```
 
-Objects of the `IRanges` family extend the `Vector` class, and are handled as
-unidimensional vectors in terms of indexing.
-As such, individual ranges can be extracted by integer index like any
-regular vector.
+`IRanges`ファミリーのオブジェクトは`Vector`クラスを拡張し、インデックスの観点から一次元ベクターとして扱われます。
+そのため、個々の範囲は通常のベクターのように整数インデックスで抽出できます。
 
 ```{r}
 demo_iranges[1]
 ```
 
-### Metadata on IRanges
+### IRangesのメタデータ
 
-The `IRanges` class can accommodate metadata information on each range,
-including names - passed to the `names=` argument - and miscellaneous metadata
-passed as named vectors.
+`IRanges`クラスは、各範囲のメタデータ情報を収容でき、名前は`names=`引数に渡され、さまざまなメタデータは名前付きベクターとして渡されます。
 
-For instance, we create two ranges named "A" and "B".
-Furthermore, we define metadata fields to store an example of character
-values and numeric values, respectively.
-Both the names and the values of the metadata fields are completely arbitrary
-in this example.
+例えば、"A"と"B"という名前の二つの範囲を作成します。
+さらに、例として文字値と数値を保存するメタデータフィールドを定義します。
+この例では、メタデータフィールドの名前と値は完全に任意です。
 
 ```{r}
 demo_with_metadata <- IRanges(
@@ -297,32 +216,29 @@ demo_with_metadata <- IRanges(
 demo_with_metadata
 ```
 
-The metadata columns can be extracted as a `DataFrame` using the function `mcols()` (short for "metadata columns").
+メタデータ列は、`mcols()`関数を使用して`DataFrame`として抽出できます（"メタデータ列"の略）。
 
 ```{r}
 mcols(demo_with_metadata)
 ```
 
-The character vector of names can be extracted using the function `names()`.
+名前の文字ベクターは、`names()`関数を使用して抽出できます。
 
 ```{r}
 names(demo_with_metadata)
 ```
 
-Similarly to named vector of base data types, individual ranges can be extracted
-by name.
+基本データ型の名前付きベクターに類似して、個々の範囲は名前で抽出できます。
 
 ```{r}
 demo_with_metadata["A"]
 ```
 
-### Operations on IRanges
+### IRangesでの操作
 
-`IRanges` provide the basis for most operations on ranges of numerical coordinates.
+`IRanges`は、数値座標の範囲に対するほとんどの操作の基礎を提供します。
 
-For instance, given two sets of ranges - a query set and a subject set - the
-`findOVerlaps()` function can be used to find out which pairs of ranges in the
-two sets overlap with each other.
+例えば、クエリセットとサブジェクトセットの二つの範囲が与えられた場合、`findOVerlaps()`関数を使用して、二つのセットの範囲のどのペアが互いに重なっているかを確認できます。
 
 ```{r}
 query_iranges <- IRanges(
@@ -333,33 +249,25 @@ overlaps_iranges <- findOverlaps(query = query_iranges, subject = demo_iranges)
 overlaps_iranges
 ```
 
-The results are returned in the form of a `Hits` object, which we have not
-introduced yet.
-A `Hits` object is visualised as a table that comprises two integer
-columns named `queryHits` and `subjectHits`.
-Each row in the table reports an overlap between one range in the query set
-and one range in the subject set, with the integer value in each column
-indicating the index of the range in each set involved in the overlap.
+結果は、まだ紹介していない`Hits`オブジェクトの形式で返されます。
+`Hits`オブジェクトは、`queryHits`および`subjectHits`という二つの整数列からなるテーブルとして視覚化されます。
+テーブルの各行は、クエリセット内の1つの範囲とサブジェクトセット内の1つの範囲の重複を報告し、各列の整数値は重複に関与する各セット内の範囲のインデックスを示します。
 
-In this example, we confirm that the first range in the query set overlaps the
-first range in the subject set; while the second range in the query set overlaps
-both ranges in the subject set.
+この例では、クエリセットの最初の範囲がサブジェクトセットの最初の範囲と重なっていることを確認し、クエリセットの二番目の範囲がサブジェクトセット内の両範囲と重なっています。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに深く
 
-For downstream use, the two components can be extracted from `Hits` objects
-using their names, respectively:
+後処理用に、`Hits`オブジェクトから二つのコンポーネントを、それぞれの名前を使用して抽出できます：
 
 ```{r}
 queryHits(overlaps_iranges)
 subjectHits(overlaps_iranges)
 ```
 
-While displayed as a table, `Hits` objects are actually handled like vectors.
-Individual hits between one query range and one subject range can be extracted
-their index:
+テーブルとして表示される間、`Hits`オブジェクトは実際にはベクターのように処理されます。
+クエリ範囲とサブジェクト範囲の間の個々のヒットは、インデックスで抽出できます：
 
 ```{r}
 overlaps_iranges[1]
@@ -367,21 +275,17 @@ overlaps_iranges[1]
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### The GRanges class
+### GRangesクラス
 
-Having defined integer ranges, the only additional information necessary to
-define genomic ranges is the name of the genomic sequence on which each range is
-located.
+整数範囲を定義した後、ゲノム範囲を定義するために必要な追加情報は、各範囲が位置するゲノム配列の名前です。
 
-For instance, we define two genomic ranges, as follows:
+例えば、次のように二つのゲノム範囲を定義します。
 
-- one genomic range on chromosome 1 (abbreviated "chr1"), from position 10 to 25
-- one genomic range on chromosome 2 (abbreviated "chr2"), from position 20 to 35
+- 1番染色体（略称"chr1"）の位置10から25の範囲
+- 2番染色体（略称"chr2"）の位置20から35の範囲
 
-To do so, we use the `GRanges()` constructor function.
-We provide the sequence names as a character vector to the argument `seqnames=`,
-and we provide both the start and end position to the argument `ranges=`
-as an `IRanges` object.
+それを行うために、`GRanges()`コンストラクタ関数を使用します。
+シーケンス名を`seqnames=`引数に、開始位置と終了位置の両方を`ranges=`引数に、`IRanges`オブジェクトとして提供します。
 
 ```{r}
 demo_granges <- GRanges(
@@ -393,13 +297,10 @@ demo_granges <- GRanges(
 demo_granges
 ```
 
-In the console, the object displays the sequence names in the `seqnames`
-component, and the ranges in the form `start-end` in the `ranges` component.
-Furthermore, the example above also demonstrate that `GRanges` objects possess a
-component called `strand`; the symbol `*` indicates unstranded genomic ranges,
-as we have not provided that information.
+コンソールで、オブジェクトは`seqnames`コンポーネントにシーケンス名を表示し、`ranges`コンポーネントに`start-end`形式で範囲を表示します。
+さらに、上記の例は、`GRanges`オブジェクトが`strand`というコンポーネントを持ち、シンボル`*`がストランドのないゲノム範囲を示すことも示しています。これは、その情報が提供されていないためです。
 
-The strand information can be supplied to the `strand=` argument, for instance:
+ストランド情報は、`strand=`引数に提供できます。例えば：
 
 ```{r}
 demo_granges2 <- GRanges(
@@ -412,26 +313,17 @@ demo_granges2 <- GRanges(
 demo_granges2
 ```
 
-Finally, the example above also demonstrate that `GRanges` objects include a
-component called `seqinfo`, which can be used to store information
-about each sequence that may be represented in the `seqnames` component.
-In the latest example above, we have not provide any information about any
-sequence.
-As such, the `seqinfo` component was automatically populated with the names
-of the sequences that we used to create the object, while the remaining
-pieces of information were left unspecified, as `NA`.
+最後に、上記の例は、`GRanges`オブジェクトに`seqinfo`というコンポーネントが含まれていることを示しています。これは、`seqnames`コンポーネントに含まれる各シーケンスに関する情報を保存するために使用されます。
+前の例では、シーケンスについての情報を提供していません。
+そのため、`seqinfo`コンポーネントはオブジェクトを作成するために使用したシーケンスの名前で自動的に埋められ、残りの情報は指定されていないままとなっています。
 
 ```{r}
 seqinfo(demo_granges2)
 ```
 
-The example above reveals that information about sequences include not only
-their respective name and length, but also whether they represent a circular
-polymer (e.g., plasmid), and the name of the genome that they are part of.
+上記の例は、シーケンスに関する情報に、それぞれの名前と長さだけでなく、それらが環状ポリマー（例：プラスミド）を表すかどうか、またそれらが属するゲノムの名前が含まれていることも示しています。
 
-This information can be provided directly to the constructor when the object
-is created, or edited on an existing object using the `seqinfo()` accessor and
-the `Seqinfo()` constructor:
+この情報は、オブジェクトの作成時にコンストラクタに直接提供したり、既存のオブジェクトに対して`seqinfo()`アクセサと`Seqinfo()`コンストラクタを使用して編集することができます。
 
 ```{r}
 seqinfo(demo_granges2) <-  Seqinfo(
@@ -443,9 +335,7 @@ seqinfo(demo_granges2) <-  Seqinfo(
 demo_granges2
 ```
 
-The start and end positions of the individual ranges as well as the width of
-every interval can be extracted as numeric vector using the functions `start()`,
-`end()` and `width()`, respectively.
+各範囲の個々の開始および終了位置、ならびにすべての区間の幅は、`start()`, `end()`および`width()`関数を使用して数値ベクターとして抽出できます。
 
 ```{r}
 start(demo_granges2)
@@ -453,19 +343,17 @@ end(demo_granges2)
 width(demo_granges2)
 ```
 
-The sequence names and strand information can be extracted using the functions
-`seqnames()` and `strand()`, respectively.
+シーケンス名とストランド情報は、それぞれ`seqnames()`および`strand()`の関数を使用して抽出できます。
 
 ```{r}
 seqnames(demo_granges2)
 strand(demo_granges2)
 ```
 
-### Metadata on GRanges
+### GRangesのメタデータ
 
-Similarly to `IRanges`, metadata can be passed directly to the `GRanges`
-constructor function.
-For instance:
+`IRanges`と同様に、メタデータは直接`GRanges`コンストラクタ関数に渡すことができます。
+例えば：
 
 ```{r}
 demo_granges3 <- GRanges(
@@ -479,34 +367,20 @@ demo_granges3 <- GRanges(
 demo_granges3
 ```
 
-### Importing genomic ranges from files
+### ファイルからのゲノム範囲のインポート
 
-Frequently, large collections of genomic ranges are imported from files rather
-than described in manually written code.
-In particular, genome-wide annotations of known gene features are distributed
-as files on websites such as the [Ensembl FTP][ensembl-ftp] and the
-[UCSC Genome Data][ucsc-genome-data] sites.
+頻繁に、大規模なゲノム範囲のコレクションは、手動で記述されたコードではなく、ファイルからインポートされます。
+特に、既知の遺伝子機能のゲノム全体の注釈は、[Ensembl FTP][ensembl-ftp] や [UCSC Genome Data][ucsc-genome-data] のようなウェブサイトにファイルとして配布されています。
 
-Various file formats are commonly used to store genomic ranges in bioinformatics
-workflows.
-For instance, the BED (Browser Extensible Data) format is commonly found in
-Chromatin Immunoprecipitation Sequencing (ChIP-Seq), while GTF
-(Gene Transfer Format, GTF2.2) is the _de facto_ standard file format to
-describe genomic features such as exons, transcripts, and genes.
+さまざまなファイル形式が、バイオインフォマティクスのワークフローでゲノム範囲を格納するために一般的に使用されています。
+例えば、BED (Browser Extensible Data) 形式は、クロマチン免疫沈降シーケンシング (ChIP-Seq) で一般的に見られますが、GTF (Gene Transfer Format, GTF2.2) は、エクソン、転写物、遺伝子などのゲノム機能を記述するための_デファクト_標準ファイル形式です。
 
-In the following example, we import the gene model for Actin Beta (ACTB) from
-a small GTF file as a set of genomic ranges.
-The example file represents a subset of a GTF file for the _Homo sapiens_
-species, downloaded from the [Ensembl FTP][ensembl-ftp] site.
-The original file contains more than 3 millions lines and 22 metadata fields,
-from which a subset was extracted into a smaller file for this lesson.
+次の例では、私たちは小さなGTFファイルからアクチンベータ (ACTB) の遺伝子モデルを一連のゲノム範囲としてインポートします。
+例示のファイルは、[Ensembl FTP][ensembl-ftp] サイトからダウンロードされた_Homo sapiens_種のGTFファイルのサブセットを表しています。
+元のファイルは300万行以上と22のメタデータフィールドを持っており、その中からサブセットが抽出されてこのレッスン用の小さなファイルになりました。
 
-In particular, we use the `import()` generic
-defined in the `r BiocStyle::Biocpkg("BiocIO")` package - with methods
-implemented in the `r BiocStyle::Biocpkg("rtracklayer")` package - as a
-versatile function that is capable of recognising common file extensions and
-associating them with the appropriate method for parsing each particular file
-format.
+特に、私たちは `import()` ジェネリックを使用します。
+`r BiocStyle::Biocpkg("BiocIO")` パッケージで定義され、`r BiocStyle::Biocpkg("rtracklayer")` パッケージで実装されたメソッドを用いて、一般的なファイル拡張子を認識し、それぞれの特定のファイル形式を解析するための適切なメソッドに関連付けることができる多目的関数です。
 
 ```{r}
 library(rtracklayer)
@@ -516,59 +390,40 @@ actb_gtf_data
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-Individual methods for parsing specific file formats can be invoked directly.
-For instance, in this case, the GTF file format being identical to the GFF
-version 2 file format, we could have directly invoked the function
-`rtracklayer::import.gff2()` with the exact same effect.
+特定のファイル形式を解析するための個別のメソッドを直接呼び出すことができます。
+例えば、この場合、GTFファイル形式はGFFバージョン2ファイル形式と同一であるため、私たちは `rtracklayer::import.gff2()` 関数を直接呼び出すことができます。同じ効果を得ることができます。
 
-Refer to the documentation of the `r BiocStyle::Biocpkg("rtracklayer")`
-package for the full list of methods available.
+すべてのメソッドのフルリストは、`r BiocStyle::Biocpkg("rtracklayer")` パッケージのドキュメントを参照してください。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-In the example above, the contents of the GTF file were imported into a
-`GRanges` object. For each entry in the file, the sequence name, start and end
-position, and strand information were used to populate the dedicated components
-of the object, while all other pieces of information are stored as separate
-columns of metadata.
+上記の例では、GTFファイルの内容が`GRanges`オブジェクトにインポートされました。 ファイルの各エントリについて、配列名、開始位置と終了位置、ストランド情報がオブジェクトの専用コンポーネントをポピュレートするために使用され、他のすべての情報はメタデータの別のカラムとして保存されます。
 
-From here on, this `GRanges` object can be manipulated just like any of the
-other `GRanges` objects that we have created earlier in this episode.
+ここから、この`GRanges`オブジェクトは、私たちがこのエピソードの初めに作成した他の`GRanges`オブジェクトのように操作できます。
 
-### Operations on GRanges and the GRangesList class
+### GRangesおよびGRangesListクラスの操作
 
-As we have demonstrated so far, `GRanges` objects can be manually defined
-or imported from files.
-Those often represent genomic regions of interest, and databases of known
-genomic features, respectively.
-Either way, a number of operations are commonly applied to `GRanges` objects
-throughout bioinformatics workflows.
+これまでに示したように、`GRanges`オブジェクトは手動で定義またはファイルからインポートできます。
+それらは、興味のあるゲノム領域を表し、既知のゲノム機能のデータベースをそれぞれ表します。
+いずれにせよ、生物情報学のワークフロー全体で`GRanges`オブジェクトに一般的に適用される多数の操作があります。
 
-#### Subset
+#### サブセット
 
-For instance, the `subset()` method is extremely convenient to extract a set
-of genomic ranges matching a condition on any component, including sequence
-name, start and end position, strand, or any metadata field.
-In the example below, we extract all the records of type `transcript` that start
-at position `5527147`.
+例えば、`subset()`メソッドは、配列名、開始位置と終了位置、ストランド、または任意のメタデータフィールドの条件に一致するゲノム範囲のセットを抽出するのに非常に便利です。
+以下の例では、位置`5527147`で開始する`transcript`型のすべてのレコードを抽出します。
 
 ```{r}
 subset(actb_gtf_data, type == "transcript" & start == 5527147)
 ```
 
-#### Split
+#### 分割
 
-Separately, the `split()` method is useful to divide a set of genomic ranges
-initially stored in a single `GRanges` object into groups that are stored
-in a named list of `GRanges` objects.
-Conveniently, the `GRangesList` class provides a container for efficiently
-displaying and processing lists of `GRanges` objects.
+別々に、`split()`メソッドは、最初に単一の`GRanges`オブジェクトに格納されていたゲノム範囲のセットを、名前付きの`GRanges`オブジェクトのリストに分割するのに役立ちます。
+便利なことに、`GRangesList`クラスは、`GRanges`オブジェクトのリストを効率的に表示および処理するためのコンテナを提供します。
 
-In the example below, we first extract the subset of entries that represent
-exons, before separating those exons by transcript identifier, yielding
-the result as a `GRangesList` object.
+以下の例では、最初にエクソンを表すエントリのサブセットを抽出し、次にそれらのエクソンを転写物識別子で分割し、結果を`GRangesList`オブジェクトとして得ます。
 
 ```{r}
 actb_exons <- subset(actb_gtf_data, type == "exon")
@@ -576,20 +431,14 @@ actb_exons_by_transcript <- split(actb_exons, actb_exons$transcript_id)
 actb_exons_by_transcript
 ```
 
-When printing the object above in the console, the first line confirms the
-class of the object as `GRrangesList`, while each named `GRanges` in that list
-is introduced by the dollar sign and the name of that item, just like regular
-named lists in base R.
+コンソールで上記のオブジェクトを印刷すると、最初の行はそのオブジェクトのクラスを`GRrangesList`として確認し、そのリスト内の各名前付き`GRanges`がドル記号とそのアイテムの名前によって紹介され、通常のRの名前付きリストのように表示されます。
 
-#### Length
+#### 長さ
 
-By nature, many of the methods applicable to `list` objects can be directly
-applied to `GRangesList` objects.
-For instance, the `lengths()` function can be used on `GRangesList` to display
-the length of each `GRanges` object in the list as an integer vector.
+性質上、`list`オブジェクトに適用可能な多くのメソッドは、直接`GRangesList`オブジェクトに適用できます。
+例えば、`lengths()`関数を`GRangesList`に使用して、リスト内の各`GRanges`オブジェクトの長さを整数ベクトルとして表示できます。
 
-In the latest example above, we can compute the number of exons in each transcript
-as the length of each `GRanges` object within the `GRangesList`:
+上記の最新の例では、各転写物内のエクソンの数を、`GRangesList`内の各`GRanges`オブジェクトの長さとして計算できます：
 
 ```{r}
 lengths(actb_exons_by_transcript)
@@ -597,44 +446,32 @@ lengths(actb_exons_by_transcript)
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### チャレンジ
 
-Importantly, the function `lengths()` (with a final `s`) demonstrated above
-is different from the function `length()` (without `s`).
-The former is meant to be used on list objects, returning a vector giving the
-length of each element in the list; while the latter returns a single numeric
-scalar giving the length of the list itself (i.e., the number of elements
-in the list).
+重要なことに、上記の `lengths()` 関数 (最終的に `s` が付いています) は、`length()` 関数 ( `s` が付いていないもの) とは異なります。
+前者はリストオブジェクトに対して使用されることを目的としており、リスト内の各要素の長さを返すベクトルを返します。後者はリスト自体の長さを表す単一の数値スカラーを返します (つまり、リスト内の要素数)。
 
-What does `length(actb_exons_by_transcript)` return, and what does this
-number represent biologically?
+`length(actb_exons_by_transcript)` は何を返し、この数は生物学的に何を表しますか？
 
 :::::::::::::::  solution
 
-### Solution
+### ソリューション
 
 ```{r}
 length(actb_exons_by_transcript)
 ```
 
-This code returns the single integer value `23`, which is the number
-of `GRanges` in the `GRangesList` object and the number of transcripts for
-the gene ACTB.
+このコードは、単一の整数値 `23` を返します。それは、`GRangesList`オブジェクト内の`GRanges`の数であり、遺伝子ACTBの転写物の数でもあります。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Subset by overlap
+### オーバーラップによるサブセット
 
-Possibly one of the most common operations when working with genomic ranges
-is to subset arbitrarily large collections of genomic ranges to those located
-in a specific region of the genome; for instance, when visualising information
-as tracks in a genome browser.
+ゲノム範囲で作業するときの最も一般的な操作の一つは、特定のゲノム領域に位置するゲノム範囲の任意の大きなコレクションをサブセット化することです。たとえば、ゲノムブラウザに情報をトラックとして視覚化するときなどです。
 
-To demonstrate, we manually define a new `GRanges` representing a region of
-interest that we will use to extract all of the genomic ranges imported earlier
-from the GTF file which overlap that region of interest.
+示すために、私たちは興味のある領域を表す新しい`GRanges`を手動で定義し、その領域に重なる以前にインポートされたすべてのゲノム範囲をGTFファイルから抽出するために使用します。
 
 ```{r}
 region_of_interest <- GRanges(
@@ -645,33 +482,23 @@ actb_in_region <- subsetByOverlaps(x = actb_gtf_data, ranges = region_of_interes
 actb_in_region
 ```
 
-Like the `subset()` method, the `subsetByOverlaps()` method returns a new
-`GRanges` object.
-We can visually compare the information printed in the object
-(256 ranges in the new subsetted object, relative to 267 ranges in the original
-object), or we can programmatically compare the length of the two objects
-to check whether the new `GRanges` object is any smaller than the original
-`GRanges` object:
+`subset()`メソッドと同様に、`subsetByOverlaps()`メソッドは新しい`GRanges`オブジェクトを返します。
+私たちは、新しいサブセットオブジェクト内の情報（新しいサブセットされたオブジェクト内に256の範囲があり、元のオブジェクトには267の範囲がある）を視覚的に比較することができ、あるいは新しい`GRanges`オブジェクトが元の`GRanges`オブジェクトよりも小さいかどうかを確認するために、プログラム的に2つのオブジェクトの長さを比較することもできます。
 
 ```{r}
 length(actb_in_region) - length(actb_gtf_data)
 ```
 
-In the example above, we learn that the new `GRanges` object has 11 records less
-than the original `GRanges` object.
+上記の例では、新しい`GRanges`オブジェクトは、元の`GRanges`オブジェクトよりも11レコード少ないことがわかります。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-Many more methods exist to operate on `GRanges` and `GRangesList` objects
-than what could be demonstrated here.
+`GRanges`および`GRangesList`オブジェクトで動作するための方法が他にもたくさんありますが、ここで示すことができるのはそれだけです。
 
-You can find the full list of functions defined in the `GenomicRanges` package
-on the index page of the package documentation, accessible using
-`help(package="GenomicRanges")`.
-You can also find more examples and use cases in the package vignettes, accessible using
-`browseVignettes("GenomicRanges")`.
+`GenomicRanges`パッケージで定義された関数の完全なリストは、パッケージのドキュメントのインデックスページで見つけることができ、`help(package="GenomicRanges")`を使用してアクセスできます。
+`GenomicRanges`パッケージのビネットには、より多くの例やユースケースも見つけることができ、`browseVignettes("GenomicRanges")`を使用してアクセスできます。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -681,9 +508,9 @@ You can also find more examples and use cases in the package vignettes, accessib
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- The `GenomicRanges` package defines classes to represent ranges of coordinates on a genomic scale.
-- The `GenomicRanges` package also defines methods to efficiently process genomic ranges.
-- The `rtracklayer` package provides functions to import and export genomic ranges from and to common genomic file formats.
+- `GenomicRanges`パッケージは、ゲノムスケールでの座標の範囲を表すクラスを定義します。
+- `GenomicRanges`パッケージは、ゲノム範囲を効率よく処理するためのメソッドも定義します。
+- `rtracklayer`パッケージは、一般的なゲノムファイル形式からゲノム範囲をインポートおよびエクスポートするための関数を提供します。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
