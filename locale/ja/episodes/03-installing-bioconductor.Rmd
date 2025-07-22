@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Installing Bioconductor packages
+title: Bioconductor パッケージのインストール
 teaching: XX
 exercises: XX
 ---
@@ -11,38 +11,38 @@ stopifnot(require(BiocStyle))
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Install BiocManager.
-- Install Bioconductor packages.
+- BiocManager をインストールします。
+- Bioconductor パッケージをインストールします。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- How do I install Bioconductor packages?
-- How do I check if newer versions of my installed packages are available?
-- How do I update Bioconductor packages?
-- How do I find out the name of packages available from the Bioconductor repositories?
+- Bioconductor パッケージをどのようにインストールしますか？
+- インストールしたパッケージの新しいバージョンが利用可能かどうかを確認するにはどうすればよいですか？
+- Bioconductor パッケージをどのように更新しますか？
+- Bioconductor リポジトリから利用可能なパッケージの名前をどのように調べますか？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## BiocManager
 
-The `r BiocStyle::Biocpkg("BiocManager")` package is the entry point into the Bioconductor package repository.
-Technically, this is the only Bioconductor package distributed on the CRAN repository.
+`r BiocStyle::Biocpkg("BiocManager")` パッケージは Bioconductor パッケージ リポジトリへのエントリ ポイントです。
+技術的には、これは CRAN リポジトリで配布される唯一の Bioconductor パッケージです。
 
-It provides functions to safely install Bioconductor packages and check for available updates.
+Bioconductor パッケージを安全にインストールし、利用可能な更新を確認するための関数を提供します。
 
-Once the package is installed, the function `BiocManager::install()` can be used to install packages from the Bioconductor repository.
-The function is also capable of installing packages from other repositories (e.g., CRAN), if those packages are not found in the Bioconductor repository first.
+パッケージがインストールされると、`BiocManager::install()` 関数を使用して Bioconductor リポジトリからパッケージをインストールできます。
+この関数は、Bioconductor リポジトリ内にパッケージが見つからない場合、他のリポジトリ (例: CRAN) からパッケージをインストールすることも可能です。
 
-![](fig/bioc-install.svg){alt='The package BiocManager is available from the CRAN repository and used to install packages from the Bioconductor repository.'}
+![](fig/bioc-install.svg){alt='BiocManager パッケージは CRAN リポジトリから利用可能で、Bioconductor リポジトリからパッケージをインストールするために使用されます。'}
 
-**The package BiocManager is available from the CRAN repository and used to install packages from the Bioconductor repository.**
-The function `install.packages()` from the base R package `utils` can be used to install the `r BiocStyle::Biocpkg("BiocManager")` package distributed on the CRAN repository.
-In turn, the function `BiocManager::install()` can be used to install packages available on the Bioconductor repository.
-Notably, the `BiocManager::install()` function will fall back on the CRAN repository if a package cannot be found in the Bioconductor repository.
+**BiocManager パッケージは CRAN リポジトリから利用可能で、Bioconductor リポジトリからパッケージをインストールするために使用されます。**
+基本 R パッケージ `utils` の `install.packages()` 関数を使用して、CRAN リポジトリで配布される `r BiocStyle::Biocpkg("BiocManager")` パッケージをインストールできます。
+その後、`BiocManager::install()` 関数を使用して、Bioconductor リポジトリで利用可能なパッケージをインストールできます。
+特に、`BiocManager::install()` 関数は、Bioconductor リポジトリでパッケージが見つからない場合、CRAN リポジトリにフォールバックします。
 
-Install the package using the code below.
+以下のコードを使用してパッケージをインストールします。
 
 ```{r, eval=FALSE}
 install.packages("BiocManager")
@@ -50,10 +50,10 @@ install.packages("BiocManager")
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-A number of packages that are not part of the base R installation also provide functions to install packages from various repositories.
-For instance:
+基本 R インストールの一部ではない多くのパッケージも、さまざまなリポジトリからパッケージをインストールするための関数を提供します。
+たとえば:
 
 - `devtools::install()`
 - `remotes::install_bioc()`
@@ -68,124 +68,124 @@ For instance:
 - `remotes::install_url()`
 - `renv::install()`
 
-Those functions are beyond the scope of this lesson, and should be used with caution and adequate knowledge of their specific behaviors.
-The general recommendation is to use `BiocManager::install()` over any other installation mechanism because it ensures proper versioning of Bioconductor packages.
+これらの関数は、このレッスンの範囲を超えており、特定の動作について充分な知識を持って注意して使用する必要があります。
+一般的な推奨事項は、Bioconductor パッケージの正しいバージョン管理を確保するために、他のインストールメカニズムの上に `BiocManager::install()` を使用することです。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Bioconductor releases and current version
+## Bioconductor のリリースと現在のバージョン
 
-Once the `r BiocStyle::Biocpkg("BiocManager")` package is installed, the `BiocManager::version()` function displays the version (i.e., release) of the Bioconductor project that is currently active in the R session.
+`r BiocStyle::Biocpkg("BiocManager")` パッケージがインストールされると、`BiocManager::version()` 関数は現在の R セッションでアクティブな Bioconductor プロジェクトのバージョン (すなわちリリース) を表示します。
 
 ```{r, message=FALSE}
 BiocManager::version()
 ```
 
-Using the correct version of R and Bioconductor packages is a key aspect of reproducibility.
-The `r BiocStyle::Biocpkg("BiocManager")` packages uses the version of R running in the current session to determine the version of Biocondutor packages that can be installed in the current R library.
+R と Bioconductor パッケージの正しいバージョンを使用することは、再現性の重要な側面です。
+`r BiocStyle::Biocpkg("BiocManager")` パッケージは、現在のセッションで実行されている R のバージョンを使用して、現在の R ライブラリにインストールできる Bioconductor パッケージのバージョンを決定します。
 
-The Bioconductor project produces two releases each year, one around April and another one around October.
-The April release of Bioconductor coincides with the annual release of R.
-The October release of Bioconductor continues to use the same version of R for that annual cycle (i.e., until the next release, in April).
+Bioconductor プロジェクトは、毎年 4 月と 10 月の 2 回のリリースを行います。
+Bioconductor の 4 月のリリースは、R の年次リリースと一致します。
+Bioconductor の 10 月のリリースは、次のリリース（4 月）まで、その年次サイクルのために同じバージョンの R を引き続き使用します。
 
-![](fig/bioc-release-cycle.svg){alt='Timeline of release dates for selected Bioconductor and R versions.'}
+![](fig/bioc-release-cycle.svg){alt='選択された Bioconductor と R のバージョンのリリース日程。'}
 
-**Timeline of release dates for selected Bioconductor and R versions.**
-The upper section of the timeline indicates versions and approximate release dates for the R project.
-The lower section of the timeline indicates versions and release dates for the Bioconductor project.
-Source: [Bioconductor][bioc-release-dates].
+**選択された Bioconductor と R のバージョンのリリース日程。**
+タイムラインの上部には R プロジェクトのバージョンとおおよそのリリース日が示されています。
+タイムラインの下部には Bioconductor プロジェクトのバージョンとリリース日が示されています。
+出典: [Bioconductor][bioc-release-dates]。
 
-During each 6-month cycle of package development, Bioconductor tests packages for compatibility with the version of R that will be available for the next release cycle.
-Then, each time a new Bioconductor release is produced, the version of every package in the Bioconductor repository is incremented, including the package `r BiocStyle::Biocpkg("BiocVersion")` which determines the version of the Bioconductor project.
+各 6 か月のパッケージ開発サイクル中に、Bioconductor は次のリリースサイクルで利用可能になる R のバージョンとの互換性をチェックします。
+その後、新しい Bioconductor リリースが生成されるたびに、Bioconductor リポジトリ内のすべてのパッケージのバージョンがインクリメントされます。これには Bioconductor プロジェクトのバージョンを決定する `r BiocStyle::Biocpkg("BiocVersion")` パッケージも含まれます。
 
 ```{r}
 packageVersion("BiocVersion")
 ```
 
-This is the case for every package, even those which have not been updated at all since the previous release.
-That new version of each package is earmarked for the corresponding version of R;
-in other words, that version of the package can only be installed and accessed in an R session that uses the correct version of R.
-This version increment is essential to associate a each version of a Bioconductor package with a unique release of the Bioconductor project.
+これは、前のリリース以降まったく更新されていないパッケージにも当てはまります。
+各パッケージの新しいバージョンは、対応する R のバージョン用に指定されています。
+言い換えれば、そのパッケージのバージョンは、正しいバージョンの R を使用する R セッションでのみインストールおよびアクセスできます。
+このバージョンのインクリメントは、Bioconductor パッケージの各バージョンを Bioconductor プロジェクトのユニークなリリースに関連付けるために不可欠です。
 
-Following the April release, this means that users must install the new version of R to access the newly released versions of Bioconductor packages.
+4 月のリリースに続いて、ユーザーは新しい Bioconductor パッケージのリリースを利用するために新しいバージョンの R をインストールする必要があります。
 
-Instead, in October, users can continue to use the same version of R to access the newly released version of Bioconductor packages.
-However, to update an R library from the April release to the October release of Bioconductor, users need to call the function `BiocManager::install()` specifying the correct version of Bioconductor as the `version` option, for instance:
+一方、10 月には、ユーザーは新しい Bioconductor パッケージのリリースを利用するために同じバージョンの R を使用し続けることができます。
+ただし、4 月の Bioconductor リリースから 10 月の Bioconductor リリースに R ライブラリを更新するには、`BiocManager::install()` 関数を呼び出し、`version` オプションとして正しい Bioconductor のバージョンを指定する必要があります。たとえば:
 
 ```{r, eval=FALSE}
 BiocManager::install(version = "3.14")
 ```
 
-This needs to be done only once, as the `r BiocStyle::Biocpkg("BiocVersion")` package will be updated to the corresponding version, indicating the version of Bioconductor in use in this R library.
+これは 1 回だけ実行する必要があります。`r BiocStyle::Biocpkg("BiocVersion")` パッケージは対応するバージョンに更新され、現在の R ライブラリで使用している Bioconductor のバージョンを示します。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-The [Discussion][discuss-release-cycle] article of this lesson includes a section discussing the release cycle of the Bioconductor project.
+このレッスンの [Discussion][discuss-release-cycle] 記事には、Bioconductor プロジェクトのリリースサイクルに関するセクションが含まれています。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Check for updates
+## 更新を確認する
 
-The `BiocManager::valid()` function inspects the version of packages currently installed in the user library, and checks whether a new version is available for any of them on the Bioconductor repository.
+`BiocManager::valid()` 関数は、ユーザーライブラリに現在インストールされているパッケージのバージョンを検査し、いずれかのパッケージの新しいバージョンが Bioconductor リポジトリで利用可能かどうかを確認します。
 
-If everything is up-to-date, the function will simply print `TRUE`.
+すべてが最新の場合、関数は単に `TRUE` を返します。
 
 ```{r, message=FALSE}
 BiocManager::valid()
 ```
 
-Conveniently, if any package can be updated, the function generates and displays the command needed to update those packages.
-Users simply need to copy-paste and run that command in their R console.
+便利なことに、更新できるパッケージがある場合、関数はそれらのパッケージを更新するために必要なコマンドを生成して表示します。
+ユーザーは単にそのコマンドをコピーして R コンソールで実行する必要があります。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Example of out-of-date package library
+### 古くなったパッケージライブラリの例
 
-In the example below, the `BiocManager::valid()` function did not return `TRUE`.
-Instead, it includes information about the active user session, and displays the exact call to `BiocManager::install()` that the user should run to replace all the outdated packages detected in the user library with the latest version available in CRAN or Bioconductor.
+以下の例では、`BiocManager::valid()` 関数は `TRUE` を返しませんでした。
+その代わりに、アクティブなユーザー セッションに関する情報が含まれ、ユーザーが古いライブラリ内のすべての古いパッケージを最新バージョンに置き換えるために実行すべき `BiocManager::install()` への正確な呼び出しが表示されます。
 
 ```
 > BiocManager::valid()
 
 * sessionInfo()
 
-R version 4.1.0 (2021-05-18)
-Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 11.6
+R バージョン 4.1.0 (2021-05-18)
+プラットフォーム: x86_64-apple-darwin17.0 (64-bit)
+実行環境: macOS Big Sur 11.6
 
-Matrix products: default
+行列積: デフォルト
 LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
-locale:
+ロケール:
 [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
 
-attached base packages:
+添付された基本パッケージ:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
-loaded via a namespace (and not attached):
+名前空間を介して読み込まれたパッケージ (添付されていない):
 [1] BiocManager_1.30.16 compiler_4.1.0      tools_4.1.0         renv_0.14.0        
 
-Bioconductor version '3.13'
+Bioconductor バージョン '3.13'
 
-  * 18 packages out-of-date
-  * 0 packages too new
+  * 18 パッケージが古くなっています
+  * 0 パッケージが新しすぎます
 
-create a valid installation with
+以下のコマンドを実行して、有効なインストールを作成します。
 
   BiocManager::install(c(
     "cpp11", "data.table", "digest", "hms", "knitr", "lifecycle", "matrixStats", "mime", "pillar", "RCurl",
     "readr", "remotes", "S4Vectors", "shiny", "shinyWidgets", "tidyr", "tinytex", "XML"
   ), update = TRUE, ask = FALSE)
 
-more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date
+詳細: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date
 
-Warning message:
-18 packages out-of-date; 0 packages too new 
+警告メッセージ:
+18 パッケージが古くなっています; 0 パッケージが新しすぎます 
 ```
 
-Specifically, in this example, the message tells the user to run the following command to bring their installation up to date:
+具体的には、この例では、メッセージがユーザーに次のコマンドを実行してインストールを最新の状態にするように指示しています。
 
 ```
   BiocManager::install(c(
@@ -196,31 +196,31 @@ Specifically, in this example, the message tells the user to run the following c
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Exploring the package repository
+## パッケージ リポジトリを探る
 
-The Bioconductor [biocViews][glossary-biocviews], demonstrated in the earlier episode [Introduction to Bioconductor][crossref-intro-biocviews], are a great way to discover new packages by thematically browsing the hierarchical classification of Bioconductor packages.
+Bioconductor [biocViews][glossary-biocviews] は、以前のエピソード [Introduction to Bioconductor][crossref-intro-biocviews] で示されたように、テーマに沿って Bioconductor パッケージの階層的分類をブラウズすることで新しいパッケージを発見する優れた方法です。
 
-In addition, the `BiocManager::available()` function returns the complete list of package names that are can be installed from the Bioconductor and CRAN repositories.
-For instance the total number of numbers that could be installed using `r BiocStyle::Biocpkg("BiocManager")`
+さらに、`BiocManager::available()` 関数は、Bioconductor および CRAN リポジトリからインストールできるパッケージ名の完全なリストを返します。
+たとえば、`r BiocStyle::Biocpkg("BiocManager")` を使用してインストールできるパッケージの総数
 
 ```{r, message=FALSE}
 length(BiocManager::available())
 ```
 
-Specifically, the union of current Bioconductor repositories and other repositories on the search path can be displayed as follows.
+具体的には、現在の Bioconductor リポジトリと検索パス上の他のリポジトリの和集合を次のように表示できます。
 
 ```{r, message=FALSE}
 BiocManager::repositories()
 ```
 
-Each repository URL can be accessed in a web browser, displaying the full list of packages available from that repository.
-For instance, navigate to [https://bioconductor.org/packages/3.14/bioc](https://bioconductor.org/packages/3.14/bioc).
+各リポジトリの URL は Web ブラウザでアクセスでき、そのリポジトリから利用可能なパッケージの完全なリストが表示されます。
+たとえば、[https://bioconductor.org/packages/3.14/bioc](https://bioconductor.org/packages/3.14/bioc) に移動します。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-The function `BiocManager::repositories()` can be combined with the base function `available.packages()` to query packages available specifically from any package repository, e.g. the Bioconductor [software package][glossary-software-package] repository.
+`BiocManager::repositories()` 関数は、基本関数 `available.packages()` と組み合わせて、特定のパッケージリポジトリから利用できるパッケージを照会できます。たとえば、Bioconductor [ソフトウェア パッケージ][glossary-software-package] リポジトリです。
 
 ```
 > db = available.packages(repos = BiocManager::repositories()["BioCsoft"])
@@ -233,39 +233,39 @@ The function `BiocManager::repositories()` can be combined with the base functio
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Conveniently, `BiocManager::available()` includes a `pattern=` argument, particularly useful to navigate annotation resources (the original use case motivating it).
-For instance, a range of [Annotation data packages][glossary-annotation-package] available for the mouse model organism can be listed as follows.
+便利なことに、`BiocManager::available()` には `pattern=` 引数が含まれ、特に注釈リソースをナビゲートするために便利です (元のユースケースがその理由です)。
+たとえば、マウスモデル生物に対して利用可能なさまざまな [注釈データパッケージ][glossary-annotation-package] を次のようにリストできます。
 
 ```{r, message=FALSE}
 BiocManager::available(pattern = "*Mmusculus")
 ```
 
-## Installing packages
+## パッケージのインストール
 
-The `BiocManager::install()` function is used to install or update packages.
+`BiocManager::install()` 関数を使用して、パッケージをインストールまたは更新します。
 
-The function takes a character vector of package names, and attempts to install them from the Bioconductor repository.
+この関数は、パッケージ名の文字列ベクトルを受け取り、Bioconductor リポジトリからこれらをインストールしようとします。
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 BiocManager::install(c("S4Vectors", "BiocGenerics"))
 ```
 
-However, if any package cannot be found in the Bioconductor repository, the function also searches for those packages in repositories listed in the global option `repos`.
+ただし、Bioconductor リポジトリでパッケージが見つからない場合、関数はグローバルオプション `repos` にリストされているリポジトリでこれらのパッケージも検索します。
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Contribute !
+### 貢献する！
 
-Add an example of non-Bioconductor package that can be installed using BioManager.
-Preferably, a package that will be used later in this lesson.
+BiocManager を使用してインストールできる非 Bioconductor パッケージの例を追加します。
+できれば、このレッスンで後で使用されるパッケージです。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Uninstalling packages
+## パッケージのアンインストール
 
-Bioconductor packages can be removed from the R library like any other R package, using the base R function `remove.packages()`.
-In essence, this function simply removes installed packages and updates index information as necessary.
-As a result, it will not be possible to attach the package to a session or browse the documentation of that package anymore.
+Bioconductor パッケージは、基本 R 関数 `remove.packages()` を使用して、他の R パッケージと同様に R ライブラリから削除できます。
+本質的に、この関数は単にインストールされたパッケージを削除し、必要に応じてインデックス情報を更新します。
+その結果、そのパッケージをセッションに添付したり、そのパッケージのドキュメントを参照したりすることはできなくなります。
 
 ```{r, eval=FALSE}
 remove.packages("S4Vectors")
@@ -280,11 +280,11 @@ remove.packages("S4Vectors")
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- The BiocManager package is available from the CRAN repository.
-- `BiocManager::install()` is used to install and update Bioconductor packages (but also from CRAN and GitHub).
-- `BiocManager::valid()` is used to check for available package updates.
-- `BiocManager::version()` reports the version of Bioconductor currently installed.
-- `BiocManager::install()` can also be used to update an entire R library to a specific version of Bioconductor.
+- BiocManager パッケージは CRAN リポジトリから利用可能です。
+- `BiocManager::install()` は、Bioconductor パッケージ (CRAN および GitHub からも) のインストールと更新に使用されます。
+- `BiocManager::valid()` は、利用可能なパッケージの更新をチェックするために使用されます。
+- `BiocManager::version()` は、現在インストールされている Bioconductor のバージョンを報告します。
+- `BiocManager::install()` は、特定の Bioconductor のバージョンに対して R ライブラリ全体を更新するためにも使用できます。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
