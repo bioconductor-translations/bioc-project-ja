@@ -292,7 +292,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-s4.html">5. S4 classes in Bioconductor</a>
+        <a href="05-s4.html">5. BioconductorにおけるS4クラス</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -453,21 +453,14 @@ beware of differences between package versions!</li>
 documentation, and course materials.</li>
 <li>The Bioconductor support site is the recommended place to contact
 developers and ask questions.</li>
-</ul></section><section id="05-s4"><h2 class="section-heading"><a href="05-s4.html">S4 classes in Bioconductor</a></h2>
+</ul></section><section id="05-s4"><h2 class="section-heading"><a href="05-s4.html">BioconductorにおけるS4クラス</a></h2>
 <hr class="half-width">
 <ul>
-<li>S4 classes store information in slots, and check the validity of the
-information every an object is updated.</li>
-<li>To ensure the continued integrity of S4 objects, users should not
-access slots directly, but using dedicated functions.</li>
-<li>S4 generics invoke different implementations of the method depending
-on the class of the object that they are given.</li>
-<li>The S4 class <code>DataFrame</code> extends the functionality of
-base <code>data.frame</code>, for instance with the capacity to hold
-information about each column in metadata columns.</li>
-<li>The S4 class <code>Rle</code> extends the functionality of the base
-<code>vector</code>, for instance with the capacity to encode repetitive
-vectors in a memory-efficient format.</li>
+<li>S4クラスはスロットに情報を保存し、オブジェクトが更新されるたびに情報の有効性を確認します。</li>
+<li>S4オブジェクトの継続的な整合性を確保するために、ユーザーはスロットに直接アクセスせず、専用の関数を使用する必要があります。</li>
+<li>S4ジェネリックは、与えられたオブジェクトのクラスに応じてメソッドの異なる実装を呼び出します。</li>
+<li>S4クラス<code>DataFrame</code>は、<code>data.frame</code>の基本機能を拡張しており、メタデータ列の各列に関する情報を保持できる能力を持っています。</li>
+<li>S4クラス<code>Rle</code>は、基本の<code>vector</code>の機能を拡張しており、メモリ効率の良い形式で繰り返しベクターをエンコードする能力を持っています。</li>
 </ul></section><section id="06-biological-sequences"><h2 class="section-heading"><a href="06-biological-sequences.html">Working with biological sequences</a></h2>
 <hr class="half-width">
 <ul>
