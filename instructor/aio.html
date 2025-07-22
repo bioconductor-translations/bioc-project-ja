@@ -305,7 +305,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="06-biological-sequences.html">6. Working with biological sequences</a>
+        <a href="06-biological-sequences.html">6. 生物学的配列の取り扱い</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -317,7 +317,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="07-genomic-ranges.html">7. Genomics ranges を扱う</a>
+        <a href="07-genomic-ranges.html">7. Genomics ranges の取り扱い</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -329,7 +329,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="08-annotations.html">8. 注釈の取り扱い</a>
+        <a href="08-annotations.html">8. アノテーションの取り扱い</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -2422,7 +2422,7 @@ Floats        double         3</code></pre>
 </div>
 </div>
 </div>
-</section></section><section id="aio-06-biological-sequences"><p>Content from <a href="06-biological-sequences.html">Working with biological sequences</a></p>
+</section></section><section id="aio-06-biological-sequences"><p>Content from <a href="06-biological-sequences.html">生物学的配列の取り扱い</a></p>
 <hr>
 <p>Last updated on 2025-07-22 |
 
@@ -2439,10 +2439,10 @@ Floats        double         3</code></pre>
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>What is the recommended way to represent biological sequences in
-Bioconductor?</li>
-<li>What Bioconductor packages provides methods to efficiently process
-biological sequences?</li>
+<li>Bioconductor
+で生物学的配列を表現するための推奨される方法は何ですか？</li>
+<li>生物学的配列を効率的に処理するためのメソッドを提供する Bioconductor
+パッケージはどれですか？</li>
 </ul>
 </div>
 </div>
@@ -2452,24 +2452,25 @@ biological sequences?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Explain how biological sequences are represented in the Bioconductor
-project.</li>
-<li>Identify Bioconductor packages and methods available to process
-biological sequences.</li>
+<li>Bioconductor
+プロジェクトにおいて生物学的配列がどのように表現されているかを説明してください。</li>
+<li>生物学的配列を処理するために利用可能な Bioconductor
+パッケージとメソッドを特定してください。</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="install-packages">Install packages<a class="anchor" aria-label="anchor" href="#install-packages"></a>
+<section><h2 class="section-heading" id="パッケージのインストール">パッケージのインストール<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"></a>
 </h2>
 <hr class="half-width">
-<p>Before we can proceed into the following sections, we install some
-Bioconductor packages that we will need. First, we check that the <em><a href="https://bioconductor.org/packages/3.19/BiocManager" class="external-link">BiocManager</a></em>
-package is installed before trying to use it; otherwise we install it.
-Then we use the <code>BiocManager::install()</code> function to install
-the necessary packages.</p>
+<p>次のセクションに進む前に、必要な Bioconductor
+パッケージをインストールします。 まず、<em><a href="https://bioconductor.org/packages/3.19/BiocManager" class="external-link">BiocManager</a></em>
+パッケージがインストールされているか確認します;
+そうでなければ、インストールします。
+次に、<code>BiocManager::install()</code>
+関数を使用して必要なパッケージをインストールします。</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2479,53 +2480,40 @@ the necessary packages.</p>
 <span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"Biostrings"</span><span class="op">)</span></span></code></pre>
 </div>
-</section><section><h2 class="section-heading" id="the-biostrings-package-and-classes">The Biostrings package and classes<a class="anchor" aria-label="anchor" href="#the-biostrings-package-and-classes"></a>
+</section><section><h2 class="section-heading" id="biostrings-パッケージとクラス">Biostrings パッケージとクラス<a class="anchor" aria-label="anchor" href="#biostrings-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%A8%E3%82%AF%E3%83%A9%E3%82%B9"></a>
 </h2>
 <hr class="half-width">
 <div class="section level3">
-<h3 id="why-do-we-need-classes-for-biological-sequences">Why do we need classes for biological sequences?<a class="anchor" aria-label="anchor" href="#why-do-we-need-classes-for-biological-sequences"></a>
+<h3 id="なぜ生物学的配列のためのクラスが必要なのですか">なぜ生物学的配列のためのクラスが必要なのですか？<a class="anchor" aria-label="anchor" href="#%E3%81%AA%E3%81%9C%E7%94%9F%E7%89%A9%E5%AD%A6%E7%9A%84%E9%85%8D%E5%88%97%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%8C%E5%BF%85%E8%A6%81%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%99%E3%81%8B"></a>
 </h3>
-<p>Biological sequences are arguably some of the simplest biological
-entities to represent computationally. Examples include nucleic acid
-sequences (e.g., DNA, RNA) and protein sequences composed of amino
-acids.</p>
-<p>That is because alphabets have been designed and agreed upon to
-represent individual monomers using character symbols.</p>
-<p>For instance, using the alphabet for amino acids, the reference
-protein sequence for the <a href="https://www.uniprot.org/uniprot/P68133#sequences" class="external-link">Actin, alpha
-skeletal muscle protein sequence</a> is represented as follows.</p>
+<p>生物学的配列は、計算上、最も単純な生物エンティティの一部であると主張できます。
+例として、核酸配列（例: DNA,
+RNA）やアミノ酸から構成されるタンパク質配列があります。</p>
+<p>それは、アルファベットが個々のモノマーをキャラクターシンボルを使用して表現するために設計され、同意されているからです。</p>
+<p>たとえば、アミノ酸のアルファベットを使用すると、<a href="https://www.uniprot.org/uniprot/P68133#sequences" class="external-link">アクチン、α骨格筋タンパク質配列</a>
+の参照タンパク質配列は次のように表されます。</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "MCDEDETTALVCDNGSGLVKAGFAGDDAPRAVFPSIVGRPRHQGVMVGMGQKDSYVGDEAQSKRGILTLKYPIEHGIITNWDDMEKIWHHTFYNELRVAPEEHPTLLTEAPLNPKANREKMTQIMFETFNVPAMYVAIQAVLSLYASGRTTGIVLDSGDGVTHNVPIYEGYALPHAIMRLDLAGRDLTDYLMKILTERGYSFVTTAEREIVRDIKEKLCYVALDFENEMATAASSSSLEKSYELPDGQVITIGNERFRCPETLFQPSFIGMESAGIHETTYNSIMKCDIDIRKDLYANNVMSGGTTMYPGIADRMQKEITALAPSTMKIKIIAPPERKYSVWIGGSILASLSTFQQMWITKQEYDEAGPSIVHRKCF"</code></pre>
 </div>
-<p>However, a major limitation of regular character vectors is that they
-do not check the validity of the sequences that they contain.
-Practically, it is possible to store meaningless sequences of symbols in
-character strings, including symbols that are not part of the official
-alphabet for the relevant type of polymer. In those cases, the burden of
-checking the validity of sequences falls on the programs that process
-them, or causing those programs to run into errors when they
-unexpectedly encounter invalid symbols in a sequence.</p>
-<p>Instead, <a href="reference.html#s4-class">S4 classes</a> –
-demonstrated in the earlier episode <a href="05-s4.html">The S4 class
-system</a> – provide a way to label objects as distinct “DNA”, “RNA”, or
-“protein” varieties of biological sequences. This label is an extremely
-powerful way to inform programs on the set of character symbols they can
-expect in the sequence, but also the range of computational operations
-that can be applied to those sequences. For instance, a function
-designed to translate nucleic acid sequences into the corresponding
-amino acid sequence should only be allowed to run on sequences that
-represent nucleic acids.</p>
-<div id="challenge" class="callout challenge">
+<p>しかし、通常の文字ベクトルの大きな制限は、それらが含む配列の妥当性をチェックしないことです。
+実際には、公式アルファベットに含まれない記号を含む無意味な記号列を文字列に格納することが可能です。
+その場合、配列の妥当性をチェックする負担はそれらを処理するプログラムにかかるか、配列内の無効な記号が予期せず遭遇したときにエラーを引き起こすことになります。</p>
+<p>代わりに、<a href="reference.html#s4-class">S4クラス</a> –
+以前のエピソードで示されている<a href="05-s4.html">the S4 class
+system</a> –
+は、生物学的配列の「DNA」、「RNA」、または「タンパク質」という異なる種類のオブジェクトをラベル付けする方法を提供します。
+このラベルは、配列に期待できるキャラクターシンボルのセットや、それらの配列に適用できる計算操作の範囲をプログラムに通知するための非常に強力な方法です。
+たとえば、核酸配列を対応するアミノ酸配列に変換するために設計された関数は、核酸を表す配列に対してのみ実行されるべきです。</p>
+<div id="挑戦" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="挑戦" class="callout-inner">
+<h3 class="callout-title">挑戦</h3>
 <div class="callout-content">
-<p>Can you tell whether this character string is a valid DNA
-sequence?</p>
+<p>この文字列が有効な DNA 配列であるかどうかを教えてくれますか？</p>
 <pre><code><span><span class="va">AATTGGCCRGGCCAATT</span></span></code></pre>
 </div>
 </div>
@@ -2533,61 +2521,57 @@ sequence?</p>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+  <h4 class="accordion-header" id="headingSolution1">
+  解決策
+  </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<p>Yes, this is a valid DNA sequence using ambiguity codes defined in
-the <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC</a>
-notation. In this case, <code>A</code>, <code>T</code>, <code>C</code>,
-and <code>G</code> represents the four standard types of nucleotides,
-while the <code>R</code> symbol acts as a regular expression
-representing either of the two purine nucleotide bases, <code>A</code>
-and <code>G</code>.</p>
+<p>はい、これは <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC</a>
+表記で定義されたノンアンビギュリティのコードを使用した有効な DNA
+配列です。
+この場合、<code>A</code>、<code>T</code>、<code>C</code>、および
+<code>G</code> は、4 つの標準的な核酸を表し、<code>R</code>
+シンボルは、<code>A</code> または <code>G</code>
+の2つのプリン核酸塩基のどちらかを表す正規表現として機能します。</p>
 </div>
 </div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="the-biostrings-package">The Biostrings package<a class="anchor" aria-label="anchor" href="#the-biostrings-package"></a>
+</section><section><h2 class="section-heading" id="biostrings-パッケージ">Biostrings パッケージ<a class="anchor" aria-label="anchor" href="#biostrings-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8"></a>
 </h2>
 <hr class="half-width">
 <div class="section level3">
-<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+<h3 id="概要">概要<a class="anchor" aria-label="anchor" href="#%E6%A6%82%E8%A6%81"></a>
 </h3>
-<p>In the Bioconductor project, the <em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
-package implements S4 classes to represent biological sequences as S4
-objects, e.g. <code>DNAString</code> for sequences of nucleotides in
-deoxyribonucleic acid polymers, and <code>AAString</code> for sequences
-of amino acids in protein polymers. Those S4 classes provide
-memory-efficient containers for character strings, automatic
-validity-checking functionality for each class of biological molecules,
-and methods implementing various string matching algorithms and other
-utilities for fast manipulation and processing of large biological
-sequences or sets of sequences.</p>
-<p>A short presentation of the basic classes defined in the <em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
-package is available in one of the package vignettes, accessible as
-<code>vignette("Biostrings2Classes")</code>, while more detailed
-information is provided in the other package vignettes, accessible as
-<code>browseVignettes("Biostrings")</code>.</p>
+<p>Bioconductor プロジェクトにおいて、<em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
+パッケージは、生物学的配列を S4 オブジェクトとして表現するための S4
+クラスを実装しています。たとえば、脱ox DNA ポリマーの核酸の配列に対して
+<code>DNAString</code>
+があり、タンパク質ポリマーにおけるアミノ酸の配列に対しては
+<code>AAString</code> があります。 これらの S4
+クラスは、文字列のメモリ効率の良いコンテナ、自動的な妥当性チェック機能、生物学的分子の各クラスに対するさまざまな文字列一致アルゴリズムおよび他のユーティリティのメソッドを実装して、大規模な生物学的配列または配列のセットの迅速な操作と処理を可能にします。</p>
+<p><em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
+パッケージで定義された基本クラスの簡単なプレゼンテーションは、<code>vignette("Biostrings2Classes")</code>
+からアクセスできるパッケージのビネットの1つにあります。より詳細な情報は、<code>browseVignettes("Biostrings")</code>
+からアクセスできる他のパッケージビネットに提供されます。</p>
 </div>
 <div class="section level3">
-<h3 id="first-steps">First steps<a class="anchor" aria-label="anchor" href="#first-steps"></a>
+<h3 id="最初のステップ">最初のステップ<a class="anchor" aria-label="anchor" href="#%E6%9C%80%E5%88%9D%E3%81%AE%E3%82%B9%E3%83%86%E3%83%83%E3%83%97"></a>
 </h3>
-<p>To get started, we load the package.</p>
+<p>開始するには、パッケージを読み込みます。</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">Biostrings</span><span class="op">)</span></span></code></pre>
 </div>
-<p>With the package loaded and attached to the session, we have access
-to the package functions. Those include functions that let us create new
-objects of the classes defined in the package. For instance, we can
-create an object that represents a DNA sequence, using the
-<code>DNAString()</code> constructor function. Without assigning the
-output to an object, we let the resulting object be printed in the
-console.</p>
+<p>パッケージが読み込まれ、セッションに追加されると、パッケージ関数にアクセスできます。
+これには、パッケージで定義されたクラスの新しいオブジェクトを作成するための関数が含まれます。
+たとえば、<code>DNAString()</code> コンストラクタ関数を使用して DNA
+配列を表すオブジェクトを作成できます。
+出力をオブジェクトに割り当てずに、結果として得られたオブジェクトをコンソールに出力させます。</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2600,14 +2584,13 @@ console.</p>
 <pre class="output" tabindex="0"><code>4-letter DNAString object
 seq: ATCG</code></pre>
 </div>
-<p>Notably, DNA sequences may only contain the symbols <code>A</code>,
-<code>T</code>, <code>C</code>, and <code>G</code>, to represent the
-four DNA nucleotide bases, the symbol <code>N</code> as a placeholder
-for an unknown or unspecified base, and a restricted set of additional
-symbols with special meaning defined in the <a href="https://www.bioinformatics.org/sms/iupac.html" class="external-link">IUPAC Extended
-Genetic Alphabet</a>. Notice that the constructor function does not let
-us create objects that contain invalid characters,
-e.g. <code>Z</code>.</p>
+<p>注意すべきは、DNA配列は、4つのDNA 核酸塩基を表すために
+<code>A</code>、<code>T</code>、<code>C</code>、および <code>G</code>
+のシンボルを含むことができ、未知または未指定の塩基に対しては
+<code>N</code>
+のシンボルを使用し、公式に定義された特別な意味を持つ一連の追加記号を制限していることです。
+コンストラクタ関数は、無効な文字を含むオブジェクトを作成することを許可しないことに注意してください。たとえば、<code>Z</code>
+は無効です。</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2619,11 +2602,12 @@ e.g. <code>Z</code>.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in .Call2("new_XString_from_CHARACTER", class(x0), string, start, : key 90 (char 'Z') not in lookup table</code></pre>
 </div>
-<p>Specifically, the <a href="https://www.bioinformatics.org/sms/iupac.html" class="external-link">IUPAC Extended
-Genetic Alphabet</a> defines ambiguity codes that represent sets of
-nucleotides, in a way similar to regular expressions. The
-<code>IUPAC_CODE_MAP</code> named character vector contains the mapping
-from the IUPAC nucleotide ambiguity codes to their meaning.</p>
+<p>具体的に言えば、<a href="https://www.bioinformatics.org/sms/iupac.html" class="external-link">IUPAC
+拡張遺伝子アルファベット</a>
+は、一種の核酸を表現するセットを表すアンビギュリティコードを定義しています。
+<code>IUPAC_CODE_MAP</code> という名前のキャラクター ベクトルは、IUPAC
+核酸のアンビギュリティ
+コードからそれらの意味へのマッピングを含みます。</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2638,34 +2622,30 @@ from the IUPAC nucleotide ambiguity codes to their meaning.</p>
      H      D      B      N
  "ACT"  "AGT"  "CGT" "ACGT" </code></pre>
 </div>
-<p>Any of those nucleotide codes are allowed in the sequence of a
-<code>DNAString</code> object. For instance, the symbol <code>M</code>
-represents either of the two nucleotides <code>A</code> or
-<code>C</code> at a given position in a nucleic acid sequence.</p>
+<p>これらの核酸コードは、<code>DNAString</code>
+オブジェクトの配列に含めることができます。 たとえば、シンボル
+<code>M</code> は、核酸配列の特定の位置において、<code>A</code> もしくは
+<code>C</code> の2つの核酸のどちらかを表します。</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DNAString</span><span class="op">(</span><span class="st">"ATCGM"</span><span class="op">)</span></span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>特に、<span class="st">`</span><span class="at">r BiocStyle::Biocpkg("Biostrings")</span><span class="st">`</span> パッケージで実装されているパターンマッチングメソッドは、各生物学的配列のアンビギュリティコードの意味を認識し、ユーザーが照会したモチーフに効率的に一致させることができ、複雑な正規表現を設計する必要がありません。</span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>5-letter DNAString object
-seq: ATCGM</code></pre>
+<pre class="error" tabindex="0"><code>Error in parse(text = input): &lt;text&gt;:1:3: unexpected invalid token
+1: 特に、
+      ^</code></pre>
 </div>
-<p>In particular, pattern matching methods implemented in the <em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
-package recognize the meaning of ambiguity codes for each class of
-biological sequence, allowing them to efficiently match motifs queried
-by users without the need to design elaborate regular expressions. For
-instance, the method <code>matchPattern()</code> takes a
-<code>pattern=</code> and a <code>subject=</code> argument, and returns
-a <code>Views</code> object that reports and displays any match of the
-<code>pattern</code> expression at any position in the
-<code>subject</code> sequence.</p>
-<p>Note that the default option <code>fixed = TRUE</code> instructs the
-method to match the query exactly – i.e., ignore ambiguity codes – which
-in this case does not report any exact match.</p>
+<p>特に、<em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
+パッケージで実装されたパターンマッチング方法は、各種生物学的配列のあいまいさコードの意味を認識し、ユーザーがクエリしたモチーフを効率的に一致させることができるため、煩雑な正規表現を設計する必要がありません。
+たとえば、<code>matchPattern()</code> メソッドは、<code>pattern=</code>
+と <code>subject=</code> 引数を取り、<code>subject</code>
+配列の任意の位置で <code>pattern</code> 式の一致を報告および表示する
+<code>Views</code> オブジェクトを返します。</p>
+<p>デフォルトオプション <code>fixed = TRUE</code>
+は、メソッドにクエリを正確に一致させるよう指示します。すなわち、アンビギュリティコードを無視し、この場合正確な一致は報告されません。</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2680,8 +2660,8 @@ in this case does not report any exact match.</p>
 subject: ATCGCTTTGA
 views: NONE</code></pre>
 </div>
-<p>Instead, to indicate that the pattern includes some ambiguity code,
-the argument <code>fixed</code> must be set to <code>FALSE</code>.</p>
+<p>その代わりに、パターンにアンビギュリティコードが含まれていることを示すには、引数
+<code>fixed</code> を <code>FALSE</code> に設定する必要があります。</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2698,24 +2678,25 @@ views:
   [1]     4   5     2 [GC]
   [2]     9  10     2 [GA]</code></pre>
 </div>
-<p>In this particular example, two views describe matches of the pattern
-in the subject sequence. Specifically, the pattern <code>GM</code> first
-matched the sequence <code>GC</code> spanning positions 4 to 5 in the
-subject sequence, and then also matched the sequence <code>GA</code>
-from positions 9 to 10.</p>
-<p>Similarly to the method <code>matchPattern()</code>, the method
-<code>countPattern()</code> can be applied to simply count the number of
-matches of the <code>pattern</code> in the <code>subject</code>
-sequence. And again, the option <code>fixed</code> controls whether to
-respect ambiguity codes, or match them exactly.</p>
-<div id="challenge-1" class="callout challenge">
+<p>この特定の例では、2つのビューがサブジェクトシーケンスのパターンの一致を説明します。
+具体的には、<code>GM</code>
+のパターンは最初にサブジェクトシーケンスの位置 4 から 5 にまたがる
+<code>GC</code> のシーケンスと一致し、次に位置 9 から 10 のシーケンス
+<code>GA</code> でも一致しました。</p>
+<p><code>matchPattern()</code>
+メソッドと同様に、<code>countPattern()</code>
+メソッドは、<code>subject</code> 配列内の <code>pattern</code>
+の一致数を単純にカウントするために適用できます。
+また、<code>fixed</code>
+オプションは、アンビギュリティコードを尊重するか、正確に一致させるかを制御します。</p>
+<div id="挑戦-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="挑戦-1" class="callout-inner">
+<h3 class="callout-title">挑戦</h3>
 <div class="callout-content">
-<p>How many hits does the following code return? Why?</p>
+<p>次のコードは何回ヒットしますか？ なぜですか？</p>
 <pre><code><span><span class="va">dna2</span> <span class="op">&lt;-</span> <span class="fu">DNAString</span><span class="op">(</span><span class="st">"TGATTGCTTGGTTGMTT"</span><span class="op">)</span></span>
 <span><span class="fu">countPattern</span><span class="op">(</span><span class="st">"GM"</span>, <span class="va">dna2</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 </div>
@@ -2724,32 +2705,33 @@ respect ambiguity codes, or match them exactly.</p>
 <div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+  <h4 class="accordion-header" id="headingSolution2">
+  解決策
+  </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<p>The method <code>countPattern()</code> reports 3 hits, because the
-option <code>fixed = FALSE</code> allows the pattern <code>GM</code> to
-match <code>GA</code>, <code>GC</code>, and <code>GM</code> sequences,
-due to the use of the ambiguity code <code>M</code> in the
-<code>pattern</code>.</p>
+<p><code>countPattern()</code> メソッドは 3
+回のヒットを報告します。なぜなら、オプション <code>fixed = FALSE</code>
+が <code>GM</code> パターンが <code>GA</code>、<code>GC</code>、および
+<code>GM</code>
+の配列と一致させることを可能にするからです。これは、<code>pattern</code>
+にアンビギュリティコード <code>M</code> を使用しているためです。</p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="importing-biological-strings-from-files">Importing biological strings from files<a class="anchor" aria-label="anchor" href="#importing-biological-strings-from-files"></a>
+<h3 id="ファイルから生物学的文字列をインポートする">ファイルから生物学的文字列をインポートする<a class="anchor" aria-label="anchor" href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8B%E3%82%89%E7%94%9F%E7%89%A9%E5%AD%A6%E7%9A%84%E6%96%87%E5%AD%97%E5%88%97%E3%82%92%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B"></a>
 </h3>
-<p>In practice, users rarely type the strings representing biological
-sequences themselves. Most of the time, biological strings are imported
-from files, either downloaded from public repositories or generated
-locally using bioinformatics programs.</p>
-<p>For instance, we can load the set of adapter sequences for the <a href="https://emea.illumina.com/products/by-type/sequencing-kits/library-prep-kits.html" class="external-link">TruSeq™
-DNA PCR-Free whole-genome sequencing library preparation</a> kit from a
-file that we downloaded during the lesson setup. Since adapter sequences
-are nucleic acid sequences, we must use the function
-<code>readDNAStringSet()</code>.</p>
+<p>実際には、ユーザーは、自分で生物学的配列を表す文字列をタイピングすることはめったにありません。
+ほとんどの時間は、生物学的文字列は、公的なレポジトリからダウンロードされたファイルや、バイオインフォマティクスプログラムを使用してローカルで生成されたファイルからインポートされます。</p>
+<p>たとえば、レッスンのセットアップ時にダウンロードしたファイルから、<a href="https://emea.illumina.com/products/by-type/sequencing-kits/library-prep-kits.html" class="external-link">TruSeq™
+DNA PCR-Free Whole Genome Sequencing Library Preparation</a>
+キットのアダプタシーケンスのセットを読み込みます。
+アダプタシーケンスは核酸配列であるため、<code>readDNAStringSet()</code>
+関数を使用する必要があります。</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2769,35 +2751,32 @@ are nucleic acid sequences, we must use the function
 [5]    34 GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT                PE2
 [6]    34 AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC                PE2_rc</code></pre>
 </div>
-<div id="going-further" class="callout">
+<div id="さらなる進展" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="going-further" class="callout-inner">
-<h3 class="callout-title">Going further</h3>
+<div id="さらなる進展" class="callout-inner">
+<h3 class="callout-title">さらなる進展</h3>
 <div class="callout-content">
-<p>The help page of the function <code>readDNAStringSet()</code> –
-accessible using <code>help(readDNAStringSet)</code> – documents related
-functions designed to import other types of biological sequences, e.g
-<code>readRNAStringSet()</code>, <code>readAAStringSet()</code>.</p>
+<p><code>readDNAStringSet()</code>
+関数のヘルプページは、関連する生物学的配列タイプをインポートするために設計された関連関数を文書化しています。たとえば、<code>readRNAStringSet()</code>、<code>readAAStringSet()</code>
+などがあります。</p>
 </div>
 </div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="operations-on-biological-strings">Operations on biological strings<a class="anchor" aria-label="anchor" href="#operations-on-biological-strings"></a>
+<h3 id="生物学的文字列に対する操作">生物学的文字列に対する操作<a class="anchor" aria-label="anchor" href="#%E7%94%9F%E7%89%A9%E5%AD%A6%E7%9A%84%E6%96%87%E5%AD%97%E5%88%97%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8B%E6%93%8D%E4%BD%9C"></a>
 </h3>
 <div class="section level4">
-<h4 id="computing-the-frequency-of-symbols">Computing the frequency of symbols<a class="anchor" aria-label="anchor" href="#computing-the-frequency-of-symbols"></a>
+<h4 id="記号の頻度を計算する">記号の頻度を計算する<a class="anchor" aria-label="anchor" href="#%E8%A8%98%E5%8F%B7%E3%81%AE%E9%A0%BB%E5%BA%A6%E3%82%92%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B"></a>
 </h4>
-<p>The <em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
-package provides several functions to process and manipulate classes of
-biological strings. For example, we have come across
-<code>matchPattern()</code> and <code>countPattern()</code> earlier in
-this episode.</p>
-<p>Another example of a method that can be applied to biological strings
-is <code>letterFrequency()</code>, to compute the frequency of letters
-in a biological sequence.</p>
+<p><em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
+パッケージは、生物学的文字列のクラスを処理および操作するためのいくつかの関数を提供します。
+たとえば、このエピソードの前に <code>matchPattern()</code> と
+<code>countPattern()</code> に出会いました。</p>
+<p>生物学的文字列に適用できるメソッドの別の例は、<code>letterFrequency()</code>
+で、生物学的配列内の文字の頻度を計算します。</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2815,25 +2794,25 @@ in a biological sequence.</p>
 [5,]  5  8 10 11 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 [6,] 11 10  8  5 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
 </div>
-<p>The output is a matrix with one row for each sequence in the
-<code>DNAStringSet</code> object, and one column for each symbol in the
-alphabet of deoxyribonucleic acids, provided by the <em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
-package in a built-in object called <code>DNA_ALPHABET</code>.</p>
+<p>出力は、<code>DNAStringSet</code> オブジェクト内の各配列の 1
+行と、デオキシリボ核酸のアルファベットに対して 1
+列を持つ行列です。これは、<em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
+パッケージから提供される、<code>DNA_ALPHABET</code>
+という名前のビルトインオブジェクトによって得られます。</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="amino-acid-sequences">Amino acid sequences<a class="anchor" aria-label="anchor" href="#amino-acid-sequences"></a>
+<h3 id="アミノ酸配列">アミノ酸配列<a class="anchor" aria-label="anchor" href="#%E3%82%A2%E3%83%9F%E3%83%8E%E9%85%B8%E9%85%8D%E5%88%97"></a>
 </h3>
-<p>Similarly to the <code>DNAString</code> and <code>DNAStringSet</code>
-classes, the classes <code>AAString</code> and <code>AAStringSet</code>
-allow efficient storage and manipulation of a long amino acid sequence,
-or a set thereof.</p>
-<p>Similarly to built-in objects for the DNA alphabet, the built-in
-objects <code>AA_ALPHABET</code>, <code>AA_STANDARD</code> and
-<code>AA_PROTEINOGENIC</code> describe different subsets of the alphabet
-of valid symbols for amino acid sequences.</p>
-<p>For instance, the <code>AA_ALPHABET</code> object describes the set
-of symbols in the full amino acid alphabet.</p>
+<p><code>DNAString</code> と <code>DNAStringSet</code>
+クラスと同様に、<code>AAString</code> と <code>AAStringSet</code>
+クラスは、長いアミノ酸配列またはそれらのセットを効率的に保存および操作することを可能にします。</p>
+<p>DNA
+アルファベットのビルトインオブジェクトに似て、ビルトインオブジェクト
+<code>AA_ALPHABET</code>、<code>AA_STANDARD</code>、<code>AA_PROTEINOGENIC</code>
+は、アミノ酸配列の有効なシンボルのアルファベットの異なるサブセットを説明しています。</p>
+<p>たとえば、<code>AA_ALPHABET</code>
+オブジェクトは、完全なアミノ酸アルファベットのシンボルセットを説明しています。</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2846,57 +2825,58 @@ of symbols in the full amino acid alphabet.</p>
 <pre class="output" tabindex="0"><code> [1] "A" "R" "N" "D" "C" "Q" "E" "G" "H" "I" "L" "K" "M" "F" "P" "S" "T" "W" "Y"
 [20] "V" "U" "O" "B" "J" "Z" "X" "*" "-" "+" "."</code></pre>
 </div>
-<div id="challenge-2" class="callout challenge">
+<div id="挑戦-2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-2" class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="挑戦-2" class="callout-inner">
+<h3 class="callout-title">挑戦</h3>
 <div class="callout-content">
-<p>Use base R code to identify the two symbols present in the
-<code>AA_PROTEINOGENIC</code> alphabet object that are absent from the
-<code>AA_STANDARD</code> alphabet object. What do those two symbols
-represent?</p>
+<p><code>AA_PROTEINOGENIC</code>
+アルファベットオブジェクトに存在し、<code>AA_STANDARD</code>
+アルファベットオブジェクトには存在しない2つのシンボルを特定するために、基本的な
+R コードを使用してみましょう。
+それらの2つのシンボルは何を表していますか？</p>
 </div>
 </div>
 </div>
 <div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+  <h4 class="accordion-header" id="headingSolution3">
+  解決策
+  </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre><code>&gt; setdiff(AA_PROTEINOGENIC, AA_STANDARD)
 [1] "U" "O"</code></pre>
-<p>The symbols <code>U</code> and <code>O</code> represent
-selenocysteine and pyrrolysine, respectively. Those two amino acids are
-in some species coded for by codons that are usually interpreted as stop
-codons. As such, they are not included in the alphabet of “standard”
-amino acids, and an alphabet of “proteinogenic” amino acids was defined
-to acknowledge the special biology of those amino acids. Either of those
-alphabets may be used to determine the validity of an amino acid
-sequence, depending on its biological nature.</p>
+<p>シンボル <code>U</code> と <code>O</code>
+は、それぞれセレノシステインとピロリジンを表します。
+これら2つのアミノ酸は、いくつかの種で通常はストップコドンとして解釈されるコドンによってコードされています。
+したがって、彼らは「標準」アミノ酸のアルファベットには含まれておらず、これらのアミノ酸の特別な生物学を認めるために「タンパク質製生成的」アミノ酸のアルファベットが定義されました。
+これらのアルファベットのいずれかは、アミノ酸配列の妥当性を決定するために使用できます。生物学的性質に応じて。</p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="translating-nucleotide-sequences">Translating nucleotide sequences<a class="anchor" aria-label="anchor" href="#translating-nucleotide-sequences"></a>
+<h3 id="核酸配列の翻訳">核酸配列の翻訳<a class="anchor" aria-label="anchor" href="#%E6%A0%B8%E9%85%B8%E9%85%8D%E5%88%97%E3%81%AE%E7%BF%BB%E8%A8%B3"></a>
 </h3>
-<p>One of the key motivations for the use of <a href="reference.html#s4-class">S4 classes</a> and the object-oriented
-programming (OOP) model relies on the infrastructure of S4 generics and
-methods. As described in the earlier episode <a href="05-s4.html">The S4
-class system</a>, generics provide a mechanism for defining and applying
-distinct implementations of the same generic function name, according to
-the nature of the input object(s) provided to the function call.</p>
-<p>For instance, the <em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
-package provides multiple implementations of a generic called
-<code>translate()</code>, for translating DNA or RNA sequences into
-amino acid sequences. The set of input objects supported by the generic
-<code>translate()</code> can be listed using the function
-<code>showMethods()</code>, from the CRAN package <em><a href="https://CRAN.R-project.org/package=methods" class="external-link">methods</a></em>.</p>
+<p><a href="reference.html#s4-class">S4クラス</a>
+とオブジェクト指向プログラミング (OOP)
+モデルを使用する主な動機の1つは、S4
+ジェネリックとメソッドのインフラストラクチャに依存しています。
+前のエピソードで説明しましたが、<a href="05-s4.html">The S4 class
+system</a>
+において、ジェネリックは、関数呼び出しに提供された入力オブジェクトの性質に応じて、同じジェネリック関数名の異なる実装を定義して適用するためのメカニズムを提供します。</p>
+<p>たとえば、<em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
+パッケージは、DNA または RNA 配列をアミノ酸配列に変換するための
+<code>translate()</code> というジェネリックの複数の実装を提供します。
+ジェネリック <code>translate()</code>
+でサポートされている入力オブジェクトのセットは、CRAN パッケージ <em><a href="https://CRAN.R-project.org/package=methods" class="external-link">methods</a></em>
+の関数 <code>showMethods()</code> を使用してリスト可能です。</p>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2914,18 +2894,18 @@ x="MaskedRNAString"
 x="RNAString"
 x="RNAStringSet"</code></pre>
 </div>
-<p>In the output above, we see that that the generic function
-<code>translate()</code> includes methods capable of handling objects
-representing DNA and RNA sequences in the <code>DNAString</code> and
-<code>RNAString</code> classes, respectively; but also lists of DNA and
-RNA sequences in objects of class <code>DNAStringSet</code> and
-<code>RNAStringSet</code>, as well as other classes capable of storing
-DNA and RNA sequences.</p>
-<p>To demonstrate the use of the <code>translate()</code> method, we
-first load a set of open reading frames (ORFs) identified by the <a href="https://www.ncbi.nlm.nih.gov/orffinder/" class="external-link">NIH Open Reading Frame
-Finder</a> for the <em>Homo sapiens</em> actin beta (ACTB) mRNA (RefSeq:
-NM\_001101), using the standard genetic code, a minimal ORF length of 75
-nucleotides, and starting with the “ATG” start codon only.</p>
+<p>上記の出力では、ジェネリック関数 <code>translate()</code>
+は、<code>DNAString</code> と <code>RNAString</code> クラスにおける DNA
+および RNA
+シーケンスを表すオブジェクトを処理する能力のあるメソッドを含むことがわかります。さらに、<code>DNAStringSet</code>
+と <code>RNAStringSet</code> クラスのオブジェクトにおける DNA および RNA
+のシーケンスのリスト、ならびに DNA および RNA
+シーケンスを保存する能力のある他のクラスもリストされています。</p>
+<p><code>translate()</code> メソッドの使用を示すために、最初に、<a href="https://www.ncbi.nlm.nih.gov/orffinder/" class="external-link">NIH Open Reading Frame
+Finder</a>により特定されたオープンリーディングフレーム (ORF)
+のセットを読み込みます。これは、<em>Homo sapiens</em> アクチン β (ACTB)
+mRNA (RefSeq: NM\_001101) の標準的な遺伝コードを使用し、最小の ORF
+長さは 75 核酸で、<code>ATG</code> スタートコドンのみで始めます。</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2950,11 +2930,10 @@ nucleotides, and starting with the “ATG” start codon only.</p>
 [12]   105 ATGCAAAATTTTTTTAATCTTCG...CCTTTTTTGTCCCCCAACTTGA gi|1519311456|ref...
 [13]   135 ATGATGAGCCTTCGTGCCCCCCC...TGACTTGAGACCAGTTGAATAA gi|1519311456|ref...</code></pre>
 </div>
-<p>Having imported the nucleotide sequences as a
-<code>DNAStringSet</code> object, we can apply the
-<code>translate()</code> method to that object to produce the amino acid
-sequence that results from the translation process for each nucleotide
-sequence.</p>
+<p>核酸列を <code>DNAStringSet</code>
+オブジェクトとしてインポートした後、そのオブジェクトに対して
+<code>translate()</code>
+メソッドを適用し、各核酸配列の翻訳プロセスによって生成されるアミノ酸配列を生成することができます。</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2979,80 +2958,78 @@ sequence.</p>
 [12]    35 MQNFFNLRLNTFLFCFILNDEPSCPPFPLFCPPT*              gi|1519311456|ref...
 [13]    45 MMSLRAPPSPFFVPQLEMYEGFWSPWEWVEAARAYLYTDLRPVE*    gi|1519311456|ref...</code></pre>
 </div>
-<p>In the example above, all amino acid sequences visible start with the
-typical methionin amino acid encoded by the “ATG” start codon. We also
-see that all but one of the amino acid sequences visible end with the
-<code>*</code> symbol, which indicates that the translation process
-ended on a stop codon. In contrast, the first open reading frame above
-reached the end of the nucleotide sequence without encoutering a stop
-codon.</p>
-<p>Conveniently, the number of amino acids in each sequence is stated
-under the header <code>width</code>.</p>
-<div id="challenge-3" class="callout challenge">
+<p>上記の例では、すべてのアミノ酸配列は、<code>ATG</code>
+スタートコドンによってコードされる典型的なメチオニンアミノ酸から始まっています。
+また、目に見えるアミノ酸配列のすべては一つを除いて、すべてが
+<code>*</code>
+シンボルで終わっており、これは翻訳プロセスがストップコドンで終了したことを示しています。
+対照的に、上記の最初のオープンリーディングフレームは、ストップコドンに遭遇せずに核酸配列の終わりに到達しました。</p>
+<p>便利なことに、各シーケンス内のアミノ酸の数は、<code>width</code>
+ヘッダーの下に示されています。</p>
+<div id="挑戦-3" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-3" class="callout-inner">
-<h3 class="callout-title">Challenge</h3>
+<div id="挑戦-3" class="callout-inner">
+<h3 class="callout-title">挑戦</h3>
 <div class="callout-content">
-<p>Extract the length of each amino acid sequence above as an integer
-vector. What is the length of the longest amino acid sequence translated
-from any of those open reading frames?</p>
-<p>Compare your result with the sequence information on the UniPro page
-for ACTB (<a href="https://www.uniprot.org/uniprot/P60709#sequences" class="external-link">https://www.uniprot.org/uniprot/P60709#sequences</a>).</p>
+<p>上記の各アミノ酸配列の長さを整数ベクトルとして抽出してください。
+これらのオープンリーディングフレームから翻訳された最も長いアミノ酸配列の長さは何ですか？</p>
+<p>あなたの結果を、ACTBの UniPro
+ページのシーケンス情報と比較してください。(<a href="https://www.uniprot.org/uniprot/P60709#sequences" class="external-link">https://www.uniprot.org/uniprot/P60709#sequences</a>)</p>
 </div>
 </div>
 </div>
 <div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
+  <h4 class="accordion-header" id="headingSolution4">
+  解決策
+  </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <pre><code><span><span class="fu">width</span><span class="op">(</span><span class="va">actb_aa</span><span class="op">)</span></span>
-<span><span class="co"># or</span></span>
+<span><span class="co"># または</span></span>
 <span><span class="fu">max</span><span class="op">(</span><span class="fu">width</span><span class="op">(</span><span class="va">actb_aa</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<p>The longest translated sequence contains 376 amino acids.</p>
-<p>The Uniprot page reports a sequence of 375 amino acids. However, the
-UniProt amino acid sequence does not comprise any symbol to represent
-the stop codon. That difference aside, the UniPro amino acid sequence is
-identical to the sequence that was produced by the
-<code>translate()</code> method.</p>
+<p>翻訳された最も長い配列には、376 のアミノ酸が含まれます。</p>
+<p>UniProt ページでは、375 のアミノ酸の配列が報告されています。
+ただし、UniProt
+のアミノ酸配列にはストップコドンを表すためのシンボルは含まれていません。
+それ以外の違いとして、UniProt のアミノ酸配列は、<code>translate()</code>
+メソッドによって生成された配列と同一です。</p>
 </div>
 </div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="the-bsgenome-package">The BSgenome package<a class="anchor" aria-label="anchor" href="#the-bsgenome-package"></a>
+</section><section><h2 class="section-heading" id="bsgenome-パッケージ">BSgenome パッケージ<a class="anchor" aria-label="anchor" href="#bsgenome-%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8"></a>
 </h2>
 <hr class="half-width">
 <div class="section level3">
-<h3 id="overview-1">Overview<a class="anchor" aria-label="anchor" href="#overview-1"></a>
+<h3 id="概要-1">概要<a class="anchor" aria-label="anchor" href="#%E6%A6%82%E8%A6%81-1"></a>
 </h3>
-<p>In the Bioconductor project, the <em><a href="https://bioconductor.org/packages/3.19/BSgenome" class="external-link">BSgenome</a></em>
-package provides software infrastructure for efficient representation of
-full genome and their single-nucleotide polymorphisms.</p>
-<p>The <em><a href="https://bioconductor.org/packages/3.19/BSgenome" class="external-link">BSgenome</a></em>
-package itself does not contain any genome sequence itself, but provides
-functionality to access genome sequences available in other Bioconductor
-packages, as we demonstrate in the next section.</p>
+<p>Bioconductor プロジェクトでは、<em><a href="https://bioconductor.org/packages/3.19/BSgenome" class="external-link">BSgenome</a></em>
+パッケージが、全ゲノムとその単核苷酸ポリモーフィズムの効率的な表現のためのソフトウェアインフラストラクチャを提供しています。</p>
+<p><em><a href="https://bioconductor.org/packages/3.19/BSgenome" class="external-link">BSgenome</a></em>
+パッケージ自体にはゲノム配列は含まれていませんが、次のセクションで示すように、他の
+Bioconductor
+パッケージで利用可能なゲノム配列へのアクセス機能を提供します。</p>
 </div>
 <div class="section level3">
-<h3 id="first-steps-1">First steps<a class="anchor" aria-label="anchor" href="#first-steps-1"></a>
+<h3 id="最初のステップ-1">最初のステップ<a class="anchor" aria-label="anchor" href="#%E6%9C%80%E5%88%9D%E3%81%AE%E3%82%B9%E3%83%86%E3%83%83%E3%83%97-1"></a>
 </h3>
-<p>To get started, we load the package.</p>
+<p>開始するには、パッケージを読み込みます。</p>
 <div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">BSgenome</span><span class="op">)</span></span></code></pre>
 </div>
-<p>With the package loaded and attached to the session, we have access
-to the package functions.</p>
-<p>In particular, the function
-<code>BSgenome::available.genomes()</code> can be used to display the
-names of Bioconductor packages that contain genome sequences.</p>
+<p>パッケージが読み込まれ、セッションに追加されると、パッケージ関数にアクセスできます。</p>
+<p>特に、関数 <code>BSgenome::available.genomes()</code>
+を利用することで、ゲノムシーケンスを含む Bioconductor
+パッケージの名前を表示できます。</p>
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3191,13 +3168,12 @@ Replacement repositories:
 </div>
 </div>
 <div class="section level3">
-<h3 id="installing-bsgenome-packages">Installing BSgenome packages<a class="anchor" aria-label="anchor" href="#installing-bsgenome-packages"></a>
+<h3 id="bsgenomeパッケージのインストール">BSgenomeパッケージのインストール<a class="anchor" aria-label="anchor" href="#bsgenome%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"></a>
 </h3>
-<p>To use one of the available genomes, the corresponding package must
-be installed first. For instance, the example below demonstrates how the
-data package <em><a href="https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked" class="external-link">BSgenome.Hsapiens.UCSC.hg38.masked</a></em>
-can be installed using the function <code>BiocManager::install()</code>
-that we have seen before.</p>
+<p>利用可能なゲノムのいずれかを使用するには、まず対応するパッケージをインストールする必要があります。
+たとえば、以下の例では、前に見た <code>BiocManager::install()</code>
+関数を使用して、データパッケージ <em><a href="https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked" class="external-link">BSgenome.Hsapiens.UCSC.hg38.masked</a></em>
+をインストールする方法を示します。</p>
 <div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3206,20 +3182,20 @@ that we have seen before.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="using-bsgenome-packages">Using BSgenome packages<a class="anchor" aria-label="anchor" href="#using-bsgenome-packages"></a>
+<h3 id="bsgenomeパッケージの使用">BSgenomeパッケージの使用<a class="anchor" aria-label="anchor" href="#bsgenome%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AE%E4%BD%BF%E7%94%A8"></a>
 </h3>
-<p>Once installed, BSgenome packages can be loaded like any other R
-package, using the <code>library()</code> function.</p>
+<p>一旦インストールされると、BSgenomeパッケージは他のRパッケージと同様に読み込むことができ、<code>library()</code>
+関数を使用します。</p>
 <div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">BSgenome.Hsapiens.UCSC.hg38.masked</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Each BSgenome package contains an object that is named identically to
-the package and contains the genome sequence.</p>
-<p>Having loaded the package <em><a href="https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked" class="external-link">BSgenome.Hsapiens.UCSC.hg38.masked</a></em>
-above, we can display the BSgenome object as follows.</p>
+<p>各 BSgenome
+パッケージには、パッケージと同じ名前のオブジェクトが含まれ、そのオブジェクトにはゲノム配列が含まれています。</p>
+<p>上記のパッケージ <em><a href="https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked" class="external-link">BSgenome.Hsapiens.UCSC.hg38.masked</a></em>
+をロードしたので、BSgenome オブジェクトを次のように表示できます。</p>
 <div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3251,9 +3227,9 @@ above, we can display the BSgenome object as follows.</p>
 | 'seqinfo()' to get the full sequence info, use the '$' or '[[' operator to
 | access a given sequence, see '?BSgenome' for more information.</code></pre>
 </div>
-<p>Given the length and the complexity of the object name, it is common
-practice to assign a copy of BSgenome objects to a new object simply
-called <code>genome</code>.</p>
+<p>オブジェクト名の長さと複雑さを考慮すると、BSgenome
+オブジェクトのコピーを単に <code>genome</code>
+という名前の新しいオブジェクトに割り当てるのが一般的な慣行です。</p>
 <div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3262,14 +3238,12 @@ called <code>genome</code>.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="using-bsgenome-objects">Using BSgenome objects<a class="anchor" aria-label="anchor" href="#using-bsgenome-objects"></a>
+<h3 id="bsgenome-オブジェクトの使用">BSgenome オブジェクトの使用<a class="anchor" aria-label="anchor" href="#bsgenome-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%BF%E7%94%A8"></a>
 </h3>
-<p>When printing BSgenome objects in the console (see above), some
-helpful tips are displayed under the object itself, hinting at functions
-commonly used to access information in the object.</p>
-<p>For instance, the function <code>seqnames()</code> can be used get
-the list of sequence names (i.e., chromosomes and contigs) present in
-the object.</p>
+<p>コンソールに BSgenome
+オブジェクトを印刷すると（上記参照）、オブジェクト自体の下に、オブジェクト内の情報にアクセスするためによく使用される関数のヒントが表示されます。</p>
+<p>たとえば、関数 <code>seqnames()</code>
+を使用して、オブジェクトに存在する配列名（すなわち、染色体とコンティグ）のリストを取得できます。</p>
 <div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3636,8 +3610,8 @@ the object.</p>
 [709] "chrX_MU273395v1_alt"     "chrX_MU273396v1_alt"
 [711] "chrX_MU273397v1_alt"    </code></pre>
 </div>
-<p>Similarly, the function <code>seqinfo()</code> can be used to get the
-full sequence information stored in the object.</p>
+<p>同様に、関数 <code>seqinfo()</code>
+を使用して、オブジェクトに保存されている完全な配列情報を取得できます。</p>
 <div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3661,9 +3635,10 @@ full sequence information stored in the object.</p>
   chrX_MU273396v1_alt      294119      FALSE   hg38
   chrX_MU273397v1_alt      330493      FALSE   hg38</code></pre>
 </div>
-<p>Finally, the nature of BSgenome objects being akin to a list of
-sequences, the operators <code>$</code> and <code>[[]]</code> can both
-be used to extract individual sequences from the BSgenome object.</p>
+<p>最後に、BSgenome
+オブジェクトの性質は配列のリストに似ているため、演算子 <code>$</code>
+および <code>[[]]</code> を使用して、BSgenome
+オブジェクトから個々の配列を抽出することができます。</p>
 <div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3688,8 +3663,8 @@ all active masks together:
   maskedwidth maskedratio
      18475410  0.07421142</code></pre>
 </div>
-<p>For instance, we can extract the sequence of the Y chromosome and
-assign it to a new object <code>chrY</code>.</p>
+<p>例えば、Y 染色体の配列を抽出して新しいオブジェクト <code>chrY</code>
+に割り当てることができます。</p>
 <div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3698,15 +3673,13 @@ assign it to a new object <code>chrY</code>.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="using-genome-sequences">Using genome sequences<a class="anchor" aria-label="anchor" href="#using-genome-sequences"></a>
+<h3 id="ゲノム配列の使用">ゲノム配列の使用<a class="anchor" aria-label="anchor" href="#%E3%82%B2%E3%83%8E%E3%83%A0%E9%85%8D%E5%88%97%E3%81%AE%E4%BD%BF%E7%94%A8"></a>
 </h3>
-<p>From this point, genome sequences can be treated very much like
-biological strings (e.g. <code>DNAString</code>) described earlier, in
-the <em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
-package.</p>
-<p>For instance, the function <code>countPattern()</code> can be used to
-count the number of occurences of a given pattern in a given genome
-sequence.</p>
+<p>この時点から、ゲノム配列は以前に説明した生物学的文字列（例：<code>DNAString</code>）のように扱うことができます。
+<em><a href="https://bioconductor.org/packages/3.19/Biostrings" class="external-link">Biostrings</a></em>
+パッケージで。</p>
+<p>たとえば、関数 <code>countPattern()</code>
+を使用して、特定のゲノム配列内の特定のパターンの出現回数をカウントできます。</p>
 <div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3718,16 +3691,15 @@ sequence.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 141609</code></pre>
 </div>
-<div id="note" class="callout">
+<div id="注意" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note</h3>
+<div id="注意" class="callout-inner">
+<h3 class="callout-title">注意</h3>
 <div class="callout-content">
-<p>In the example above, the argument <code>fixed = FALSE</code> is used
-to indicate that the pattern contain <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC
-ambiguity codes</a>.</p>
+<p>上記の例では、引数 <code>fixed = FALSE</code> は、パターンに <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC
+の曖昧なコード</a> が含まれていることを示すために使用されます。</p>
 </div>
 </div>
 </div>
@@ -3739,19 +3711,22 @@ ambiguity codes</a>.</p>
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
-<li>The <code>Biostrings</code> package defines classes to represent
-sequences of nucleotides and amino acids.</li>
-<li>The <code>Biostrings</code> package also defines methods to
-efficiently process biological sequences.</li>
-<li>The <code>BSgenome</code> package provides genome sequences for a
-range of model organisms immediately available as Bioconductor
-objects.</li>
+<li>
+<code>Biostrings</code>
+パッケージは、ヌクレオチドおよびアミノ酸の配列を表すクラスを定義します。</li>
+<li>
+<code>Biostrings</code>
+パッケージは、生物学的配列を効率的に処理するためのメソッドも定義します。</li>
+<li>
+<code>BSgenome</code>
+パッケージは、さまざまなモデル生物のゲノム配列を、Bioconductor
+オブジェクトとして即座に利用できるように提供します。</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-</section></section><section id="aio-07-genomic-ranges"><p>Content from <a href="07-genomic-ranges.html">Genomics ranges を扱う</a></p>
+</section></section><section id="aio-07-genomic-ranges"><p>Content from <a href="07-genomic-ranges.html">Genomics ranges の取り扱い</a></p>
 <hr>
 <p>Last updated on 2025-07-22 |
 
@@ -4745,7 +4720,7 @@ ENST00000676189 ENST00000676319 ENST00000676397
 </div>
 </div>
 </div>
-</section></section><section id="aio-08-annotations"><p>Content from <a href="08-annotations.html">注釈の取り扱い</a></p>
+</section></section><section id="aio-08-annotations"><p>Content from <a href="08-annotations.html">アノテーションの取り扱い</a></p>
 <hr>
 <p>Last updated on 2025-07-22 |
 
