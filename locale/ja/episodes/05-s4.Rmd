@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: S4 classes in Bioconductor
+title: BioconductorにおけるS4クラス
 teaching: XX
 exercises: XX
 ---
@@ -11,25 +11,25 @@ options(width = 120)
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain what S4 classes, generics, and methods are.
-- Identify S4 classes at the core of the Bioconductor package infrastructure.
-- Create various S4 objects and apply relevant S4 methods.
+- S4クラス、ジェネリックおよびメソッドとは何かを説明してください。
+- Bioconductorパッケージインフラストラクチャの中心にあるS4クラスを特定します。
+- さまざまなS4オブジェクトを作成し、関連するS4メソッドを適用します。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What is the S4 class system?
-- How does Bioconductor use S4 classes?
-- How is the Bioconductor `DataFrame` different from the base `data.frame`?
+- S4クラスシステムとは？
+- BioconductorはS4クラスをどのように使用しますか？
+- Bioconductorの`DataFrame`は、基本の`data.frame`とどう違うのですか？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Install packages
+## パッケージのインストール
 
-Before we can proceed into the following sections, we install some Bioconductor packages that we will need.
-First, we check that the `r BiocStyle::Biocpkg("BiocManager")` package is installed before trying to use it; otherwise we install it.
-Then we use the `BiocManager::install()` function to install the necessary packages.
+以下のセクションに進む前に、必要なBioconductorパッケージをいくつかインストールします。
+最初に、`r BiocStyle::Biocpkg("BiocManager")`パッケージがインストールされているかを確認し、それを使用しようとする前にインストールします。
+次に、`BiocManager::install()`関数を使用して必要なパッケージをインストールします。
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -40,85 +40,85 @@ BiocManager::install("S4Vectors")
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
-### For Instructors
+### 講師のために
 
-The first part of this episode may look somewhat heavy on the theory.
-Do not be tempted to go into excessive details about the inner workings of the S4 class system (e.g., no need to mention the function `new()`, or to demonstrate a concrete example of code creating a class).
-Instead, the caption of the first figure demonstrates how to progressively talk through the figure, introducing technical terms in simple sentences, building up to the method dispatch concept that is core to the S4 class system, and the source of much confusion in novice users.
+このエピソードの最初の部分は、少し理論的に見えるかもしれません。
+S4クラスシステムの内部動作に関する詳細に深入りしないでください（例えば、`new()`関数に言及する必要はありませんし、クラスを作成する具体的なコード例を示す必要もありません）。
+代わりに、最初の図のキャプションでは、技術用語を単純な文で導入しながら、図を通じて段階的に説明し、S4クラスシステムの中心となるメソッドディスパッチの概念に至り、初心者ユーザーにとっての混乱の原因となることを示しています。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## S4 classes and methods
+## S4クラスとメソッド
 
-### The methods package
+### メソッドパッケージ
 
-The S4 class system is implemented in the base package [methods][r-package-methods].
-As such, the concept is not specific to the Bioconductor project and can be found in various independent packages as well.
-The subject is thoroughly documented in the online book [Advanced R][book-advanced-r-s4], by Hadley Wickham.
-Most Bioconductor users will never need to get overly familiar with the intricacies of the S4 class system.
-Rather, the key to an efficient use of packages in the Bioconductor project relies on a sufficient understanding of  key motivations for using the S4 class system, as well as best practices for user-facing functionality, including classes, generics, and methods.
-In the following sections of this episode, we focus on the essential functionality and user experience of S4 classes and methods in the context of the Bioconductor project.
+S4クラスシステムは、基本パッケージ[methods][r-package-methods]に実装されています。
+そのため、この概念はBioconductorプロジェクトに特有なものではなく、さまざまな独立したパッケージにも存在します。
+この主題は、Hadley Wickhamによるオンライン書籍[Advanced R][book-advanced-r-s4]で詳しく文書化されています。
+ほとんどのBioconductorユーザーは、S4クラスシステムの詳細を過度に熟知する必要がないでしょう。
+むしろ、Bioconductorプロジェクトにおけるパッケージの効率的な使用の鍵は、S4クラスシステムを使用する重要な動機と、ユーザー向けの機能に関するベストプラクティス（クラス、ジェネリック、メソッドを含む）を十分に理解することにあります。
+このエピソードの次のセクションでは、BioconductorプロジェクトにおけるS4クラスとメソッドの基本的な機能性とユーザーエクスペリエンスに焦点を当てます。
 
-On one side, [S4 classes][glossary-s4-class] provide data structures capable of storing arbitrarily complex information in computational objects that can be assigned to variable names in an R session.
-On the other side, [S4 generics and methods][glossary-s4-method] define functions that may be applied to process those objects.
+一方で、[S4クラス][glossary-s4-class]は、Rセッション内の変数名に割り当てることができる計算オブジェクトにおいて、任意に複雑な情報を格納できるデータ構造を提供します。
+もう一方で、[S4ジェネリックおよびメソッド][glossary-s4-method]は、それらのオブジェクトを処理するために適用される関数を定義します。
 
-Over the years, the Bioconductor project has used the S4 class system to develop a number of classes and methods capable of storing and processing data for most biological assays, including raw and processed assay data, experimental metadata for individual features and samples, as well as other assay-specific information as relevant.
-Gaining familiarity with the standard S4 classes commonly used throughout Bioconductor packages is a key step in building up confidence in users wishing to follow best practices while developing analytical workflows.
+これまでの数年で、BioconductorプロジェクトはS4クラスシステムを使用して、ほとんどの生物学的アッセイ（生アッセイデータや処理済みアッセイデータ、個別の特徴やサンプルに関する実験メタデータ、関連する他のアッセイ特有の情報を含む）のデータを格納および処理できるいくつかのクラスとメソッドを開発してきました。
+Bioconductorパッケージ全体で一般的に使用される標準S4クラスに慣れることは、分析ワークフローを開発したいユーザーがベストプラクティスに従う自信を高めるための重要なステップです。
 
-![](fig/bioc-s4.svg){alt='S4 classes, generics, and methods.'}
+![](fig/bioc-s4.svg){alt='S4クラス、ジェネリックおよびメソッド。'}
 
-**S4 classes, generics, and methods.**
-On the left, two example classes named `S4Class1` and `S4Class2` demonstrate the concept of inheritance.
-The class `S4Class1` contains two slots named `SlotName1` and `SlotName2` for storing data.
-Those two slots are restricted to store objects of type `SlotType1` and `SlotType2`, respectively.
-The class also defines validity rules that check the integrity of data each time an object is updated.
-The class `S4Class2` inherits all the slots and validity rules from the class `S4Class1`, in addition to defining a new slot named `SlotName3` and new validity rules.
-Example code illustrates how objects of each class are typically created using constructor functions named identically to the corresponding class.
-On the right, one generic function and two methods demonstrate the concept of polymorphism and the process of S4 method dispatch.
-The generic function `S4Generic1()` defines the name of the function, as well as its arguments.
-However, it does not provide any implementation of that function.
-Instead, two methods are defined, each providing a distinct implementation of the generic function for a particular class of input.
-Namely, the first method defines an implementation of `S4Generic1()` if an object of class `S4Class1` is given as argument `x`, while the second method method provides a different implementation of `S4Generic1()` if an object of class `S4Class2` is given as argument `x`.
-When the generic function `S4Generic1()` is called, a process called [method dispatch][glossary-s4-dispatch] takes place, whereby the appropriate implementation of the `S4Generic1()` method is called according to the class of the object passed to the argument `x`.
+**S4クラス、ジェネリック、およびメソッド。**
+左側には、`S4Class1`と`S4Class2`という2つの例のクラスが、継承の概念を示しています。
+クラス`S4Class1`には、データを格納するための`SlotName1`と`SlotName2`という2つのスロットがあります。
+これらの2つのスロットは、それぞれ`SlotType1`および`SlotType2`型のオブジェクトを格納するように制限されています。
+このクラスは、オブジェクトが更新されるたびにデータの整合性を確認する有効性ルールも定義しています。
+クラス`S4Class2`は、`S4Class1`からすべてのスロットと有効性ルールを継承し、新しいスロット`SlotName3`と新しい有効性ルールを定義します。
+例のコードは、それぞれのクラスのオブジェクトが通常、対応するクラスにちなんで命名されたコンストラクタ関数を使用してどのように作成されるかを示しています。
+右側には、1つのジェネリック関数と2つのメソッドが多様性の概念とS4メソッドディスパッチのプロセスを示しています。
+ジェネリック関数`S4Generic1()`は、関数の名前とその引数を定義します。
+ただし、その関数の実装は提供されていません。
+代わりに、2つのメソッドが定義され、それぞれ特定のクラスの入力に対して単純な実装を提供します。
+具体的には、最初のメソッドは、`S4Class1`のオブジェクトが引数`x`として与えられた場合の`S4Generic1()`の実装を定義し、2番目のメソッドは、`S4Class2`のオブジェクトが引数`x`として与えられた場合の`S4Generic1()`の別の実装を提供します。
+ジェネリック関数`S4Generic1()`が呼び出されると、[メソッドディスパッチ][glossary-s4-dispatch]と呼ばれるプロセスが発生し、渡されたオブジェクトのクラスに応じて`S4Generic1()`メソッドの適切な実装が呼び出されます。
 
-### Slots and validity
+### スロットと有効性
 
-In contrast to the S3 class system available directly in base R (not described in this lesson), the S4 class system provides a much stricter definition of classes and methods for object-oriented programming (OOP) in R.
-Like many programming languages that implement the OOP model, S4 classes are used to represent real-world entities as computational objects that store information inside one or more internal components called _slots_.
-The class definition declares the type of data that may be stored in each slot; an error will be thrown if one would attempt to store unsuitable data.
-Moreover, the class definition can also include code that checks the validity of data stored in an object, beyond their type.
-For instance, while a slot of type `numeric` could be used to store a person's age, but a validity method could check that the value stored is, in fact, positive.
+S3クラスシステムは基本Rに直接用意されているのに対し（このレッスンでは説明されていません）、S4クラスシステムは、Rにおけるオブジェクト指向プログラミング（OOP）のためのクラスとメソッドのより厳格な定義を提供します。
+OOPモデルを実装している多くのプログラミング言語と同様に、S4クラスは実世界のエンティティを、情報を`*slots*`と呼ばれる1つ以上の内部コンポーネントに格納する計算オブジェクトとして表現するために使用されます。
+クラスの定義は、各スロットに格納される可能性のあるデータのタイプを明示します。不適切なデータを格納しようとした場合にはエラーが発生します。
+さらに、クラスの定義には、型を超えてオブジェクトに格納されるデータの有効性を確認するコードを含めることもできます。
+例えば、`numeric`型のスロットを使用して人の年齢を格納することはできますが、有効性メソッドは格納される値が実際に正であることを確認できます。
 
-### Inheritance
+### 継承
 
-One of the core pillars of the OOP model is the possibility to develop new classes that inherit and extend the functionality of existing classes.
-The S4 class system implements this paradigm.
+OOPモデルの中核的な柱の1つは、既存のクラスの機能を継承して拡張できる新しいクラスを開発する可能性です。
+S4クラスシステムはこのパラダイムを実装しています。
 
-The definition of a new S4 classes can declare the name of other classes to inherit from.
-The new classes will contain all the slots of the parent class, in addition to any new slot added in the definition of the new class itself.
+新しいS4クラスの定義は、継承する他のクラスの名前を宣言します。
+新しいクラスには、親クラスのすべてのスロットが含まれ、新しいクラスの定義に追加される新しいスロットが含まれます。
 
-The new class definition can also define new validity checks, which are added to any validity check implement in each of the parent classes.
+新しいクラスの定義では、新しい有効性チェックも定義でき、親クラスの各クラスに実装された各有効性チェックに追加されます。
 
-### Generics and methods
+### ジェネリックおよびメソッド
 
-While classes define the data structures that store information, generics and methods define the functions that can be applied to objects instantiated from those classes.
+クラスが情報を格納するデータ構造を定義する一方で、ジェネリックおよびメソッドは、それらのクラスからインスタンス化されたオブジェクトに適用される関数を定義します。
 
-S4 generic functions are used to declare the name of functions that are expected to behave differently depending on the class of objects that are given as some of their essential arguments.
-Instead, S4 methods are used define the distinct implementations of a generic function for each particular combination of inputs.
+S4ジェネリック関数は、いくつかの重要な引数に依存して、異なる振る舞いが期待される関数の名前を宣言するために使用されます。
+その代わりに、S4メソッドは、各特定の入力の組み合わせに対してジェネリック関数の異なる実装を定義するために使用されます。
 
-When a generic function is called and given an S4 object, a process called [method dispatch][glossary-s4-dispatch] takes place, whereby the class of the object is used to determine the appropriate method to execute.
+ジェネリック関数が呼び出され、S4オブジェクトが渡されると、[メソッドディスパッチ][glossary-s4-dispatch]と呼ばれるプロセスが発生し、オブジェクトのクラスが実行すべき適切なメソッドを決定するために使用されます。
 
-## The S4Vectors package
+## S4Vectorsパッケージ
 
-The `r BiocStyle::Biocpkg("S4Vectors")` package defines the `Vector` and `List` virtual classes and a set of generic functions that extend the semantic of ordinary vectors and lists in R.
-Using the S4 class system, package developers can easily implement vector-like or list-like objects as concrete subclasses of `Vector` or `List`.
+`r BiocStyle::Biocpkg("S4Vectors")`パッケージは、`Vector`および`List`の仮想クラスと、Rの通常のベクトルおよびリストのセマンティクスを拡張する一連のジェネリック関数を定義しています。
+S4クラスシステムを使用することで、パッケージ開発者は`Vector`や`List`の具体的なサブクラスとして、ベクトルやリストに似たオブジェクトを簡単に実装できます。
 
-Virtual classes -- such as `Vector` and `List` -- cannot be instantiated into objects themselves.
-Instead, those virtual classes provide core functionality inherited by all the concrete classes that are derived from them.
+仮想クラス（`Vector`と`List`など）は、オブジェクト自体としてインスタンス化することはできません。
+むしろ、これらの仮想クラスは、それらから派生したすべての具体的なクラスが継承する基本機能を提供します。
 
-Instead, a few low-level concrete subclasses of general interest (e.g. `DataFrame`, `Rle`, and `Hits`) are implemented in the `r BiocStyle::Biocpkg("S4Vectors")` package itself, and many more are implemented in other packages throughout the Bioconductor project (e.g., `r BiocStyle::Biocpkg("IRanges")`).
+代わりに、一般的に興味のあるいくつかの低レベルの具体的なサブクラス（例えば、`DataFrame`、`Rle`、`Hits`）は、`r BiocStyle::Biocpkg("S4Vectors")`パッケージ自体に実装されています。また、Bioconductorプロジェクト全体の他のパッケージ（例えば、`r BiocStyle::Biocpkg("IRanges")`）にも、多くの他のパッケージが実装されています。
 
-Attach the package to the current R session as follows.
+次のように、パッケージを現在のRセッションにアタッチします。
 
 ```{r, message=FALSE, warning=FALSE}
 library(S4Vectors)
@@ -126,27 +126,27 @@ library(S4Vectors)
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Note
+### 注意
 
-The package startup messages printed in the console are worth noting that the `r BiocStyle::Biocpkg("S4Vectors")` package masks a number of functions from the [base][r-package-base] package when the package is attached to the session.
-This means that the `r BiocStyle::Biocpkg("S4Vectors")` package includes an implementation of those functions, and that -- being the latest package attached to the R session -- its own implementation of those functions will be found first on the R search path and used instead of their original implementation in the [base][r-package-base] package.
+パッケージをセッションにアタッチした場合、コンソールに印刷されるパッケージ起動メッセージには、`r BiocStyle::Biocpkg("S4Vectors")`パッケージが、セッションにアタッチされると、[base][r-package-base]パッケージから数機能をマスクすることが記載されています。
+これは、`r BiocStyle::Biocpkg("S4Vectors")`パッケージが、これらの関数の実装を含んでいることを意味し、Rセッションにアタッチされた最新のパッケージであるため、その関数の独自の実装がR検索パス上で最初に見つかり、[base][r-package-base]パッケージの元の実装ではなく、使用されます。
 
-In many cases, masked functions can be used as before without any issue.
-Occasionally, it may be necessary to disambiguate calls to masked function using the package name as well as the function name, e.g. `base::anyDuplicated()`.
+多くの場合、マスクされた関数は、特に問題なく以前のように使用できます。
+時折、パッケージ名に加えて関数名を使ってマスクされた関数を呼び出す必要があるかもしれません。例：`base::anyDuplicated()`。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## The DataFrame class
+## DataFrameクラス
 
-### An extension to the concept of rectangular data
+### 長方形データの概念への拡張
 
-The `DataFrame` class implemented in the `r BiocStyle::Biocpkg("S4Vectors")` package extends the concept of rectangular data familiar to users of the `data.frame` class in base R, or `tibble` in the tidyverse.
-Specifically, the `DataFrame` supports the storage of any type of object (with `length` and `[` methods) as columns.
+`r BiocStyle::Biocpkg("S4Vectors")`パッケージで実装された`DataFrame`クラスは、基本Rの`data.frame`クラスやtidyverseの`tibble`に慣れているユーザーに馴染みのある長方形データの概念を拡張しています。
+具体的には、`DataFrame`は、カラムとしてあらゆるタイプのオブジェクト（`length`および`[`メソッドを持つ）を格納することをサポートしています。
 
-On the whole, the `DataFrame` class provides a formal definition of an S4 class that behaves very similarly to `data.frame`, in terms of construction, subsetting, splitting, combining, etc.
+全体として、`DataFrame`クラスは、構築、部分的選択、分割、結合などの観点から、非常に似た形で振る舞うS4クラスの正式な定義を提供します。
 
-The `DataFrame()` constructor function should be used to create new objects, comparably to the `data.frame()` equivalent in base R.
-The help page for the function, accessible as `?DataFrame`, can be consulted for more information.
+新しいオブジェクトを作成するには、`DataFrame()`コンストラクタ関数を使用する必要があります。これは、基本Rの`data.frame()`に相当します。
+その関数のヘルプページは、`?DataFrame`でアクセスできますので、詳細情報を参照できます。
 
 ```{r}
 DF1 <- DataFrame(
@@ -157,41 +157,41 @@ DF1 <- DataFrame(
 DF1
 ```
 
-In fact, `DataFrame` objects can be easily converted to  equivalent `data.frame` objects.
+実際、`DataFrame`オブジェクトは、同等の`data.frame`オブジェクトに簡単に変換できます。
 
 ```{r}
 df1 <- as.data.frame(DF1)
 df1
 ```
 
-Vice versa, we can also convert `data.frame` objects to `DataFrame` using the `as()` function.
+逆に、`as()`関数を使用して`data.frame`オブジェクトを`DataFrame`に変換することもできます。
 
 ```{r}
 as(df1, "DataFrame")
 ```
 
-### Differences with the base data.frame
+### 基本のdata.frameとの違い
 
-The most notable exceptions have to do with handling of row names.
-First, row names are optional. This means calling `rownames(x)` will return `NULL` if there are no row names.
+最も注目すべき例外は、行名の処理に関するものです。
+まず、行名はオプションです。 これは、行名がない場合、`rownames(x)`が`NULL`を返すことを意味します。
 
 ```{r}
 rownames(DF1)
 ```
 
-This is different from `data.frame`, where `rownames(x)` returns the equivalent of `as.character(seq_len(nrow(x)))`.
+これは、`data.frame`とは異なり、`rownames(x)`が`as.character(seq_len(nrow(x)))`の等価物を返すことになります。
 
 ```{r}
 rownames(df1)
 ```
 
-However, returning `NULL` informs, for example, combination functions that no row names are desired (they are often a luxury when dealing with large data).
+ただし、`NULL`を返すことは、例えば、組み合わせ関数に対して、行名が不要であることを通知します（大規模なデータを扱うときには、しばしば贅沢です）。
 
-Furthermore, row names of `DataFrame` objects are not required to be unique, in contrast to the `data.frame` in base R.
-Row names are a frequent source of controversy in R, as they can be used to uniquely identify and index observations in rectangular format, without storing that information explicitly in a dedicated column.
-When set, row names can be used to subset rectangular data using the `[` operator.
-Meanwhile, non-unique row names defeat that purpose and can lead to unexpected results, as only the first occurrence of each selected row name is extracted.
-Instead, the tidyverse `tibble` removed the ability to set row names altogether, forcing users to store every bit of information explicitly in dedicated columns, while providing functions to dedicated to efficiently filtering rows in rectangular data, without the need for the `[` operator.
+さらに、`DataFrame`オブジェクトの行名は一意である必要はありません。これは、基本Rの`data.frame`とは対照的です。
+行名は、長方形データで観測結果を一意に特定してインデックス付けするために使用されるため、しばしば議論の原因となります。
+設定されている場合、行名は`[`演算子を使用して長方形データを部分選択するために使用できます。
+非一意の行名はその目的を妨げ、選択された各行名の最初の出現だけが抽出されるため、予期しない結果をもたらす可能性があります。
+その代わりに、tidyverseの`tibble`は、行名を完全に設定する機能を排除し、ユーザーに特定のカラムに情報を明示的にストアさせるように強制しています。また、行を効率的にフィルタリングするための関数を提供し、`[`演算子を使用する必要はありません。
 
 ```{r}
 DF2 <- DataFrame(
@@ -205,13 +205,13 @@ DF2
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### チャレンジ
 
-Using the example above, what does `DF2["name1", ]` return? Why?
+上記の例を使用して、`DF2["name1", ]`は何を返しますか？ なぜですか？
 
 :::::::::::::::  solution
 
-### Solution
+### ソリューション
 
 ```
 > DF2["name1", ]
@@ -221,19 +221,19 @@ DataFrame with 1 row and 3 columns
 name1         1           A       1.2
 ```
 
-Only the first occurrence of a row matching the row name `name1` is returned.
+行名`name1`に一致した行の最初の出現のみが返されます。
 
-In this case, row names do not have a particular meaning, making it difficult to justify the need for them.
-Instead, users could extract all the rows that matching the row name `name1` more explicitly as follows: `DF2[rownames(DF2) == "name1", ]`.
+この場合、行名には特別な意味がなく、それらの必要性を正当化することが難しいです。
+代わりに、ユーザーは、`DF2[rownames(DF2) == "name1", ]`のように、行名`name1`に一致するすべての行をより明示的に抽出することができます。
 
-Users should be mindful of the motivation for using row names in any given situation; what they represent, and how they should be used during the analysis.
+ユーザーは、特定の状況で行名を使用する動機、何を表し、分析中にどのように使用されるべきかを意識するべきです。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Finally, row names in `DataFrame` do not support partial matching during subsetting, in contrast to `data.frame`.
-The stricter behaviour of `DataFrame` prevents often unexpected results faced by unsuspecting users.
+最後に、`DataFrame`の行名は、部分一致による選択をサポートしません。これは、基本の`data.frame`とは対照的です。
+`DataFrame`のより厳格な動作により、予期しない結果が生じることは、意図しないユーザーによって防止されます。
 
 ```{r}
 DF3 <- DataFrame(
@@ -247,14 +247,14 @@ df3 <- as.data.frame(DF3)
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### チャレンジ
 
-Using the examples above, what are the outputs of `DF3["a", ]` and `df3["a", ]`?
-Why are they different?
+上記の例を使用して、`DF3["a", ]`と`df3["a", ]`の出力は何ですか？
+なぜ違うのですか？
 
 :::::::::::::::  solution
 
-### Solution
+### ソリューション
 
 ```
 > DF3["a", ]
@@ -267,55 +267,55 @@ DataFrame with 1 row and 3 columns
 alpha        1       A    1.2
 ```
 
-The `DataFrame` object did not perform partial row name matching, and thus did not match any row and return a `DataFrame` full of `NA` values.
-Instead, the `data.frame` object performed partial row name matching, matched the requested `"a"` to the `"alpha"` row name, and returned the corresponding row as a new `data.frame` object.
+`DataFrame`オブジェクトは、部分一致による行名のマッチングを実行せず、そのため、行がマッチせず、`NA`値のいっぱいの`DataFrame`を返しました。
+その代わりに、`data.frame`オブジェクトは部分一致による行名マッチングを実行し、要求された`"a"`を`"alpha"`行名に一致させ、新しい`data.frame`オブジェクトとして該当行を返しました。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Indexing
+### インデックス付け
 
-Just like a regular `data.frame`, columns can be accessed using `$`, `[`, and `[[`.
-Each operator has a different purpose, and the most appropriate one will often depend on what you are trying to achieve.
+通常の`data.frame`と同様に、カラムは`$`、`[`、および`[[`を使用してアクセスできます。
+各演算子には異なる目的があり、最も適切なものは、達成しようとしていることによく依存します。
 
-For example, the dollar operator `$` can be used to extract a single column by name.
-That will often be a vector, but it may depend on the nature of the data in that column.
-This operator can be quite convenient in an interactive R session, as it will offer autocompletion among available column names.
+例えば、ドル演算子`$`は、名前で単一列を抽出するために使用できます。
+それはしばしばベクターであることが多いですが、それはその列内のデータの性質によって異なる場合もあります。
+この演算子は、インタラクティブなRセッションで非常に便利で、利用可能な列名の自動補完を提供します。
 
 ```{r}
 DF3$Integers
 ```
 
-Similarly, the double bracket operator `[[` can also be used to extract a single column.
-It is more flexible than `$` as it can handle both character names and integer indices.
+同様に、ダブルブラケット演算子`[[`も単一の列を抽出するために使用できます。
+これは`$`よりも柔軟性があり、文字列名と整数インデックスの両方を処理できます。
 
 ```{r}
 DF3[["Letters"]]
 DF3[[2]]
 ```
 
-The operator `[` is most convenient when it comes to selecting simultaneously on rows and columns, or controlling whether a single-column selection should be returned as a `DataFrame` or a `vector`.
+演算子`[`は、行と列の同時選択や、単一列の選択が`DataFrame`または`vector`として返されるかどうかを制御する際に最も便利です。
 
 ```{r}
 DF3[2:3, "Letters", drop=FALSE]
 ```
 
-### Metadata columns
+### メタデータ列
 
-One of most notable novel functionality in `DataFrame` relative to the base `data.frame` is the capacity to hold metadata on the columns in another `DataFrame`.
+`DataFrame`における最も注目すべき新機能は、メタデータを別の`DataFrame`でカラムに保持できる能力です。
 
-![](fig/dataframe-mcols.svg){alt='Metadata columns.'}
+![](fig/dataframe-mcols.svg){alt='メタデータ列。'}
 
-**Metadata columns.**
-Metadata columns are illustrated in the context of a `DataFrame` object.
-On the left, a `DataFrame` object called `DF` is created with columns named `A` and `B`.
-On the right, the metadata columns for `DF` are accessed using `mcols(DF)`.
-In this example, two metadata columns are created with names `meta1` and `meta2`.
-Metadata columns are stored as a `DataFrame` that contains one row for each column in the parent `DataFrame`.
+**メタデータ列。**
+メタデータ列は、`DataFrame`オブジェクトの文脈で示されます。
+左側には、`A`と`B`という名前の列を持つ`DataFrame`オブジェクト`DF`が作成されます。
+右側には、`DF`のメタデータ列を`mcols(DF)`を使ってアクセスします。
+この例では、名前`meta1`と`meta2`の2つのメタデータ列が作成されます。
+メタデータ列は、親`DataFrame`の各列に対して1行を含む`DataFrame`として格納されます。
 
-The metadata columns are accessed using the function `mcols()`,
-If no metadata column is defined, `mcols()` simply returns `NULL.`
+メタデータ列は、関数`mcols()`を使用してアクセスされます。
+メタデータ列が定義されていない場合、`mcols()`は単に`NULL`を返します。
 
 ```{r}
 DF4 <- DataFrame(
@@ -327,11 +327,11 @@ DF4 <- DataFrame(
 mcols(DF4)
 ```
 
-The function `mcols()` can also be used to add, edit, or remove metadata columns.
-For instance, we can initialise metadata columns as a `DataFrame` of two columns:
+関数`mcols()`は、メタデータ列を追加、編集、または削除するためにも使用できます。
+例えば、2つの列を持つ`DataFrame`として、メタデータ列を初期化できます。
 
-- one column indicating the type of value stored in the corresponding column
-- one column indicating the number of distinct values observed in the corresponding column
+- 対応する列に格納されている値のタイプを示す1つの列
+- 対応する列で観察された異なる値の数を示す1つの列
 
 ```{r}
 mcols(DF4) <- DataFrame(
@@ -343,31 +343,30 @@ mcols(DF4)
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Note
+### 注意
 
-The row names of the metadata columns are automatically set to match the column names of the parent `DataFrame`, clearly indicating the pairing between columns and metadata.
+メタデータ列の行名は、親`DataFrame`の列名と一致するように自動的に設定され、列とメタデータのペアを明確に示します。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Run-length encoding (RLE)
+## 実行長エンコーディング (RLE)
 
-### An extension to the concept of vector
+### ベクターの概念への拡張
 
-Similarly to the `DataFrame` class implemented in the `r BiocStyle::Biocpkg("S4Vectors")`,
-the `Rle` class provides an S4 extension to the `rle()` function from the base package.
-Specifically, the `Rle` class supports the storage of atomic vectors in a run-length encoding format.
+`r BiocStyle::Biocpkg("S4Vectors")`で実装された`DataFrame`クラスと同様に、`Rle`クラスは基本パッケージの`rle()`関数にS4の拡張を提供します。
+具体的には、`Rle`クラスは、原子ベクターを実行長エンコーディング形式で保存することをサポートしています。
 
-![](fig/rle.svg){alt='Run-length encoding.'}
+![](fig/rle.svg){alt='実行長エンコーディング。'}
 
-**Run-length encoding.**
-The concept of run-length encoding is demonstrated here using the example of a sequence of nucleic acids.
-Before encoding, each nucleotide at each position in the sequence is explicitly stored in memory.
-During the encoding, consecutive runs of identical nucleotides are collapsed into two bits of information: the identity of the nucleotide and the length of the run.
+**実行長エンコーディング。**
+実行長エンコーディングの概念は、核酸の配列の例を使用してここに示されています。
+エンコードの前に、配列の各位置にある各ヌクレオチドはメモリに明示的に保存されます。
+エンコーディング中に、同一のヌクレオチドの連続したランは、ヌクレオチドの同一性とランの長さの2ビットの情報に圧縮されます。
 
-Run-length encoding can dramatically reduce the memory footprint of vectors that contain frequent runs of identical information.
-For instance, a compelling application of run-length encoding is the representation of genomic coverage in sequencing experiments, where large genomic regions devoid of any mapped reads result in long runs of `0` values.
-Storing each individual value would be highly inefficient from the standpoint of memory usage.
-Instead, the run-length encoding process collapses such runs of redundant information from arbitrarily long runs of identical information to two values: the repeated value itself, and the number of times that it is repeated.
+実行長エンコーディングは、同一の情報の頻繁な連続が含まれるベクターのメモリ使用量を劇的に削減できます。
+たとえば、実行長エンコーディングの有力な応用は、シーケンシング実験におけるゲノムカバレッジの表現です。ここで、大きなゲノム領域にマッピングされたリードが存在しない場合、長い`0`の値の連続が発生します。
+各個別の値を保存することは、メモリ使用量の観点から非常に非効率的です。
+その代わりに、実行長エンコーディングプロセスは、冗長な情報のそのような連続を、同一の情報の任意の長い連続から2つの値、すなわち繰り返される値自体と、それが繰り返される回数に圧縮します。
 
 ```{r}
 v1 <- c(0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 2, 1, 0, 0, 0, 0, 0)
@@ -375,17 +374,17 @@ rle1 <- Rle(v1)
 rle1
 ```
 
-### Indexing
+### インデクシング
 
-Just like a regular `vector`, `Rle` objects can be indexed using `[`.
+通常の`vector`と同様に、`Rle`オブジェクトは`[`を使用してインデックス付けすることができます。
 
 ```{r}
 rle1[2:4]
 ```
 
-### Usage
+### 使用法
 
-As vector-like objects, `Rle` objects can also be stored as columns of `DataFrame` objects, alongside other vector-like objects.
+ベクターのようなオブジェクトとして、`Rle`オブジェクトも`DataFrame`オブジェクトの列として保存でき、他のベクター状のオブジェクトとともに格納できます。
 
 ```{r}
 v2 <- c(rep(1, 5), rep(2, 5))
@@ -400,9 +399,9 @@ DF5
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらに進む
 
-A number of standard operations with `Rle` objects are documented in the help page of the `Rle` class, accessible as `?Rle`, and in the vignettes of the `r BiocStyle::Biocpkg("S4Vectors")` package, accessible using `browseVignettes("S4Vectors")`.
+`Rle`オブジェクトに関する多くの標準操作は、`Rle`クラスのヘルプページに文書化されており、`?Rle`としてアクセス可能で、`r BiocStyle::Biocpkg("S4Vectors")`パッケージのビネットにおいても、`browseVignettes("S4Vectors")`を使ってアクセスできます。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -415,11 +414,11 @@ A number of standard operations with `Rle` objects are documented in the help pa
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- S4 classes store information in slots, and check the validity of the information every an object is updated.
-- To ensure the continued integrity of S4 objects, users should not access slots directly, but using dedicated functions.
-- S4 generics invoke different implementations of the method depending on the class of the object that they are given.
-- The S4 class `DataFrame` extends the functionality of base `data.frame`, for instance with the capacity to hold information about each column in metadata columns.
-- The S4 class `Rle` extends the functionality of the base `vector`, for instance with the capacity to encode repetitive vectors in a memory-efficient format.
+- S4クラスはスロットに情報を保存し、オブジェクトが更新されるたびに情報の有効性を確認します。
+- S4オブジェクトの継続的な整合性を確保するために、ユーザーはスロットに直接アクセスせず、専用の関数を使用する必要があります。
+- S4ジェネリックは、与えられたオブジェクトのクラスに応じてメソッドの異なる実装を呼び出します。
+- S4クラス`DataFrame`は、`data.frame`の基本機能を拡張しており、メタデータ列の各列に関する情報を保持できる能力を持っています。
+- S4クラス`Rle`は、基本の`vector`の機能を拡張しており、メモリ効率の良い形式で繰り返しベクターをエンコードする能力を持っています。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
