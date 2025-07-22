@@ -3,38 +3,37 @@ permalink: index.html
 site: sandpaper::sandpaper_site
 ---
 
-This lesson provides an introduction to the Bioconductor project.
+このレッスンでは、Bioconductorプロジェクトの紹介を行います。
 
-A good understanding of the Bioconductor project is the foundation to efficiently use Bioconductor packages for the analysis and visualization of -omics data using R and RStudio.
+Bioconductorプロジェクトを良く理解することは、RとRStudioを用いてオミクスデータの分析と可視化のためにBioconductorパッケージを効率的に使用するための基盤となります。
 
-We download and install R packages from Bioconductor and other repositories to write workflows and perform analyses.
-In order to do so, we first identify packages that are available and relevant to our analysis, and we learn from their documentation the best practices to use them as their authors intended it.
-For reproducibility, it is also important to identify and track versions of packages used to perform each analysis.
+私たちは、ワークフローを作成し、分析を実行するためにBioconductorおよび他のリポジトリからRパッケージをダウンロードしてインストールします。
+そのために、まず分析に関連する利用可能なパッケージを特定し、それらのドキュメントから、著作者が意図した方法で使用するためのベストプラクティスを学びます。
+再現性のために、各分析を実行するために使用されるパッケージのバージョンを特定し、追跡することが重要です。
 
-Sometimes, we encounter bugs in packages that we use.
-While it is possible to report bugs to the authors and wait for issue to be fixed,
-packages hosted on public repositories offer the chance to inspect the code and contribute or propose fixes ourselves.
-In addition to being a great opportunity to develop coding skills, community contributors are very often recognized and credited for their contributions!
+時々、私たちが使用するパッケージにバグが発生することがあります。
+バグを著者に報告し、問題が解決されるのを待つことも可能ですが、公開リポジトリにホストされているパッケージは、コードを検査して、自分たちで修正を提案したり、貢献する機会を提供します。
+プログラミングスキルを開発する素晴らしい機会であるだけでなく、コミュニティの貢献者はその貢献に対して非常にしばしば認識され、クレジットが与えられます！
 
-In this lesson, you will learn:
+このレッスンでは、あなたが以下のことを学びます：
 
-- To describe the Bioconductor project beyond software packages.
-- To navigate the Bioconductor website to find packages for a particular task.
-- To install and update Bioconductor packages.
-- To open a package vignette and practice running through the examples that they contain.
-- To identify standard classes and methods re-used across Bioconductor packages.
-- To modify code and contribute to existing Bioconductor packages.
-- Best practices to get help from packages developers and peers.
+- ソフトウェアパッケージ以外のBioconductorプロジェクトを説明すること。
+- 特定のタスクのためのパッケージを見つけるためにBioconductorのウェブサイトをナビゲートすること。
+- Bioconductorパッケージをインストールして更新すること。
+- パッケージのビネットを開き、それに含まれる例を実行する練習をすること。
+- Bioconductorパッケージ全体で再利用される標準クラスとメソッドを特定すること。
+- コードを修正し、既存のBioconductorパッケージに貢献すること。
+- パッケージの開発者や仲間から助けを得るためのベストプラクティス。
 
 <!-- this is an html comment -->
 
-{% comment %} This is a comment in Liquid {% endcomment %}
+{% comment %} これはLiquidのコメントです {% endcomment %}
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
-## Prerequisites
+## 前提条件
 
-- Learning objectives of the [Introduction to data analysis with R and Bioconductor][lesson-intro-r-bioconductor] workshop.
+- [RとBioconductorによるデータ分析の紹介][lesson-intro-r-bioconductor]ワークショップの学習目標。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
