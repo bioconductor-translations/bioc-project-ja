@@ -281,7 +281,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-getting-help.html">4. Getting help</a>
+        <a href="04-getting-help.html">4. ヘルプを取得する</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -698,7 +698,7 @@ R自体は年に1回リリースされ（通常は4月頃）、Rの各リリー�
   解決策
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>以下の解決策には、執筆時点で有効だった数字（Bioconductorリリース3.13）が含まれています；
 Bioconductorプロジェクトの将来のリリースでは、数字が異なることは避けられません。</p>
@@ -764,7 +764,7 @@ ChIP-seq？ エピジェネティクス？ バリアント注釈？ プロテオ
   解決策
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p><code>RNAseq</code>, <code>ChIPSeq</code>,
@@ -1455,7 +1455,7 @@ entire R library to a specific version of Bioconductor.</li>
 </div>
 </div>
 </div>
-</section></section><section id="aio-04-getting-help"><p>Content from <a href="04-getting-help.html">Getting help</a></p>
+</section></section><section id="aio-04-getting-help"><p>Content from <a href="04-getting-help.html">ヘルプを取得する</a></p>
 <hr>
 <p>Last updated on 2025-07-22 |
 
@@ -1472,12 +1472,10 @@ entire R library to a specific version of Bioconductor.</li>
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>Where can I find help online?</li>
-<li>Where can I ask questions to package developers and other
-users?</li>
-<li>Where can I find documentation for a specific package?</li>
-<li>Where can I learn best practices to combine multiple package into a
-coherent workflow?</li>
+<li>どこでオンラインの助けを見つけることができますか？</li>
+<li>パッケージの開発者や他のユーザーに質問するにはどこに行けばよいですか？</li>
+<li>特定のパッケージのドキュメントはどこで見つけることができますか？</li>
+<li>複数のパッケージを組み合わせて、一貫したワークフローを学ぶにはどこに行けばよいですか？</li>
 </ul>
 </div>
 </div>
@@ -1487,117 +1485,76 @@ coherent workflow?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Identify online resources for help.</li>
-<li>Access package documentation.</li>
+<li>オンラインリソースを特定する手助けをします。</li>
+<li>パッケージのドキュメントにアクセスする。</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="getting-help-with-bioconductor-packages">Getting help with Bioconductor packages<a class="anchor" aria-label="anchor" href="#getting-help-with-bioconductor-packages"></a>
+<section><h2 class="section-heading" id="bioconductorパッケージに関するヘルプ">Bioconductorパッケージに関するヘルプ<a class="anchor" aria-label="anchor" href="#bioconductor%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%83%98%E3%83%AB%E3%83%97"></a>
 </h2>
 <hr class="half-width">
-<p>Help about Bioconductor packages and best practices is available in
-several places. Often, the best source of help depends on the situation
-at hand:</p>
+<p>Bioconductorパッケージやベストプラクティスに関するヘルプは、いくつかの場所で入手可能です。
+多くの場合、最良の助けの供給源は状況によって異なります。</p>
 <ul>
-<li>Are you trying to identify the best package for a particular
-task?</li>
-<li>Are you trying to use a package for the very first time?</li>
-<li>Are you unsure about best practices to use and combine multiple
-packages and functions in a sensible workflow for a particular type of
-analysis?</li>
-<li>Is a function throwing an error when you apply it to your data?</li>
-<li>Do you have questions about the theory or methodology implemented in
-a particular package or function?</li>
+<li>特定のタスクに対して最適なパッケージを特定しようとしていますか？</li>
+<li>パッケージを初めて使用しようとしていますか？</li>
+<li>特定の種類の分析において、複数のパッケージや関数を合理的なワークフローで使用および組み合わせるためのベストプラクティスについて不明な点はありますか？</li>
+<li>データに適用したときに関数がエラーを出していますか？</li>
+<li>特定のパッケージや関数に実装された理論や方法論について質問がありますか？</li>
 </ul>
-<p>In the next sections, we describe different sources of help available
-to Bioconductor users, and situations where each of them are most
-useful.</p>
-</section><section><h2 class="section-heading" id="the-bioconductor-website">The Bioconductor website<a class="anchor" aria-label="anchor" href="#the-bioconductor-website"></a>
+<p>次のセクションでは、Bioconductorユーザーが利用できるさまざまなヘルプの供給源と、それぞれが最も有用な状況について説明します。</p>
+</section><section><h2 class="section-heading" id="bioconductorウェブサイト">Bioconductorウェブサイト<a class="anchor" aria-label="anchor" href="#bioconductor%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%82%A4%E3%83%88"></a>
 </h2>
 <hr class="half-width">
-<p>The main <a href="https://www.bioconductor.org/" class="external-link">Bioconductor
-website</a> provides a host of resources, all freely available without
-even the need to install R or any Bioconductor package.</p>
-<p>In particular, the <a href="https://www.bioconductor.org/packages/release/BiocViews.html" class="external-link">biocViews</a>
-page is a great way to thematically explore the collection of packages
-and identify Bioconductor packages providing a certain
-functionality.</p>
-<p>Furthermore, the website also collects materials from <a href="https://bioconductor.org/help/course-materials/" class="external-link">courses and
-conferences</a>, including presentations, video recordings, and teaching
-materials.</p>
-<p>By nature, individual presentations and training materials are often
-tied to a specific version of Bioconductor packages. As such, they
-provide a snapshot of best practices at a particular point in time, and
-may become outdated over time after successive Bioconductor releases.
-Thus, it is important check the version of packages demonstrated in
-teaching materials matches that in the user’s R library. Alternatively,
-when referring to materials that employ package versions different from
-those in the user’s library, it is important to carefully interpret any
-discrepancy between the expected and actual results.</p>
-</section><section><h2 class="section-heading" id="package-landing-pages">Package landing pages<a class="anchor" aria-label="anchor" href="#package-landing-pages"></a>
+<p>メインの<a href="https://www.bioconductor.org/" class="external-link">Bioconductorウェブサイト</a>は、RやBioconductorパッケージをインストールする必要なしに、すべてのリソースを無料で提供します。</p>
+<p>特に、<a href="https://www.bioconductor.org/packages/release/BiocViews.html" class="external-link">biocViews</a>ページは、パッケージのコレクションをテーマに沿って探索し、特定の機能を提供するBioconductorパッケージを特定する素晴らしい方法です。</p>
+<p>さらに、ウェブサイトは<a href="https://bioconductor.org/help/course-materials/" class="external-link">コースや会議</a>からの資料も収集しており、プレゼンテーション、ビデオ録画、教育資料が含まれています。</p>
+<p>自然に、個々のプレゼンテーションやトレーニング資料は、特定のBioconductorパッケージのバージョンに結びついていることがよくあります。
+そのため、教えられた資料において示されたパッケージのバージョンが、ユーザーのRライブラリのバージョンと一致しているかを確認することが重要です。
+したがって、使用される教えられた資料において異なるバージョンのパッケージが参照されている場合には、期待される結果と実際の結果の間の不一致を注意深く解釈することが重要です。
+パッケージのランディングページ</p>
+</section><section><h2 class="section-heading" id="パッケージランディングページ">パッケージランディングページ<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%A9%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%9A%E3%83%BC%E3%82%B8"></a>
 </h2>
 <hr class="half-width">
-<p>Each package accepted in the Bioconductor project is granted a
-landing page on the main Bioconductor website, e.g. <em><a href="https://bioconductor.org/packages/3.19/S4Vectors" class="external-link">S4Vectors</a></em>.</p>
-<p>Package landing pages contains useful information that can be
-consulted without the need to install the package itself. This is
-particularly useful while browsing the Bioconductor repository is search
-of packages suitable for a specific task.</p>
-<p>On the landing page, prospective users can find a short description
-of the package functionality, and links to <a href="reference.html#vignette">package vignettes</a>. Package vignettes
-available on the Bioconductor website are written by developers to
-demonstrate how the functions available in the package are meant to be
-used and combined into a complete workflow. Often, vignettes use
-standard data sets preprocessed and freely available from public
-repositories, including <a href="reference.html#experimentdata-package">ExperimentData</a> packages
-or the Bioconductor <em><a href="https://bioconductor.org/packages/3.19/ExperimentHub" class="external-link">ExperimentHub</a></em>.</p>
-<p>In the “Details” section of the landing page, many packages provide a
-field labelled “BugReports”. That field provides a URL that users can
-visit to report bugs to the package developer(s).</p>
-<div id="note" class="callout">
+<p>Bioconductorプロジェクトに受け入れられた各パッケージには、メインのBioconductorウェブサイトにランディングページが与えられます（例：<em><a href="https://bioconductor.org/packages/3.19/S4Vectors" class="external-link">S4Vectors</a></em>）。</p>
+<p>パッケージランディングページには、パッケージ自体をインストールする必要なしに参照できる便利な情報が含まれています。
+特定のタスクに適したパッケージを探してBioconductorリポジトリを閲覧している場合、これは特に便利です。</p>
+<p>ランディングページでは、見込みユーザーがパッケージ機能の短い説明や、<a href="reference.html#vignette">パッケージビネット</a>へのリンクを見つけることができます。
+Bioconductorウェブサイトで入手可能なパッケージビネットは、開発者によって記述されており、パッケージで利用可能な関数がどのように使用され、完全なワークフローに組み合わされるべきかを示しています。
+しばしば、ビネットでは、標準的なデータセットが使用され、公開リポジトリから無償で入手可能です（<a href="reference.html#experimentdata-package">ExperimentData</a>パッケージやBioconductorの<em><a href="https://bioconductor.org/packages/3.19/ExperimentHub" class="external-link">ExperimentHub</a></em>）。</p>
+<p>ランディングページの「詳細」セクションでは、多くのパッケージが「BugReports」とラベル付けされたフィールドを提供します。
+そのフィールドには、ユーザーがパッケージ開発者にバグを報告するために訪れることができるURLが提供されます。</p>
+<div id="注意" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note</h3>
+<div id="注意" class="callout-inner">
+<h3 class="callout-title">注意</h3>
 <div class="callout-content">
-<p>It can be difficult to distinguish actual software bugs from
-unwitting mistakes made by users not fully familiar with the package
-yet. Later in this episode, we provide advice for reporting bugs and
-including sufficient information to receive the fastest and most helpful
-responses.</p>
-<p>In doubt, the <a href="https://support.bioconductor.org/" class="external-link">Biocondutor
-support site</a> can also be a great place to discuss individual
-experiences and share knowledge about packages and best practices.</p>
+<p>実際のソフトウェアバグと、パッケージに十分に慣れていないユーザーによる意図しないミスを区別するのが難しいことがあります。
+このエピソードの後半では、バグを報告するためのアドバイスや、迅速かつ最も有用な返答を受け取るために必要な情報を含める方法を提供します。</p>
+<p>疑わしい場合、<a href="https://support.bioconductor.org/" class="external-link">Bioconductorサポートサイト</a>は、個々の経験やパッケージおよびベストプラクティスに関する知識を共有できる素晴らしい場所でもあります。</p>
 </div>
 </div>
 </div>
-<p>Additionally, the landing page provides many other pieces of
-information, from daily build reports indicating whether the package
-passed all tests on a range of operating systems, to software
-dependencies indicating the number of other Bioconductor packages that
-must be installed before the package itself can be installed and used on
-the user’s system.</p>
-<div id="going-further" class="callout">
+<p>さらに、ランディングページでは、パッケージが、ユーザーのシステムでパッケージ自体をインストールして使用できる前にインストールする必要のある他のBioconductorパッケージの数を示すソフトウェアの依存関係から、パッケージがすべてのテストに合格したかどうかを示す日次ビルドレポートまで、多くの重要な情報を提供しています。</p>
+<div id="さらに進む" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="going-further" class="callout-inner">
-<h3 class="callout-title">Going further</h3>
+<div id="さらに進む" class="callout-inner">
+<h3 class="callout-title">さらに進む</h3>
 <div class="callout-content">
-<p>Each package has a landing page for each release of Bioconductor
-since the package was added to the repository, e.g.:</p>
+<p>各パッケージには、パッケージがリポジトリに追加されて以来、各Bioconductorのリリースに対してランディングページがあります、例：</p>
 <ul>
 <li><a href="https://www.bioconductor.org/packages/3.14/bioc/html/BiocVersion.html" class="external-link">https://www.bioconductor.org/packages/3.14/bioc/html/BiocVersion.html</a></li>
 <li><a href="https://www.bioconductor.org/packages/3.13/bioc/html/BiocVersion.html" class="external-link">https://www.bioconductor.org/packages/3.13/bioc/html/BiocVersion.html</a></li>
 <li><a href="https://www.bioconductor.org/packages/3.12/bioc/html/BiocVersion.html" class="external-link">https://www.bioconductor.org/packages/3.12/bioc/html/BiocVersion.html</a></li>
 </ul>
-<p>In the URL of a package landing page, we can replace the version
-number by the word “release” or “devel” to access the landing page of
-the latest stable release or development version, respectively.</p>
+<p>パッケージランディングページのURLのバージョン番号は、「release」または「devel」という単語に置き換えることができ、最新の安定版リリースまたは開発版のランディングページにアクセスできます。</p>
 <ul>
 <li><a href="https://www.bioconductor.org/packages/release/bioc/html/BiocPkgTools.html" class="external-link">https://www.bioconductor.org/packages/release/bioc/html/BiocPkgTools.html</a></li>
 <li><a href="https://www.bioconductor.org/packages/devel/bioc/html/BiocPkgTools.html" class="external-link">https://www.bioconductor.org/packages/devel/bioc/html/BiocPkgTools.html</a></li>
@@ -1605,53 +1562,37 @@ the latest stable release or development version, respectively.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="package-vignettes">Package vignettes<a class="anchor" aria-label="anchor" href="#package-vignettes"></a>
+</section><section><h2 class="section-heading" id="パッケージビネット">パッケージビネット<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%93%E3%83%8D%E3%83%83%E3%83%88"></a>
 </h2>
 <hr class="half-width">
-<p>Each Bioconductor package is required to include at least one
-vignette. Many packages have more than one vignette, often separating
-core functionality from specific use cases.</p>
-<p>As we noted earlier in this episode, vignettes are available from <a href="..html#package-landing-pages">package landing pages</a> on the
-Bioconductor website. However, the landing page only links to the
-documentation of the most recent version of the package for each version
-of Bioconductor. This may be a different version from the one that is
-installed in the user’s R library and used in the R session.</p>
-<p>When Bioconductor packages are installed in the user’s R library, the
-vignettes associated with that particular version of the package are
-also installed on the user’s computer. Those locally installed vignettes
-are the gold standard reference for the version of the package that is
-currently installed in the R library and used in the R session. They can
-be accessed using the function <code>browseVignettes()</code>, for
-instance:</p>
+<p>各Bioconductorパッケージには少なくとも1つのビネットを含めることが求められています。
+多くのパッケージには1つ以上のビネットがあり、コア機能を特定の使用例から分離しています。</p>
+<p>このエピソードの前半で説明したように、ビネットはBioconductorウェブサイトの<a href="..html#package-landing-pages">パッケージランディングページ</a>から入手可能です。
+ただし、ランディングページは、各Bioconductorのバージョンの最も最近のバージョンのパッケージドキュメントにしかリンクされていません。
+これは、ユーザーのRライブラリにインストールされ、Rセッションで使用されるパッケージのバージョンとは異なる可能性があります。</p>
+<p>ユーザーのRライブラリにBioconductorパッケージがインストールされると、そのパッケージの特定のバージョンに関連付けられたビネットもユーザーのコンピュータにインストールされます。
+それらのローカルにインストールされたビネットは、現在RライブラリにインストールされてRセッションで使用されるパッケージのバージョンのゴールドスタンダードリファレンスです。
+それらは<code>browseVignettes()</code>関数を使用してアクセスできます。例えば：</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">browseVignettes</span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Specifically, the function <code>browseVignettes()</code> opens a
-local web page in the user’s default web browser, listing all the
-vignettes available for the requested package. Each vignette is
-available in three formats:</p>
+<p>具体的には、<code>browseVignettes()</code>関数は、ユーザーのデフォルトのウェブブラウザで開かれ、リクエストされたパッケージに利用可能なすべてのビネットをリストします。
+各ビネットは3つのフォーマットで提供されます：</p>
 <ul>
-<li>precompiled, in PDF or HTML format</li>
-<li>source, in Sweave or R markdown format</li>
-<li>as an R script</li>
+<li>コンパイル済みのPDFまたはHTML形式</li>
+<li>ソース、SweaveまたはR Markdown形式</li>
+<li>Rスクリプトとして</li>
 </ul>
-<p>The precompiled format is often the most comfortable format to read,
-as the PDF and HTML formats allow the contents of the documents to be
-preview in one integrated view. This includes plain text explanations,
-as well as code and their outputs, both figures and console
-messages.</p>
-</section><section><h2 class="section-heading" id="package-help-pages">Package help pages<a class="anchor" aria-label="anchor" href="#package-help-pages"></a>
+<p>プリコンパイル形式は、ドキュメントの内容を統合されたビューでプレビューできるため、通常は最も快適に読むことができます。
+これには、プレーンテキストの説明と、コードおよびそれらの出力（図やコンソールメッセージの両方）が含まれます。</p>
+</section><section><h2 class="section-heading" id="パッケージヘルプページ">パッケージヘルプページ<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%98%E3%83%AB%E3%83%97%E3%83%9A%E3%83%BC%E3%82%B8"></a>
 </h2>
 <hr class="half-width">
-<p>Bioconductor requires every user-facing package function to be
-documented in one of the package help pages (often referred to as “man
-pages”, after the name of the package sub-directory where they are
-stored).</p>
-<p>Help pages can be accessed using the <code>help()</code> function or
-the question mark symbol <code>?</code>.</p>
+<p>Bioconductorは、すべてのユーザー向けパッケージ機能がパッケージヘルプページ（通常は「manページ」と呼ばれ、パッケージのサブディレクトリの名前に由来します）で文書化されることを要求します。</p>
+<p><code>help()</code>関数や疑問符シンボル<code>?</code>を使用してヘルプページにアクセスできます。</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1659,150 +1600,85 @@ the question mark symbol <code>?</code>.</p>
 <code class="sourceCode R"><span><span class="fu">help</span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"install"</span>, package <span class="op">=</span> <span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="op">?</span><span class="fu">BiocManager</span><span class="fu">::</span><span class="va">install</span></span></code></pre>
 </div>
-<p>Help pages for Bioconductor packages generally follow the same rules
-as CRAN packages when it comes to formatting and essential contents.
-However, Bioconductor also requires that most of the man pages
-documenting exported objects must have runnable examples. Runnable
-examples are particularly helpful to demonstrate the usage of individual
-functions on small data sets immediately available to users - either
-artificially simulated on the fly or programmatically imported from
-public data repositories.</p>
-<p>In particular, runnable examples demonstrate the usage of functions
-in ideal cases, showcasing how the inputs inputs of the function should
-be formatted, and what information will be available to users in the
-outputs of the function. Running those examples and comparing the
-example inputs and outputs with the user’s own data often provide
-significant insights into the transformations that are needed before
-applying the function to the user’s own data, and how the outputs of the
-function can be interpreted and interacted with.</p>
-</section><section><h2 class="section-heading" id="the-bioconductor-support-site">The Bioconductor support site<a class="anchor" aria-label="anchor" href="#the-bioconductor-support-site"></a>
+<p>Bioconductorパッケージのヘルプページは、フォーマットや基本的な内容に関して、一般的にCRANパッケージと同じルールに従います。
+ただし、Bioconductorは、エクスポートされたオブジェクトを文書化するためのほとんどのmanページには、実行可能な例が必要となることも要求します。
+実行可能な例は、ユーザーが即座に利用可能な小規模データセットに対して、個別の関数の使用を示すのに特に役立ちます
+-
+人工的にシミュレーションされたデータや、公共のデータリポジトリからプログラムでインポートされたデータのいずれかです。</p>
+<p>特に、実行可能な例は、理想的なケースで関数の使用を示し、関数への入力がどのようにフォーマットされるべきか、また関数の出力にユーザーがどのような情報を得られるかを示します。
+これらの例を実行し、例の入力と出力をユーザー自身のデータと比較することで、関数をユーザー自身のデータに適用する前に必要な変換について重要な洞察を提供します。関数の出力がどのように解釈され、相互作用できるかについてもです。</p>
+</section><section><h2 class="section-heading" id="bioconductorサポートサイト">Bioconductorサポートサイト<a class="anchor" aria-label="anchor" href="#bioconductor%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%82%B5%E3%82%A4%E3%83%88"></a>
 </h2>
 <hr class="half-width">
-<p>The <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support
-site</a> provides a platform for the community of users and developers
-to ask questions, and help each other through the doubts and challenges
-related to Bioconductor packages and analytical workflows.</p>
-<p>The support site can be freely browsed without an account to search
-and read the many questions that were already asked and answered.
-However, posting a new question does require an account on the platform.
-Signing up to the platform is straightforward using an email address or
-Open Authorization from a number of trusted providers.</p>
-<p>A system of upvoting allows the most popular answers to feature more
-prominently at the top of each page. Furthermore, the original poster
-retains the right to mark one answer as the one that resolved their
-issue.</p>
-<p>Separately, a system of points granted to each user for providing
-answers either popular or accepted by the original poster highlights the
-most active and trusted contributors on the platform.</p>
-<figure><img src="../fig/bioc-support-site.png" alt="The Bioconductor support site." class="figure mx-auto d-block"></figure><p><strong>The Bioconductor support site.</strong> The Bioconductor
-support site tracks questions and answers posted by registered users.
-The platform can be freely browsed and searched by non-registered
-users.</p>
-</section><section><h2 class="section-heading" id="workflow-packages">Workflow packages<a class="anchor" aria-label="anchor" href="#workflow-packages"></a>
+<p><a href="https://support.bioconductor.org/" class="external-link">Bioconductorサポートサイト</a>は、ユーザーと開発者のコミュニティが質問をし、Bioconductorパッケージや分析ワークフローに関する疑問や課題を通じてお互いをサポートするためのプラットフォームを提供します。</p>
+<p>サポートサイトは、アカウントなしで自由にブラウズでき、すでに質問され、回答された多くの質問を検索して読むことができます。
+ただし、新しい質問を投稿するには、プラットフォーム上のアカウントが必要です。
+プラットフォームへのサインアップは、信頼されているいくつかのプロバイダーからのメールアドレスやオープンオーソリゼーションを使用して簡単に行うことができます。</p>
+<p>アップボート制度により、最も人気のある回答が各ページの上部に表示されやすくなります。
+さらに、オリジナルの投稿者は、自分の問題を解決した回答を1つ選ぶ権利を保持しています。</p>
+<p>さらに、回答を提供することでオリジナルの投稿者によって人気または受け入れられたユーザーに付与されたポイント制度は、プラットフォーム上で最も活発で信頼されている貢献者を際立たせます。</p>
+<figure><img src="../fig/bioc-support-site.png" alt="Bioconductorサポートサイト。" class="figure mx-auto d-block"></figure><p><strong>Bioconductorサポートサイト。</strong>
+Bioconductorサポートサイトは、登録ユーザーによって投稿された質問と回答を追跡します。
+プラットフォームは、未登録のユーザーによって自由にブラウズおよび検索が可能です。</p>
+</section><section><h2 class="section-heading" id="ワークフローパッケージ">ワークフローパッケージ<a class="anchor" aria-label="anchor" href="#%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%95%E3%83%AD%E3%83%BC%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8"></a>
 </h2>
 <hr class="half-width">
-<p>Bioconductor workflow packages are special in the way that they are
-only expected to contain vignettes, without any additional code or
-functionality of their own. Instead, the vignettes of workflow packages
-exclusively import functionality from other packages, and demonstrate
-how to combine functions from those packages into an integrated workflow
-that users are likely to face in their day-to-day work.</p>
-<p>Like regular vignettes, data is typically fetched from publicly
-available sources, including Bioconductor <a href="reference.html#experimentdata-package">ExperimentData</a> packages
-or the Bioconductor <em><a href="https://bioconductor.org/packages/3.19/ExperimentHub" class="external-link">ExperimentHub</a></em>.
-Those freely available standard data sets allow users to interactively
-reproduce outputs while they read and follow along the vignette.</p>
-<p>Workflow packages can be browsed in a dedicated section of the <a href="https://www.bioconductor.org/packages/release/BiocViews.html#___Workflow" class="external-link">biocViews
-page</a>.</p>
-</section><section><h2 class="section-heading" id="slack-workspace">Slack workspace<a class="anchor" aria-label="anchor" href="#slack-workspace"></a>
+<p>Bioconductorワークフローパッケージは、独自の追加コードや機能なしでビネットのみを含むことが期待される点で特別です。
+代わりに、ワークフローパッケージのビネットは他のパッケージから機能を独占的にインポートし、ユーザーが日常の作業中に直面する可能性のある関数をどのように組み合わせて統合されたワークフローを実現するかを示します。</p>
+<p>通常のビネットのように、データは一般に公開されているソースから取得され、Bioconductorの<a href="reference.html#experimentdata-package">ExperimentData</a>パッケージやBioconductorの<em><a href="https://bioconductor.org/packages/3.19/ExperimentHub" class="external-link">ExperimentHub</a></em>を含みます。
+これらの無料で入手可能な標準データセットにより、ユーザーはビネットを読みながら、出力を対話的に再現することができます。</p>
+<p>ワークフローパッケージは、<a href="https://www.bioconductor.org/packages/release/BiocViews.html#___Workflow" class="external-link">biocViewsページ</a>の専用セクションで閲覧できます。</p>
+</section><section><h2 class="section-heading" id="slackワークスペース">Slackワークスペース<a class="anchor" aria-label="anchor" href="#slack%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9"></a>
 </h2>
 <hr class="half-width">
-<p>The <a href="https://community-bioc.slack.com/" class="external-link">Bioconductor Slack
-workspace</a> was created in 2016.</p>
-<p>The workspace can be freely joined using this <a href="https://bioc-community.herokuapp.com/" class="external-link">Heroku app</a> to generate
-invitations for individual email addresses.</p>
-<p>The Bioconductor Slack workspace is a lively online platform for
-official announcements by the <a href="https://www.bioconductor.org/about/core-team/" class="external-link">Bioconductor Core
-Team</a> (e.g., Bioconductor release, conferences &amp; events), as well
-as informal discussions between groups of users subscribed to thematic
-channels, and direct messages between community members.</p>
-<p>The workspace features a large number of channels dedicated to
-particular topics and areas of interest in the community. Those channels
-range from active fields of research (e.g., single-cell genomics), to
-time-limited events (e.g., conferences), but also community outreach
-(e.g., diversity and representation).</p>
-<p>Private channels also exist for governance (e.g., event organisation,
-advisory boards).</p>
-<div id="note-1" class="callout">
+<p><a href="https://community-bioc.slack.com/" class="external-link">Bioconductor
+Slackワークスペース</a>は、2016年に設立されました。</p>
+<p>この<a href="https://bioc-community.herokuapp.com/" class="external-link">Herokuアプリ</a>を使用して、個々のメールアドレスの招待を生成することで、自由に参加できます。</p>
+<p>Bioconductor
+Slackワークスペースは、公式発表（例：Bioconductorリリース、会議＆イベント）、および特定のトピックに登録されたユーザーグループ間の非公式な議論、そしてコミュニティメンバー間の直接メッセージのための活発なオンラインプラットフォームです。</p>
+<p>このワークスペースには、コミュニティ内の特定のトピックや関心分野に特化した多数のチャネルがあります。
+これらのチャネルは、活発な研究分野（例：単一細胞ゲノミクス）から、期間限定のイベント（例：会議）、さらには地域社会の
+Outreach（例：多様性と代表性）まで一般的です。</p>
+<p>プライベートチャネルも、ガバナンス（例：イベントの組織、諮問委員会）に存在します。</p>
+<div id="注意-1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note-1" class="callout-inner">
-<h3 class="callout-title">Note</h3>
+<div id="注意-1" class="callout-inner">
+<h3 class="callout-title">注意</h3>
 <div class="callout-content">
-<p>The Slack workspace allows for rapid day-to-day communication and
-discussion with fellow community members through channels and direct
-messages.</p>
-<p>However, popular channels can reach up to hundreds of users in many
-different time zones and should be used with parsimony and mindfulness.
-Conversely, direct messages and private channels are limited to the
-users invited in the discussion, and any outcome relevant to the
-community then needs to be re-posted in a public channel.</p>
-<p>As a consequence, the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a>
-remains the preferred way to publicly ask questions of interest to the
-community, in a way that both the question, discussion, and answers are
-easily searchable and indexed by major search engines.</p>
+<p>Slackワークスペースは、チャネルや直接メッセージを通じて仲間のコミュニティメンバーと迅速な日常的コミュニケーションや議論を行うことを可能にします。</p>
+<p>ただし、人気のあるチャネルには、さまざまなタイムゾーンにいる数百人のユーザーが集まる可能性があり、節度と配慮を持って使用する必要があります。
+対照的に、直接メッセージやプライベートチャネルは、議論に招待されたユーザーに制限され、コミュニティにとって関連する結果は公のチャネルに再投稿する必要があります。</p>
+<p>その結果、<a href="https://support.bioconductor.org/" class="external-link">Bioconductorサポートサイト</a>は、コミュニティにとって興味のある質問を公にするための好ましい方法として残ります。これは、質問、議論、回答が簡単に検索可能であり、主要な検索エンジンによってインデックスされるためです。</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="how-to-efficiently-ask-for-help">How to efficiently ask for help<a class="anchor" aria-label="anchor" href="#how-to-efficiently-ask-for-help"></a>
+</section><section><h2 class="section-heading" id="ヘルプを効率的に求めるには">ヘルプを効率的に求めるには<a class="anchor" aria-label="anchor" href="#%E3%83%98%E3%83%AB%E3%83%97%E3%82%92%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%B1%82%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF"></a>
 </h2>
 <hr class="half-width">
-<p>Most community members provide help voluntarily, on their own spare
-time and without any form of compensation. As such, it is important to
-ask questions as clearly as possible, providing relevant information, to
-help those volunteers identify the source of the issue as rapidly as
-possible, thus saving time for both the helper and the original
-poster.</p>
-<p>Depending on the question, some key information includes:</p>
+<p>コミュニティメンバーのほとんどは、ボランティアとして、自己の余暇の時間で、無報酬で助けを提供しています。
+したがって、問題の原因を迅速に特定するのを手助けするために、関連情報を提供して、できるだけ明確に質問を行うことが重要です。そうすれば、助ける側と元々の投稿者の両方の時間を節約できます。</p>
+<p>質問の内容によっては、いくつかの重要な情報が含まれます：</p>
 <ul>
-<li>Operating system</li>
-<li>Version of R</li>
-<li>Version of Bioconductor</li>
-<li>Version of individual packages installed in the R library</li>
-<li>Version of individual packages attached to the current session</li>
-<li>Third-party software, libraries, and compilers installed on the
-user’s system</li>
-<li>Source of packages installed in the R library (e.g., Bioconductor,
-CRAN, GitHub)</li>
-<li>Code executed in the R session leading up to the issue</li>
-<li>Global options active in the session (accessible using
-<code>options()</code>)</li>
+<li>オペレーティングシステム</li>
+<li>Rのバージョン</li>
+<li>Bioconductorのバージョン</li>
+<li>Rライブラリにインストールされている個別のパッケージのバージョン</li>
+<li>現在のセッションにアタッチされている個別のパッケージのバージョン</li>
+<li>ユーザーのシステムにインストールされているサードパーティ製ソフトウェア、ライブラリ、およびコンパイラ</li>
+<li>Rライブラリにインストールされたパッケージのソース（例：Bioconductor、CRAN、GitHub）</li>
+<li>問題に至るまでにRセッションで実行されたコード</li>
+<li>セッションで有効なグローバルオプション（<code>options()</code>を使用してアクセス可能）</li>
 </ul>
-<p>When the issue relates to code being run and producing unexpected
-outputs, it is paramount to include sufficient information for others to
-reproduce the issue on their own computer. Indeed, many issues require a
-live R session to properly investigate the source of the issue, test
-fixes, or provide workaround and advice.</p>
-<p>Crucially, when providing code as part of your post, it is important
-that this code be executable by readers, including data that are
-processed by the code. Often, the code itself may look correct, while
-the issue relates to the interaction between the code and a particular
-data set. If sharing sensitive data is not an option, then the issue
-should be reformulated and presented using a data set publicly available
-on the internet, or including code to generate simulated data randomly
-generated in a reproducible way (e.g., <code>set.seed()</code>).</p>
-<p>One option is to use the package <em><a href="https://CRAN.R-project.org/package=reprex" class="external-link">reprex</a></em> to
-collate the code and outputs that describe the issue into formatted text
-that is easy to post of many online forums, including the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support
-site</a>.</p>
-<p>Finally, the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor
-support site</a> is the preferred platform to post questions related to
-Bioconductor packages. This is because questions are visible to the
-entire community, including many experienced Bioconductor users who
-regularly answer those questions, and other users who can find answers
-to questions that were already posted and resolved by the time they run
-into the issue themselves.</p>
+<p>問題が実行されるコードに関連していて、想定外の出力を生成する場合、他の人がコンピュータ上で問題を再現できるように十分な情報を含めることが重要です。
+実際、多くの問題には、問題の原因を適切に調査するため、修正をテストするため、または回避策やアドバイスを提供するためには、ライブのRセッションが必要です。</p>
+<p>重要なのは、投稿の一部としてコードを提供する際には、読者が実行可能なコードであり、コードによって処理されたデータも含まれていることが重要です。
+しばしば、コード自体は正しく見えますが、問題はコードと特定のデータセットとの相互作用に関連しています。
+機密データを共有することができない場合、問題は再計画されて、インターネット上で公開されているデータセットを使用して提示されるか、再現可能な方法でランダムに生成されたシミュレーションデータを生成するためのコードを含む必要があります（例：<code>set.seed()</code>）。</p>
+<p>1つの選択肢は、<em><a href="https://CRAN.R-project.org/package=reprex" class="external-link">reprex</a></em>パッケージを使用して、問題を説明するコードおよび出力を整理して、<a href="https://support.bioconductor.org/" class="external-link">Bioconductorサポートサイト</a>などの多くのオンラインフォーラムで投稿しやすい形式のテキストにします。</p>
+<p>最後に、<a href="https://support.bioconductor.org/" class="external-link">Bioconductorサポートサイト</a>は、Bioconductorパッケージに関連する質問を投稿するための好ましいプラットフォームです。
+それは、質問がコミュニティ全体に表示され、定期的にその質問に回答する経験豊富なBioconductorユーザーや、問題に直面するまでにすでに投稿されて解決済みの質問に対する回答を見つけることができる他のユーザーを含むからです。</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1811,14 +1687,11 @@ into the issue themselves.</p>
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
-<li>The <code>browseVignettes()</code> function is recommended to access
-the vignette(s) installed with each package.</li>
-<li>Vignettes can also be accessed on the Bioconductor website, but
-beware of differences between package versions!</li>
-<li>The Bioconductor main website contains general information, package
-documentation, and course materials.</li>
-<li>The Bioconductor support site is the recommended place to contact
-developers and ask questions.</li>
+<li>
+<code>browseVignettes()</code>関数は、各パッケージにインストールされているビネットにアクセスするために推奨されています。</li>
+<li>ビネットはBioconductorウェブサイトでもアクセスできますが、パッケージバージョン間の違いには注意してください！</li>
+<li>Bioconductorメインウェブサイトには一般情報、パッケージドキュメント、コース資料が含まれています。</li>
+<li>Bioconductorサポートサイトは、開発者に連絡し、質問をすべて行うために推奨される場所です。</li>
 </ul>
 </div>
 </div>
@@ -2117,7 +1990,7 @@ name2         3           C       3.4</code></pre>
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <pre><code>&gt; DF2["name1", ]
 DataFrame with 1 row and 3 columns
@@ -2165,7 +2038,7 @@ name1         1           A       1.2</code></pre>
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <pre><code>&gt; DF3["a", ]
 DataFrame with 1 row and 3 columns
@@ -2525,7 +2398,7 @@ system</a> –
   解決策
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>はい、これは <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC</a>
 表記で定義されたノンアンビギュリティのコードを使用した有効な DNA
@@ -2709,7 +2582,7 @@ views:
   解決策
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><code>countPattern()</code> メソッドは 3
 回のヒットを報告します。なぜなら、オプション <code>fixed = FALSE</code>
@@ -2847,7 +2720,7 @@ R コードを使用してみましょう。
   解決策
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <pre><code>&gt; setdiff(AA_PROTEINOGENIC, AA_STANDARD)
 [1] "U" "O"</code></pre>
@@ -2987,7 +2860,7 @@ mRNA (RefSeq: NM\_001101) の標準的な遺伝コードを使用し、最小の
   解決策
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <pre><code><span><span class="fu">width</span><span class="op">(</span><span class="va">actb_aa</span><span class="op">)</span></span>
 <span><span class="co"># または</span></span>
@@ -3915,7 +3788,7 @@ A、B、およびCという名前の3つの区間が表されています。
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4604,7 +4477,7 @@ ENST00000676189 ENST00000676319 ENST00000676397
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb61">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
