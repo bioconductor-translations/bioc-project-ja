@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: 注釈の取り扱い
+title: アノテーションの取り扱い
 teaching: XX
 exercises: XX
 ---
