@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Genomics ranges を扱う
+title: Genomics ranges の取り扱い
 teaching: XX
 exercises: XX
 ---

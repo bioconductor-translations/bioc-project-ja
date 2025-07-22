@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Working with biological sequences
+title: 生物学的配列の取り扱い
 teaching: XX
 exercises: XX
 ---
@@ -9,25 +9,25 @@ exercises: XX
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how biological sequences are represented in the Bioconductor project.
-- Identify Bioconductor packages and methods available to process biological sequences.
+- Bioconductor プロジェクトにおいて生物学的配列がどのように表現されているかを説明してください。
+- 生物学的配列を処理するために利用可能な Bioconductor パッケージとメソッドを特定してください。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What is the recommended way to represent biological sequences in Bioconductor?
-- What Bioconductor packages provides methods to efficiently process biological sequences?
+- Bioconductor で生物学的配列を表現するための推奨される方法は何ですか？
+- 生物学的配列を効率的に処理するためのメソッドを提供する Bioconductor パッケージはどれですか？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
-## Install packages
+## パッケージのインストール
 
-Before we can proceed into the following sections, we install some Bioconductor packages that we will need.
-First, we check that the *[BiocManager](https://bioconductor.org/packages/3.19/BiocManager)* package is installed before trying to use it; otherwise we install it.
-Then we use the `BiocManager::install()` function to install the necessary packages.
+次のセクションに進む前に、必要な Bioconductor パッケージをインストールします。
+まず、*[BiocManager](https://bioconductor.org/packages/3.19/BiocManager)* パッケージがインストールされているか確認します; そうでなければ、インストールします。
+次に、`BiocManager::install()` 関数を使用して必要なパッケージをインストールします。
 
 
 ``` r
@@ -37,45 +37,35 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("Biostrings")
 ```
 
-## The Biostrings package and classes
+## Biostrings パッケージとクラス
 
-### Why do we need classes for biological sequences?
+### なぜ生物学的配列のためのクラスが必要なのですか？
 
-Biological sequences are arguably some of the simplest biological entities to
-represent computationally.
-Examples include nucleic acid sequences (e.g., DNA, RNA) and protein sequences
-composed of amino acids.
+生物学的配列は、計算上、最も単純な生物エンティティの一部であると主張できます。
+例として、核酸配列（例: DNA, RNA）やアミノ酸から構成されるタンパク質配列があります。
 
-That is because alphabets have been designed and agreed upon to represent
-individual monomers using character symbols.
+それは、アルファベットが個々のモノマーをキャラクターシンボルを使用して表現するために設計され、同意されているからです。
 
-For instance, using the alphabet for amino acids, the reference protein sequence
-for the [Actin, alpha skeletal muscle protein sequence](https://www.uniprot.org/uniprot/P68133#sequences) is represented as
-follows.
+たとえば、アミノ酸のアルファベットを使用すると、[アクチン、α骨格筋タンパク質配列](https://www.uniprot.org/uniprot/P68133#sequences) の参照タンパク質配列は次のように表されます。
 
 
 ``` output
 [1] "MCDEDETTALVCDNGSGLVKAGFAGDDAPRAVFPSIVGRPRHQGVMVGMGQKDSYVGDEAQSKRGILTLKYPIEHGIITNWDDMEKIWHHTFYNELRVAPEEHPTLLTEAPLNPKANREKMTQIMFETFNVPAMYVAIQAVLSLYASGRTTGIVLDSGDGVTHNVPIYEGYALPHAIMRLDLAGRDLTDYLMKILTERGYSFVTTAEREIVRDIKEKLCYVALDFENEMATAASSSSLEKSYELPDGQVITIGNERFRCPETLFQPSFIGMESAGIHETTYNSIMKCDIDIRKDLYANNVMSGGTTMYPGIADRMQKEITALAPSTMKIKIIAPPERKYSVWIGGSILASLSTFQQMWITKQEYDEAGPSIVHRKCF"
 ```
 
-However, a major limitation of regular character vectors is that they do not
-check the validity of the sequences that they contain.
-Practically, it is possible to store meaningless sequences of symbols in
-character strings, including symbols that are not part of the official alphabet
-for the relevant type of polymer.
-In those cases, the burden of checking the validity of sequences falls on the
-programs that process them, or causing those programs to run into errors when
-they unexpectedly encounter invalid symbols in a sequence.
+しかし、通常の文字ベクトルの大きな制限は、それらが含む配列の妥当性をチェックしないことです。
+実際には、公式アルファベットに含まれない記号を含む無意味な記号列を文字列に格納することが可能です。
+その場合、配列の妥当性をチェックする負担はそれらを処理するプログラムにかかるか、配列内の無効な記号が予期せず遭遇したときにエラーを引き起こすことになります。
 
-Instead, [S4 classes][glossary-s4-class] -- demonstrated in the earlier episode [The S4 class system][crossref-s4] -- provide a way to label objects as distinct "DNA", "RNA", or "protein" varieties of biological sequences.
-This label is an extremely powerful way to inform programs on the set of character symbols they can expect in the sequence, but also the range of computational operations that can be applied to those sequences.
-For instance, a function designed to translate nucleic acid sequences into the corresponding amino acid sequence should only be allowed to run on sequences that represent nucleic acids.
+代わりに、[S4クラス][glossary-s4-class] -- 以前のエピソードで示されている[the S4 class system][crossref-s4] -- は、生物学的配列の「DNA」、「RNA」、または「タンパク質」という異なる種類のオブジェクトをラベル付けする方法を提供します。
+このラベルは、配列に期待できるキャラクターシンボルのセットや、それらの配列に適用できる計算操作の範囲をプログラムに通知するための非常に強力な方法です。
+たとえば、核酸配列を対応するアミノ酸配列に変換するために設計された関数は、核酸を表す配列に対してのみ実行されるべきです。
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### 挑戦
 
-Can you tell whether this character string is a valid DNA sequence?
+この文字列が有効な DNA 配列であるかどうかを教えてくれますか？
 
 ```
 AATTGGCCRGGCCAATT
@@ -83,54 +73,37 @@ AATTGGCCRGGCCAATT
 
 :::::::::::::::  solution
 
-### Solution
+### 解決策
 
-Yes, this is a valid DNA sequence using ambiguity codes defined in the [IUPAC][external-iupac] notation.
-In this case, `A`, `T`, `C`, and `G` represents the four standard types of
-nucleotides, while the `R` symbol acts as a regular expression representing
-either of the two purine nucleotide bases, `A` and `G`.
+はい、これは [IUPAC][external-iupac] 表記で定義されたノンアンビギュリティのコードを使用した有効な DNA 配列です。
+この場合、`A`、`T`、`C`、および `G` は、4 つの標準的な核酸を表し、`R` シンボルは、`A` または `G` の2つのプリン核酸塩基のどちらかを表す正規表現として機能します。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## The Biostrings package
+## Biostrings パッケージ
 
-### Overview
+### 概要
 
-In the Bioconductor project, the *[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* package
-implements S4 classes to represent biological sequences as S4 objects, e.g.
-`DNAString` for sequences of nucleotides in deoxyribonucleic acid polymers, and
-`AAString` for sequences of amino acids in protein polymers.
-Those S4 classes provide memory-efficient containers for character strings,
-automatic validity-checking functionality for each class of biological
-molecules, and methods implementing various string matching algorithms and other
-utilities for fast manipulation and processing of large biological sequences or
-sets of sequences.
+Bioconductor プロジェクトにおいて、*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* パッケージは、生物学的配列を S4 オブジェクトとして表現するための S4 クラスを実装しています。たとえば、脱ox DNA ポリマーの核酸の配列に対して `DNAString` があり、タンパク質ポリマーにおけるアミノ酸の配列に対しては `AAString` があります。
+これらの S4 クラスは、文字列のメモリ効率の良いコンテナ、自動的な妥当性チェック機能、生物学的分子の各クラスに対するさまざまな文字列一致アルゴリズムおよび他のユーティリティのメソッドを実装して、大規模な生物学的配列または配列のセットの迅速な操作と処理を可能にします。
 
-A short presentation of the basic classes defined in the
-*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* package is available in one of the package
-vignettes, accessible as `vignette("Biostrings2Classes")`, while more detailed
-information is provided in the other package vignettes, accessible as
-`browseVignettes("Biostrings")`.
+*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* パッケージで定義された基本クラスの簡単なプレゼンテーションは、`vignette("Biostrings2Classes")` からアクセスできるパッケージのビネットの1つにあります。より詳細な情報は、`browseVignettes("Biostrings")` からアクセスできる他のパッケージビネットに提供されます。
 
-### First steps
+### 最初のステップ
 
-To get started, we load the package.
+開始するには、パッケージを読み込みます。
 
 
 ``` r
 library(Biostrings)
 ```
 
-With the package loaded and attached to the session, we have access to the
-package functions.
-Those include functions that let us create new objects of the classes defined
-in the package.
-For instance, we can create an object that represents a DNA sequence, using the
-`DNAString()` constructor function.
-Without assigning the output to an object, we let the resulting object be
-printed in the console.
+パッケージが読み込まれ、セッションに追加されると、パッケージ関数にアクセスできます。
+これには、パッケージで定義されたクラスの新しいオブジェクトを作成するための関数が含まれます。
+たとえば、`DNAString()` コンストラクタ関数を使用して DNA 配列を表すオブジェクトを作成できます。
+出力をオブジェクトに割り当てずに、結果として得られたオブジェクトをコンソールに出力させます。
 
 
 ``` r
@@ -142,13 +115,8 @@ DNAString("ATCG")
 seq: ATCG
 ```
 
-Notably, DNA sequences may only contain the symbols `A`, `T`, `C`, and `G`, to
-represent the four DNA nucleotide bases, the symbol `N` as a placeholder for an
-unknown or unspecified base, and a restricted set of additional symbols with
-special meaning defined in the
-[IUPAC Extended Genetic Alphabet][iupac-alphabet].
-Notice that the constructor function does not let us create objects that contain
-invalid characters, e.g. `Z`.
+注意すべきは、DNA配列は、4つのDNA 核酸塩基を表すために `A`、`T`、`C`、および `G` のシンボルを含むことができ、未知または未指定の塩基に対しては `N` のシンボルを使用し、公式に定義された特別な意味を持つ一連の追加記号を制限していることです。
+コンストラクタ関数は、無効な文字を含むオブジェクトを作成することを許可しないことに注意してください。たとえば、`Z` は無効です。
 
 
 ``` r
@@ -159,11 +127,8 @@ DNAString("ATCGZ")
 Error in .Call2("new_XString_from_CHARACTER", class(x0), string, start, : key 90 (char 'Z') not in lookup table
 ```
 
-Specifically, the [IUPAC Extended Genetic Alphabet][iupac-alphabet] defines
-ambiguity codes that represent sets of nucleotides, in a way similar to regular
-expressions.
-The `IUPAC_CODE_MAP` named character vector contains the mapping from the IUPAC
-nucleotide ambiguity codes to their meaning.
+具体的に言えば、[IUPAC 拡張遺伝子アルファベット][iupac-alphabet] は、一種の核酸を表現するセットを表すアンビギュリティコードを定義しています。
+`IUPAC_CODE_MAP` という名前のキャラクター ベクトルは、IUPAC 核酸のアンビギュリティ コードからそれらの意味へのマッピングを含みます。
 
 
 ``` r
@@ -177,33 +142,24 @@ IUPAC_CODE_MAP
  "ACT"  "AGT"  "CGT" "ACGT" 
 ```
 
-Any of those nucleotide codes are allowed in the sequence of a `DNAString`
-object.
-For instance, the symbol `M` represents either of the two nucleotides `A` or `C`
-at a given position in a nucleic acid sequence.
+これらの核酸コードは、`DNAString` オブジェクトの配列に含めることができます。
+たとえば、シンボル `M` は、核酸配列の特定の位置において、`A` もしくは `C` の2つの核酸のどちらかを表します。
 
 
 ``` r
-DNAString("ATCGM")
+特に、`r BiocStyle::Biocpkg("Biostrings")` パッケージで実装されているパターンマッチングメソッドは、各生物学的配列のアンビギュリティコードの意味を認識し、ユーザーが照会したモチーフに効率的に一致させることができ、複雑な正規表現を設計する必要がありません。
 ```
 
-``` output
-5-letter DNAString object
-seq: ATCGM
+``` error
+Error in parse(text = input): <text>:1:3: unexpected invalid token
+1: 特に、
+      ^
 ```
 
-In particular, pattern matching methods implemented in the
-*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* package recognize the meaning of ambiguity
-codes for each class of biological sequence, allowing them to efficiently match
-motifs queried by users without the need to design elaborate regular
-expressions.
-For instance, the method `matchPattern()` takes a `pattern=` and a `subject=`
-argument, and returns a `Views` object that reports and displays any match of
-the `pattern` expression at any position in the `subject` sequence.
+特に、*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* パッケージで実装されたパターンマッチング方法は、各種生物学的配列のあいまいさコードの意味を認識し、ユーザーがクエリしたモチーフを効率的に一致させることができるため、煩雑な正規表現を設計する必要がありません。
+たとえば、`matchPattern()` メソッドは、`pattern=` と `subject=` 引数を取り、`subject` 配列の任意の位置で `pattern` 式の一致を報告および表示する `Views` オブジェクトを返します。
 
-Note that the default option `fixed = TRUE` instructs the method to match the
-query exactly -- i.e., ignore ambiguity codes -- which in this case does not report
-any exact match.
+デフォルトオプション `fixed = TRUE` は、メソッドにクエリを正確に一致させるよう指示します。すなわち、アンビギュリティコードを無視し、この場合正確な一致は報告されません。
 
 
 ``` r
@@ -217,8 +173,7 @@ subject: ATCGCTTTGA
 views: NONE
 ```
 
-Instead, to indicate that the pattern includes some ambiguity code, the argument
-`fixed` must be set to `FALSE`.
+その代わりに、パターンにアンビギュリティコードが含まれていることを示すには、引数 `fixed` を `FALSE` に設定する必要があります。
 
 
 ``` r
@@ -234,23 +189,17 @@ views:
   [2]     9  10     2 [GA]
 ```
 
-In this particular example, two views describe matches of the pattern in the
-subject sequence.
-Specifically, the pattern `GM` first matched the sequence `GC` spanning
-positions 4 to 5 in the subject sequence, and then also matched the sequence
-`GA` from positions 9 to 10.
+この特定の例では、2つのビューがサブジェクトシーケンスのパターンの一致を説明します。
+具体的には、`GM` のパターンは最初にサブジェクトシーケンスの位置 4 から 5 にまたがる `GC` のシーケンスと一致し、次に位置 9 から 10 のシーケンス `GA` でも一致しました。
 
-Similarly to the method `matchPattern()`, the method `countPattern()` can be
-applied to simply count the number of matches of the `pattern` in the `subject`
-sequence.
-And again, the option `fixed` controls whether to respect ambiguity codes, or
-match them exactly.
+`matchPattern()` メソッドと同様に、`countPattern()` メソッドは、`subject` 配列内の `pattern` の一致数を単純にカウントするために適用できます。
+また、`fixed` オプションは、アンビギュリティコードを尊重するか、正確に一致させるかを制御します。
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### 挑戦
 
-How many hits does the following code return? Why?
+次のコードは何回ヒットしますか？ なぜですか？
 
 ```
 dna2 <- DNAString("TGATTGCTTGGTTGMTT")
@@ -259,23 +208,21 @@ countPattern("GM", dna2, fixed = FALSE)
 
 :::::::::::::::  solution
 
-### Solution
+### 解決策
 
-The method `countPattern()` reports 3 hits, because the option
-`fixed = FALSE` allows the pattern `GM` to match `GA`, `GC`, and `GM`
-sequences, due to the use of the ambiguity code `M` in the `pattern`.
+`countPattern()` メソッドは 3 回のヒットを報告します。なぜなら、オプション `fixed = FALSE` が `GM` パターンが `GA`、`GC`、および `GM` の配列と一致させることを可能にするからです。これは、`pattern` にアンビギュリティコード `M` を使用しているためです。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Importing biological strings from files
+### ファイルから生物学的文字列をインポートする
 
-In practice, users rarely type the strings representing biological sequences themselves.
-Most of the time, biological strings are imported from files, either downloaded from public repositories or generated locally using bioinformatics programs.
+実際には、ユーザーは、自分で生物学的配列を表す文字列をタイピングすることはめったにありません。
+ほとんどの時間は、生物学的文字列は、公的なレポジトリからダウンロードされたファイルや、バイオインフォマティクスプログラムを使用してローカルで生成されたファイルからインポートされます。
 
-For instance, we can load the set of adapter sequences for the [TruSeq™ DNA PCR-Free whole-genome sequencing library preparation][external-truseq] kit from a file that we downloaded during the lesson setup.
-Since adapter sequences are nucleic acid sequences, we must use the function `readDNAStringSet()`.
+たとえば、レッスンのセットアップ時にダウンロードしたファイルから、[TruSeq™ DNA PCR-Free Whole Genome Sequencing Library Preparation][external-truseq] キットのアダプタシーケンスのセットを読み込みます。
+アダプタシーケンスは核酸配列であるため、`readDNAStringSet()` 関数を使用する必要があります。
 
 
 ``` r
@@ -296,27 +243,20 @@ DNAStringSet object of length 6:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Going further
+### さらなる進展
 
-The help page of the function `readDNAStringSet()` -- accessible using
-`help(readDNAStringSet)` -- documents related functions designed to import
-other types of biological sequences, e.g `readRNAStringSet()`,
-`readAAStringSet()`.
+`readDNAStringSet()` 関数のヘルプページは、関連する生物学的配列タイプをインポートするために設計された関連関数を文書化しています。たとえば、`readRNAStringSet()`、`readAAStringSet()` などがあります。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Operations on biological strings
+### 生物学的文字列に対する操作
 
-#### Computing the frequency of symbols
+#### 記号の頻度を計算する
 
-The *[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* package provides several functions to
-process and manipulate classes of biological strings.
-For example, we have come across `matchPattern()` and `countPattern()` earlier
-in this episode.
+*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* パッケージは、生物学的文字列のクラスを処理および操作するためのいくつかの関数を提供します。
+たとえば、このエピソードの前に `matchPattern()` と `countPattern()` に出会いました。
 
-Another example of a method that can be applied to biological strings is
-`letterFrequency()`, to compute the frequency of letters in a biological
-sequence.
+生物学的文字列に適用できるメソッドの別の例は、`letterFrequency()` で、生物学的配列内の文字の頻度を計算します。
 
 
 ``` r
@@ -333,18 +273,15 @@ letterFrequency(truseq_adapters, letters = DNA_ALPHABET)
 [6,] 11 10  8  5 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ```
 
-The output is a matrix with one row for each sequence in the `DNAStringSet`
-object, and one column for each symbol in the alphabet of deoxyribonucleic
-acids, provided by the *[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* package in a
-built-in object called `DNA_ALPHABET`.
+出力は、`DNAStringSet` オブジェクト内の各配列の 1 行と、デオキシリボ核酸のアルファベットに対して 1 列を持つ行列です。これは、*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* パッケージから提供される、`DNA_ALPHABET` という名前のビルトインオブジェクトによって得られます。
 
-### Amino acid sequences
+### アミノ酸配列
 
-Similarly to the `DNAString` and `DNAStringSet` classes, the classes `AAString` and `AAStringSet` allow efficient storage and manipulation of a long amino acid sequence, or a set thereof.
+`DNAString` と `DNAStringSet` クラスと同様に、`AAString` と `AAStringSet` クラスは、長いアミノ酸配列またはそれらのセットを効率的に保存および操作することを可能にします。
 
-Similarly to built-in objects for the DNA alphabet, the built-in objects `AA_ALPHABET`, `AA_STANDARD` and `AA_PROTEINOGENIC` describe different subsets of the alphabet of valid symbols for amino acid sequences.
+DNA アルファベットのビルトインオブジェクトに似て、ビルトインオブジェクト `AA_ALPHABET`、`AA_STANDARD`、`AA_PROTEINOGENIC` は、アミノ酸配列の有効なシンボルのアルファベットの異なるサブセットを説明しています。
 
-For instance, the `AA_ALPHABET` object describes the set of symbols in the full amino acid alphabet.
+たとえば、`AA_ALPHABET` オブジェクトは、完全なアミノ酸アルファベットのシンボルセットを説明しています。
 
 
 ``` r
@@ -358,37 +295,36 @@ AA_ALPHABET
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### 挑戦
 
-Use base R code to identify the two symbols present in the `AA_PROTEINOGENIC`
-alphabet object that are absent from the `AA_STANDARD` alphabet object.
-What do those two symbols represent?
+`AA_PROTEINOGENIC` アルファベットオブジェクトに存在し、`AA_STANDARD` アルファベットオブジェクトには存在しない2つのシンボルを特定するために、基本的な R コードを使用してみましょう。
+それらの2つのシンボルは何を表していますか？
 
 :::::::::::::::  solution
 
-### Solution
+### 解決策
 
 ```
 > setdiff(AA_PROTEINOGENIC, AA_STANDARD)
 [1] "U" "O"
 ```
 
-The symbols `U` and `O` represent selenocysteine and pyrrolysine, respectively.
-Those two amino acids are in some species coded for by codons that are usually interpreted as stop codons.
-As such, they are not included in the alphabet of "standard" amino acids, and an alphabet of "proteinogenic" amino acids was defined to acknowledge the special biology of those amino acids.
-Either of those alphabets may be used to determine the validity of an amino acid sequence, depending on its biological nature.
+シンボル `U` と `O` は、それぞれセレノシステインとピロリジンを表します。
+これら2つのアミノ酸は、いくつかの種で通常はストップコドンとして解釈されるコドンによってコードされています。
+したがって、彼らは「標準」アミノ酸のアルファベットには含まれておらず、これらのアミノ酸の特別な生物学を認めるために「タンパク質製生成的」アミノ酸のアルファベットが定義されました。
+これらのアルファベットのいずれかは、アミノ酸配列の妥当性を決定するために使用できます。生物学的性質に応じて。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Translating nucleotide sequences
+### 核酸配列の翻訳
 
-One of the key motivations for the use of [S4 classes][glossary-s4-class] and the object-oriented programming (OOP) model relies on the infrastructure of S4 generics and methods.
-As described in the earlier episode [The S4 class system][crossref-s4], generics provide a mechanism for defining and applying distinct implementations of the same generic function name, according to the nature of the input object(s) provided to the function call.
+[S4クラス][glossary-s4-class] とオブジェクト指向プログラミング (OOP) モデルを使用する主な動機の1つは、S4 ジェネリックとメソッドのインフラストラクチャに依存しています。
+前のエピソードで説明しましたが、[The S4 class system][crossref-s4] において、ジェネリックは、関数呼び出しに提供された入力オブジェクトの性質に応じて、同じジェネリック関数名の異なる実装を定義して適用するためのメカニズムを提供します。
 
-For instance, the *[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* package provides multiple implementations of a generic called `translate()`,  for translating DNA or RNA sequences into amino acid sequences.
-The set of input objects supported by the generic `translate()` can be listed using the function `showMethods()`, from the CRAN package *[methods](https://CRAN.R-project.org/package=methods)*.
+たとえば、*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* パッケージは、DNA または RNA 配列をアミノ酸配列に変換するための `translate()` というジェネリックの複数の実装を提供します。
+ジェネリック `translate()` でサポートされている入力オブジェクトのセットは、CRAN パッケージ *[methods](https://CRAN.R-project.org/package=methods)* の関数 `showMethods()` を使用してリスト可能です。
 
 
 ``` r
@@ -405,15 +341,9 @@ x="RNAString"
 x="RNAStringSet"
 ```
 
-In the output above, we see that that the generic function `translate()` includes methods capable of handling objects representing DNA and RNA sequences in the `DNAString` and `RNAString` classes, respectively;
-but also lists of DNA and RNA sequences in objects of class `DNAStringSet` and `RNAStringSet`, as well as other classes capable of storing DNA and RNA sequences.
+上記の出力では、ジェネリック関数 `translate()` は、`DNAString` と `RNAString` クラスにおける DNA および RNA シーケンスを表すオブジェクトを処理する能力のあるメソッドを含むことがわかります。さらに、`DNAStringSet` と `RNAStringSet` クラスのオブジェクトにおける DNA および RNA のシーケンスのリスト、ならびに DNA および RNA シーケンスを保存する能力のある他のクラスもリストされています。
 
-To demonstrate the use of the `translate()` method, we first load a set of open
-reading frames (ORFs) identified by the
-[NIH Open Reading Frame Finder][orf-finder]
-for the _Homo sapiens_ actin beta (ACTB) mRNA (RefSeq: NM\\_001101),
-using the standard genetic code, a minimal ORF length of 75 nucleotides,
-and starting with the "ATG" start codon only.
+`translate()` メソッドの使用を示すために、最初に、[NIH Open Reading Frame Finder][orf-finder]により特定されたオープンリーディングフレーム (ORF) のセットを読み込みます。これは、_Homo sapiens_ アクチン β (ACTB) mRNA (RefSeq: NM\\_001101) の標準的な遺伝コードを使用し、最小の ORF 長さは 75 核酸で、`ATG` スタートコドンのみで始めます。
 
 
 ``` r
@@ -437,9 +367,7 @@ DNAStringSet object of length 13:
 [13]   135 ATGATGAGCCTTCGTGCCCCCCC...TGACTTGAGACCAGTTGAATAA gi|1519311456|ref...
 ```
 
-Having imported the nucleotide sequences as a `DNAStringSet` object, we can
-apply the `translate()` method to that object to produce the amino acid
-sequence that results from the translation process for each nucleotide sequence.
+核酸列を `DNAStringSet` オブジェクトとしてインポートした後、そのオブジェクトに対して `translate()` メソッドを適用し、各核酸配列の翻訳プロセスによって生成されるアミノ酸配列を生成することができます。
 
 
 ``` r
@@ -463,75 +391,61 @@ AAStringSet object of length 13:
 [13]    45 MMSLRAPPSPFFVPQLEMYEGFWSPWEWVEAARAYLYTDLRPVE*    gi|1519311456|ref...
 ```
 
-In the example above, all amino acid sequences visible start with the typical
-methionin amino acid encoded by the "ATG" start codon.
-We also see that all but one of the amino acid sequences visible end with the
-`*` symbol, which indicates that the translation process ended on a stop codon.
-In contrast, the first open reading frame above reached the end of the
-nucleotide sequence without encoutering a stop codon.
+上記の例では、すべてのアミノ酸配列は、`ATG` スタートコドンによってコードされる典型的なメチオニンアミノ酸から始まっています。
+また、目に見えるアミノ酸配列のすべては一つを除いて、すべてが `*` シンボルで終わっており、これは翻訳プロセスがストップコドンで終了したことを示しています。
+対照的に、上記の最初のオープンリーディングフレームは、ストップコドンに遭遇せずに核酸配列の終わりに到達しました。
 
-Conveniently, the number of amino acids in each sequence is stated under the
-header `width`.
+便利なことに、各シーケンス内のアミノ酸の数は、`width` ヘッダーの下に示されています。
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-### Challenge
+### 挑戦
 
-Extract the length of each amino acid sequence above as an integer vector.
-What is the length of the longest amino acid sequence translated from any of
-those open reading frames?
+上記の各アミノ酸配列の長さを整数ベクトルとして抽出してください。
+これらのオープンリーディングフレームから翻訳された最も長いアミノ酸配列の長さは何ですか？
 
-Compare your result with the sequence information on the UniPro page for
-ACTB ([https://www.uniprot.org/uniprot/P60709#sequences](https://www.uniprot.org/uniprot/P60709#sequences)).
+あなたの結果を、ACTBの UniPro ページのシーケンス情報と比較してください。([https://www.uniprot.org/uniprot/P60709#sequences](https://www.uniprot.org/uniprot/P60709#sequences))
 
 :::::::::::::::  solution
 
-### Solution
+### 解決策
 
 ```
 width(actb_aa)
-# or
+# または
 max(width(actb_aa))
 ```
 
-The longest translated sequence contains 376 amino acids.
+翻訳された最も長い配列には、376 のアミノ酸が含まれます。
 
-The Uniprot page reports a sequence of 375 amino acids.
-However, the UniProt amino acid sequence does not comprise any symbol to
-represent the stop codon.
-That difference aside, the UniPro amino acid sequence is identical to the
-sequence that was produced by the `translate()` method.
+UniProt ページでは、375 のアミノ酸の配列が報告されています。
+ただし、UniProt のアミノ酸配列にはストップコドンを表すためのシンボルは含まれていません。
+それ以外の違いとして、UniProt のアミノ酸配列は、`translate()` メソッドによって生成された配列と同一です。
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## The BSgenome package
+## BSgenome パッケージ
 
-### Overview
+### 概要
 
-In the Bioconductor project, the *[BSgenome](https://bioconductor.org/packages/3.19/BSgenome)* package
-provides software infrastructure for efficient representation of full genome
-and their single-nucleotide polymorphisms.
+Bioconductor プロジェクトでは、*[BSgenome](https://bioconductor.org/packages/3.19/BSgenome)* パッケージが、全ゲノムとその単核苷酸ポリモーフィズムの効率的な表現のためのソフトウェアインフラストラクチャを提供しています。
 
-The *[BSgenome](https://bioconductor.org/packages/3.19/BSgenome)* package itself does not contain any
-genome sequence itself, but provides functionality to access genome sequences
-available in other Bioconductor packages, as we demonstrate in the next section.
+*[BSgenome](https://bioconductor.org/packages/3.19/BSgenome)* パッケージ自体にはゲノム配列は含まれていませんが、次のセクションで示すように、他の Bioconductor パッケージで利用可能なゲノム配列へのアクセス機能を提供します。
 
-### First steps
+### 最初のステップ
 
-To get started, we load the package.
+開始するには、パッケージを読み込みます。
 
 
 ``` r
 library(BSgenome)
 ```
 
-With the package loaded and attached to the session, we have access to the
-package functions.
+パッケージが読み込まれ、セッションに追加されると、パッケージ関数にアクセスできます。
 
-In particular, the function `BSgenome::available.genomes()` can be used to
-display the names of Bioconductor packages that contain genome sequences.
+特に、関数 `BSgenome::available.genomes()` を利用することで、ゲノムシーケンスを含む Bioconductor パッケージの名前を表示できます。
 
 
 ``` r
@@ -666,35 +580,28 @@ Replacement repositories:
 [113] "BSgenome.Vvinifera.URGI.IGGP8X"                    
 ```
 
-### Installing BSgenome packages
+### BSgenomeパッケージのインストール
 
-To use one of the available genomes, the corresponding package must be installed
-first.
-For instance, the example below demonstrates how the data package
-*[BSgenome.Hsapiens.UCSC.hg38.masked](https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked)* can be installed
-using the function `BiocManager::install()` that we have seen before.
+利用可能なゲノムのいずれかを使用するには、まず対応するパッケージをインストールする必要があります。
+たとえば、以下の例では、前に見た `BiocManager::install()` 関数を使用して、データパッケージ *[BSgenome.Hsapiens.UCSC.hg38.masked](https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked)* をインストールする方法を示します。
 
 
 ``` r
 BiocManager::install("BSgenome.Hsapiens.UCSC.hg38.masked")
 ```
 
-### Using BSgenome packages
+### BSgenomeパッケージの使用
 
-Once installed, BSgenome packages can be loaded like any other R package,
-using the `library()` function.
+一旦インストールされると、BSgenomeパッケージは他のRパッケージと同様に読み込むことができ、`library()` 関数を使用します。
 
 
 ``` r
 library(BSgenome.Hsapiens.UCSC.hg38.masked)
 ```
 
-Each BSgenome package contains an object that is named identically to the
-package and contains the genome sequence.
+各 BSgenome パッケージには、パッケージと同じ名前のオブジェクトが含まれ、そのオブジェクトにはゲノム配列が含まれています。
 
-Having loaded the package
-*[BSgenome.Hsapiens.UCSC.hg38.masked](https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked)* above, we can
-display the BSgenome object as follows.
+上記のパッケージ *[BSgenome.Hsapiens.UCSC.hg38.masked](https://bioconductor.org/packages/3.19/BSgenome.Hsapiens.UCSC.hg38.masked)* をロードしたので、BSgenome オブジェクトを次のように表示できます。
 
 
 ``` r
@@ -725,22 +632,18 @@ BSgenome.Hsapiens.UCSC.hg38.masked
 | access a given sequence, see '?BSgenome' for more information.
 ```
 
-Given the length and the complexity of the object name, it is common practice
-to assign a copy of BSgenome objects to a new object simply called `genome`.
+オブジェクト名の長さと複雑さを考慮すると、BSgenome オブジェクトのコピーを単に `genome` という名前の新しいオブジェクトに割り当てるのが一般的な慣行です。
 
 
 ``` r
 genome <- BSgenome.Hsapiens.UCSC.hg38.masked
 ```
 
-### Using BSgenome objects
+### BSgenome オブジェクトの使用
 
-When printing BSgenome objects in the console (see above), some helpful tips
-are displayed under the object itself, hinting at functions commonly used to
-access information in the object.
+コンソールに BSgenome オブジェクトを印刷すると（上記参照）、オブジェクト自体の下に、オブジェクト内の情報にアクセスするためによく使用される関数のヒントが表示されます。
 
-For instance, the function `seqnames()` can be used get the list of sequence
-names (i.e., chromosomes and contigs) present in the object.
+たとえば、関数 `seqnames()` を使用して、オブジェクトに存在する配列名（すなわち、染色体とコンティグ）のリストを取得できます。
 
 
 ``` r
@@ -1106,8 +1009,7 @@ seqnames(genome)
 [711] "chrX_MU273397v1_alt"    
 ```
 
-Similarly, the function `seqinfo()` can be used to get the full sequence
-information stored in the object.
+同様に、関数 `seqinfo()` を使用して、オブジェクトに保存されている完全な配列情報を取得できます。
 
 
 ``` r
@@ -1130,9 +1032,7 @@ Seqinfo object with 711 sequences (1 circular) from hg38 genome:
   chrX_MU273397v1_alt      330493      FALSE   hg38
 ```
 
-Finally, the nature of BSgenome objects being akin to a list of sequences,
-the operators `$` and `[[]]` can both be used to extract individual sequences
-from the BSgenome object.
+最後に、BSgenome オブジェクトの性質は配列のリストに似ているため、演算子 `$` および `[[]]` を使用して、BSgenome オブジェクトから個々の配列を抽出することができます。
 
 
 ``` r
@@ -1156,22 +1056,18 @@ all active masks together:
      18475410  0.07421142
 ```
 
-For instance, we can extract the sequence of the Y chromosome and assign it
-to a new object `chrY`.
+例えば、Y 染色体の配列を抽出して新しいオブジェクト `chrY` に割り当てることができます。
 
 
 ``` r
 chrY <- genome[["chrY"]]
 ```
 
-### Using genome sequences
+### ゲノム配列の使用
 
-From this point, genome sequences can be treated very much like biological
-strings (e.g. `DNAString`) described earlier, in the
-*[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* package.
+この時点から、ゲノム配列は以前に説明した生物学的文字列（例：`DNAString`）のように扱うことができます。 *[Biostrings](https://bioconductor.org/packages/3.19/Biostrings)* パッケージで。
 
-For instance, the function `countPattern()` can be used to count the number of
-occurences of a given pattern in a given genome sequence.
+たとえば、関数 `countPattern()` を使用して、特定のゲノム配列内の特定のパターンの出現回数をカウントできます。
 
 
 ``` r
@@ -1184,10 +1080,9 @@ countPattern(pattern = "CANNTG", subject = chrY, fixed = FALSE)
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-### Note
+### 注意
 
-In the example above, the argument `fixed = FALSE` is used to indicate that the
-pattern contain [IUPAC ambiguity codes][external-iupac].
+上記の例では、引数 `fixed = FALSE` は、パターンに [IUPAC の曖昧なコード][external-iupac] が含まれていることを示すために使用されます。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -1200,9 +1095,9 @@ pattern contain [IUPAC ambiguity codes][external-iupac].
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- The `Biostrings` package defines classes to represent sequences of nucleotides and amino acids.
-- The `Biostrings` package also defines methods to efficiently process biological sequences.
-- The `BSgenome` package provides genome sequences for a range of model organisms immediately available as Bioconductor objects.
+- `Biostrings` パッケージは、ヌクレオチドおよびアミノ酸の配列を表すクラスを定義します。
+- `Biostrings` パッケージは、生物学的配列を効率的に処理するためのメソッドも定義します。
+- `BSgenome` パッケージは、さまざまなモデル生物のゲノム配列を、Bioconductor オブジェクトとして即座に利用できるように提供します。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
