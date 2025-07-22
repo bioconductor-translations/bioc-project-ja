@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Introduction and setup
+title: イントロダクションとセットアップ
 teaching: XX
 exercises: XX
 ---
@@ -11,37 +11,37 @@ source("01-helpers.R")
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Ensure that participants are using the correct version of R to reproduce exactly the contents of this lesson.
-- Download the example files for this lesson.
+- 受講者がこのレッスンの内容を正確に再現するために、正しいバージョンのRを使用していることを確認してください。
+- このレッスンのサンプルファイルをダウンロードしてください。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- Am I using the correct version of R for this lesson?
-- Why does my version of R matter?
-- How do I obtain the files that are used in this lesson?
+- このレッスンのために正しいバージョンのRを使用していますか？
+- なぜ私のRのバージョンが重要なのですか？
+- このレッスンで使用されるファイルをどうやって取得しますか？
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Version of R
+## Rのバージョン
 
-This lesson was developed and tested with `r R.version.string`.
+このレッスンは`r R.version.string`を使用して開発およびテストされました。
 
-Take a moment to launch RStudio and verify that you are using R version `r r_version_string.patch_x()`, with `x` being any patch version, e.g. `r r_version_string()`.
+RStudioを起動し、あなたが`r r_version_string.patch_x()`のRバージョンを使用しているか確認してください。xは任意のパッチバージョン、例えば`r r_version_string()`です。
 
 ```{r}
 R.version.string
 ```
 
-This is important because Bioconductor uses the version of R running in the current session to determine the version of Bioconductor packages that can be installed in the R library associated with the current R session.
-Using a different version of R while following this lesson may lead to unexpected results.
+これは重要です。なぜなら、Bioconductorは現在のセッションで実行されているRのバージョンを使用して、現在のRセッションに関連付けられたRライブラリにインストールできるBioconductorパッケージのバージョンを決定するからです。
+このレッスンに従いながら異なるバージョンのRを使用すると、予期しない結果が生じる可能性があります。
 
-## Download files
+## ファイルをダウンロードする
 
-Several episodes in this lesson rely on example files that participants need to download.
+このレッスンのいくつかのエピソードは、参加者がダウンロードする必要があるサンプルファイルに依存しています。
 
-Run the code below programmatically create a folder called `data` in the current working directory, and download the lesson files in that folder.
+以下のコードを実行して、現在の作業ディレクトリに`data`というフォルダーをプログラムで作成し、そのフォルダー内にレッスンファイルをダウンロードします。
 
 ```{r}
 dir.create("data", showWarnings = FALSE)
@@ -73,12 +73,12 @@ download.file(
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## 注意
 
-Ideally, participants might want to create a new [RStudio project][external-rstudio-project] and download the lesson files in a sub-directory of that project.
+理想的には、参加者は新しい[RStudioプロジェクト][external-rstudio-project]を作成し、そのプロジェクトのサブディレクトリにレッスンファイルをダウンロードしたいと思うかもしれません。
 
-Using an RStudio project sets the working directory to the root directory of that project.
-As a consequence, code is executed relative to that root directory, often avoiding the need for using absolute file paths to import/export data from/to files.
+RStudioプロジェクトを使用すると、作業ディレクトリがそのプロジェクトのルートディレクトリに設定されます。
+その結果、コードはそのルートディレクトリに対して実行されるため、ファイルからデータをインポート/エクスポートするために絶対パスを使用する必要がない場合がよくあります。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -86,8 +86,8 @@ As a consequence, code is executed relative to that root directory, often avoidi
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Participants will only be able to install the version of Bioconductor packages described in this lesson and reproduce their exact outputs if they use the correct version of R.
-- The files used in this lesson should be downloaded in a local path that is easily accessible from an R session.
+- 参加者は、このレッスンで説明されているBioconductorパッケージのバージョンをインストールし、その出力を正確に再現するには、正しいバージョンのRを使用する必要があります。
+- このレッスンで使用されるファイルは、Rセッションから簡単にアクセスできるローカルパスにダウンロードする必要があります。
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
