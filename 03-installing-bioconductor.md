@@ -148,7 +148,7 @@ BiocManager::valid()
 ```
 
 ``` warning
-Warning: 5 packages out-of-date; 0 packages too new
+Warning: 15 packages out-of-date; 0 packages too new
 ```
 
 ``` output
@@ -179,26 +179,27 @@ other attached packages:
 [1] BiocStyle_2.32.1
 
 loaded via a namespace (and not attached):
- [1] digest_0.6.37          assertthat_0.2.1       R6_2.6.1              
- [4] fastmap_1.2.0          xfun_0.52              magrittr_2.0.3        
- [7] glue_1.8.0             knitr_1.50             sandpaper_0.16.13.9000
-[10] htmltools_0.5.8.1      rmarkdown_2.29         lifecycle_1.0.4       
-[13] xml2_1.3.8             ps_1.9.1               cli_3.6.5             
-[16] processx_3.8.6         callr_3.7.6            vctrs_0.6.5           
-[19] renv_1.1.4             withr_3.0.2            compiler_4.4.3        
-[22] purrr_1.1.0            tools_4.4.3            tinkr_0.3.0           
-[25] evaluate_1.0.4         yaml_2.3.10            BiocManager_1.30.26   
-[28] pegboard_0.7.9         rlang_1.1.6           
+ [1] digest_0.6.37         assertthat_0.2.1      R6_2.6.1             
+ [4] fastmap_1.2.0         xfun_0.52             magrittr_2.0.4       
+ [7] glue_1.8.0            knitr_1.50            sandpaper_0.17.2.9000
+[10] htmltools_0.5.8.1     rmarkdown_2.29        lifecycle_1.0.4      
+[13] xml2_1.4.0            ps_1.9.1              cli_3.6.5            
+[16] processx_3.8.6        callr_3.7.6           vctrs_0.6.5          
+[19] renv_1.1.5            withr_3.0.2           compiler_4.4.3       
+[22] purrr_1.1.0           tools_4.4.3           tinkr_0.3.0          
+[25] evaluate_1.0.4        yaml_2.3.10           BiocManager_1.30.26  
+[28] pegboard_0.7.9        rlang_1.1.6          
 
 Bioconductor version '3.19'
 
-  * 5 packages out-of-date
+  * 15 packages out-of-date
   * 0 packages too new
 
 create a valid installation with
 
   BiocManager::install(c(
-    "httr2", "pillar", "purrr", "Rcpp", "RSQLite"
+    "bookdown", "curl", "dbplyr", "evaluate", "httr2", "magrittr", "pillar",
+    "purrr", "Rcpp", "renv", "RSQLite", "stringr", "xfun", "XML", "xml2"
   ), update = TRUE, ask = FALSE, force = TRUE)
 
 more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date
@@ -277,7 +278,7 @@ length(BiocManager::available())
 ```
 
 ``` output
-[1] 26080
+[1] 26347
 ```
 
 具体的には、現在の Bioconductor リポジトリと検索パス上の他のリポジトリの和集合を次のように表示できます。
