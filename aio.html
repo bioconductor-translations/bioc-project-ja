@@ -90,7 +90,7 @@
 </div>
     </div>
   </div>
-  <hr></header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
+</header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
       <span class="navbar-toggler-icon"></span>
       <span class="menu-title">Menu</span>
@@ -208,8 +208,7 @@
             </div>
 <!--/div.col -->
 
-            <hr>
-</div>
+          </div>
 <!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordion-chapters-toggle">
@@ -675,7 +674,7 @@ R自体は年に1回リリースされ（通常は4月頃）、Rの各リリー�
   解決策
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>以下の解決策には、執筆時点で有効だった数字（Bioconductorリリース3.13）が含まれています；
 Bioconductorプロジェクトの将来のリリースでは、数字が異なることは避けられません。</p>
@@ -742,7 +741,7 @@ ChIP-seq？ エピジェネティクス？ バリアント注釈？ プロテオ
   解決策
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p><code>RNAseq</code>, <code>ChIPSeq</code>,
@@ -1989,7 +1988,7 @@ name2         3           C       3.4</code></pre>
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <pre><code>&gt; DF2["name1", ]
 DataFrame with 1 row and 3 columns
@@ -2038,7 +2037,7 @@ name1         1           A       1.2</code></pre>
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <pre><code>&gt; DF3["a", ]
 DataFrame with 1 row and 3 columns
@@ -2400,7 +2399,7 @@ system</a> –
   解決策
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>はい、これは <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC</a>
 表記で定義されたノンアンビギュリティのコードを使用した有効な DNA
@@ -2585,7 +2584,7 @@ views:
   解決策
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>countPattern()</code> メソッドは 3
 回のヒットを報告します。なぜなら、オプション <code>fixed = FALSE</code>
@@ -2725,7 +2724,7 @@ R コードを使用してみましょう。
   解決策
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre><code>&gt; setdiff(AA_PROTEINOGENIC, AA_STANDARD)
 [1] "U" "O"</code></pre>
@@ -2866,7 +2865,7 @@ mRNA (RefSeq: NM\_001101) の標準的な遺伝コードを使用し、最小の
   解決策
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <pre><code><span><span class="fu">width</span><span class="op">(</span><span class="va">actb_aa</span><span class="op">)</span></span>
 <span><span class="co"># または</span></span>
@@ -5849,7 +5848,7 @@ gene_25          5         412</code></pre>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/main" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/main" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/main" class="external-link">varnish (1.1.0)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/main" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/main" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/main" class="external-link">varnish (1.1.1.9000)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -5872,8 +5871,8 @@ gene_25          5         412</code></pre>
   "url": "https://carpentries-incubator.github.io/bioc-project/aio.html",
   "identifier": "https://carpentries-incubator.github.io/bioc-project/aio.html",
   "dateCreated": "2020-09-14",
-  "dateModified": "2026-04-28",
-  "datePublished": "2026-04-28"
+  "dateModified": "2026-05-05",
+  "datePublished": "2026-05-05"
 }
 
   </script><script>
