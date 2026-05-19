@@ -399,7 +399,7 @@
         
 <section id="aio-01-setup"><p>Content from <a href="01-setup.html">イントロダクションとセットアップ</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/01-setup.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -517,7 +517,7 @@
 </div>
 </section></section><section id="aio-02-introduction-to-bioconductor"><p>Content from <a href="02-introduction-to-bioconductor.html">Bioconductorの概要</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/02-introduction-to-bioconductor.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -674,7 +674,7 @@ R自体は年に1回リリースされ（通常は4月頃）、Rの各リリー�
   解決策
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>以下の解決策には、執筆時点で有効だった数字（Bioconductorリリース3.13）が含まれています；
 Bioconductorプロジェクトの将来のリリースでは、数字が異なることは避けられません。</p>
@@ -741,7 +741,7 @@ ChIP-seq？ エピジェネティクス？ バリアント注釈？ プロテオ
   解決策
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p><code>RNAseq</code>, <code>ChIPSeq</code>,
@@ -944,7 +944,7 @@ YouTube チャンネルでアクセス可能です。</li>
 </div>
 </section></section><section id="aio-03-installing-bioconductor"><p>Content from <a href="03-installing-bioconductor.html">Bioconductor パッケージのインストール</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/03-installing-bioconductor.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1155,7 +1155,7 @@ Bioconductor リポジトリで利用可能かどうかを確認します。</p>
 <div class="codewrapper">
 <h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning: 45 packages out-of-date; 0 packages too new</code></pre>
+<pre class="warning" tabindex="0"><code>Warning: 51 packages out-of-date; 0 packages too new</code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1187,31 +1187,32 @@ other attached packages:
 [1] BiocStyle_2.32.1
 
 loaded via a namespace (and not attached):
- [1] digest_0.6.37         assertthat_0.2.1      R6_2.6.1
- [4] fastmap_1.2.0         xfun_0.52             magrittr_2.0.5
- [7] glue_1.8.0            knitr_1.50            sandpaper_0.20.1.9000
-[10] htmltools_0.5.8.1     rmarkdown_2.29        lifecycle_1.0.5
-[13] xml2_1.5.2            ps_1.9.2              cli_3.6.6
-[16] processx_3.8.7        callr_3.7.6           vctrs_0.7.3
-[19] renv_1.2.1            withr_3.0.2           compiler_4.4.3
-[22] purrr_1.2.2           tools_4.4.3           tinkr_0.3.0
-[25] evaluate_1.0.4        yaml_2.3.10           BiocManager_1.30.26
-[28] pegboard_0.7.9        rlang_1.2.0
+ [1] digest_0.6.37       assertthat_0.2.1    R6_2.6.1
+ [4] fastmap_1.2.0       xfun_0.52           magrittr_2.0.5
+ [7] glue_1.8.1          knitr_1.50          sandpaper_0.20.1
+[10] htmltools_0.5.8.1   rmarkdown_2.29      lifecycle_1.0.5
+[13] xml2_1.5.2          ps_1.9.3            cli_3.6.6
+[16] processx_3.9.0      callr_3.7.6         vctrs_0.7.3
+[19] renv_1.2.3          withr_3.0.2         compiler_4.4.3
+[22] purrr_1.2.2         tools_4.4.3         tinkr_0.3.1
+[25] evaluate_1.0.4      yaml_2.3.10         BiocManager_1.30.26
+[28] pegboard_0.7.9      rlang_1.2.0
 
 Bioconductor version '3.19'
 
-  * 45 packages out-of-date
+  * 51 packages out-of-date
   * 0 packages too new
 
 create a valid installation with
 
   BiocManager::install(c(
-    "backports", "base64enc", "BH", "bibtex", "BiocManager", "blob", "bookdown",
-    "bslib", "cli", "cpp11", "curl", "DBI", "dbplyr", "digest", "dplyr",
-    "evaluate", "fs", "futile.logger", "highr", "hms", "htmltools", "httr",
-    "httr2", "knitr", "lazyeval", "lubridate", "magrittr", "openssl", "pillar",
-    "png", "purrr", "rappdirs", "Rcpp", "RCurl", "renv", "rmarkdown",
-    "RSQLite", "stringr", "tibble", "tidyr", "tinytex", "xfun", "XML", "xml2",
+    "backports", "base64enc", "BH", "bibtex", "BiocManager", "bit64", "blob",
+    "bookdown", "bslib", "cli", "cpp11", "curl", "DBI", "dbplyr", "digest",
+    "dplyr", "evaluate", "fs", "futile.logger", "glue", "highr", "hms",
+    "htmltools", "httr", "httr2", "knitr", "lazyeval", "lifecycle",
+    "lubridate", "magrittr", "openssl", "pillar", "png", "purrr", "rappdirs",
+    "Rcpp", "RCurl", "renv", "rlang", "rmarkdown", "RSQLite", "stringr",
+    "tibble", "tidyr", "timechange", "tinytex", "vctrs", "xfun", "XML", "xml2",
     "yaml"
   ), update = TRUE, ask = FALSE, force = TRUE)
 
@@ -1299,7 +1300,7 @@ to Bioconductor</a> で示されたように、テーマに沿って Bioconducto
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 27142</code></pre>
+<pre class="output" tabindex="0"><code>[1] 27206</code></pre>
 </div>
 <p>具体的には、現在の Bioconductor
 リポジトリと検索パス上の他のリポジトリの和集合を次のように表示できます。</p>
@@ -1451,7 +1452,7 @@ Bioconductor のバージョンを報告します。</li>
 </div>
 </section></section><section id="aio-04-getting-help"><p>Content from <a href="04-getting-help.html">ヘルプを取得する</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/04-getting-help.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1694,7 +1695,7 @@ Outreach（例：多様性と代表性）まで一般的です。</p>
 </div>
 </section></section><section id="aio-05-s4"><p>Content from <a href="05-s4.html">BioconductorにおけるS4クラス</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/05-s4.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2298,7 +2299,7 @@ Floats        double         3</code></pre>
 </div>
 </section></section><section id="aio-06-biological-sequences"><p>Content from <a href="06-biological-sequences.html">生物学的配列の取り扱い</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/06-biological-sequences.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2399,7 +2400,7 @@ system</a> –
   解決策
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>はい、これは <a href="https://en.wikipedia.org/wiki/Nucleic_acid_notation#IUPAC_notation" class="external-link">IUPAC</a>
 表記で定義されたノンアンビギュリティのコードを使用した有効な DNA
@@ -2584,7 +2585,7 @@ views:
   解決策
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>countPattern()</code> メソッドは 3
 回のヒットを報告します。なぜなら、オプション <code>fixed = FALSE</code>
@@ -2724,7 +2725,7 @@ R コードを使用してみましょう。
   解決策
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre><code>&gt; setdiff(AA_PROTEINOGENIC, AA_STANDARD)
 [1] "U" "O"</code></pre>
@@ -2865,7 +2866,7 @@ mRNA (RefSeq: NM\_001101) の標準的な遺伝コードを使用し、最小の
   解決策
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <pre><code><span><span class="fu">width</span><span class="op">(</span><span class="va">actb_aa</span><span class="op">)</span></span>
 <span><span class="co"># または</span></span>
@@ -3607,7 +3608,7 @@ all active masks together:
 </div>
 </section></section><section id="aio-07-genomic-ranges"><p>Content from <a href="07-genomic-ranges.html">Genomics ranges の取り扱い</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/07-genomic-ranges.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3794,7 +3795,7 @@ A、B、およびCという名前の3つの区間が表されています。
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4486,7 +4487,7 @@ ENST00000676189 ENST00000676319 ENST00000676397
   ソリューション
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb61">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4605,7 +4606,7 @@ ENST00000676189 ENST00000676319 ENST00000676397
 </div>
 </section></section><section id="aio-08-annotations"><p>Content from <a href="08-annotations.html">アノテーションの取り扱い</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/08-annotations.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4757,6 +4758,13 @@ BioMartは、それぞれ「マート」または「バイオマート」とも�
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
+<pre class="output" tabindex="0"><code>Possible SSL connectivity problems detected.
+Please report this issue at https://github.com/grimbough/biomaRt/issues
+Error in req_perform(useast) : HTTP 403 Forbidden.</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
 <pre class="output" tabindex="0"><code>               biomart                version
 1 ENSEMBL_MART_ENSEMBL      Ensembl Genes 115
 2   ENSEMBL_MART_MOUSE      Mouse strains 115
@@ -4772,7 +4780,7 @@ Ensembl BioMartは定期的に更新されます（年に複数回）。
 BioMartは、過去のバージョンのアーカイブを行い、プログラムからでも、ウェブサイトからでもアクセスできます。</p>
 <p>関数<code>listEnsemblArchives()</code>は、アクセス可能なすべてのEnsembl
 BioMartのバージョンを表示するために使用できます。</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4837,7 +4845,7 @@ BioMartのスナップショットからデータにアクセスするために�
 <p>上記で収集した2つの情報、すなわちバイオマートの名前とスナップショットのURLが、バイオマートデータベースに再現可能に接続するために必要なすべてです。</p>
 <p>関数<code>useMart()</code>を使用して接続を作成します。
 接続は伝統的に<code>mart</code>というオブジェクトに保存され、次のステップでオンラインマートから情報をクエリするために再利用されます。</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4851,7 +4859,7 @@ BioMartのスナップショットからデータにアクセスするために�
 <p>関数<code>listDatasets()</code>は、これらのデータセットの情報を表示するために使用されます。
 これにより、ユーザーはデータセットの名前を記憶する必要がなくなり、関数が返す情報には各データセットの簡単な説明とそのバージョンが含まれます。</p>
 <p>以下の例では、出力テーブルを最初の数行に制限します。完全なテーブルは214行です。</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4878,7 +4886,7 @@ BioMartのスナップショットからデータにアクセスするために�
 <p>上記の出力での重要な情報は、<code>dataset</code>カラムです。これは、<em><a href="https://bioconductor.org/packages/3.19/biomaRt" class="external-link">biomaRt</a></em>関数が対応するバイオマートテーブルからデータにアクセスするために必要な識別子を提供します。</p>
 <p>このデモでは、出力に表示されていないヒトのEnsembl遺伝子セットを使用します。</p>
 <p>利用可能なデータセットの数を考えると、手動でテーブルを検索するのではなく、パターンマッチングを使用して情報のテーブルをプログラムでフィルタリングしてみましょう：</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4898,7 +4906,7 @@ BioMartのスナップショットからデータにアクセスするために�
 <p>使用したいデータセットを選択したら、再度関数<code>useMart()</code>を呼び出し、選択したデータセットを指定する必要があります。</p>
 <p>一般的には、以前の<code>useMart()</code>の呼び出しをコピーして必要に応じて編集することが多いです。
 また、通常、<code>mart</code>オブジェクトを新しい接続で置き換えることが一般的な慣行です。</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4916,7 +4924,7 @@ BioMartのスナップショットからデータにアクセスするために�
 <p>関数<code>listAttributes()</code>は、それらの属性に関する情報を表示するために使用できます。
 これにより、ユーザーはパッケージ内の利用可能な属性の名前を記憶する必要がなくなり、関数が返す情報には各属性の簡単な説明とそのページ分類が含まれます。</p>
 <p>以下の例では、出力テーブルを最初の数行に制限します。完全なテーブルは3157行です。</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4944,7 +4952,7 @@ BioMartのスナップショットからデータにアクセスするために�
 </ul>
 <p>ユーザーは通常、含めたい属性を特定するために、属性テーブルを手動で調べます。
 また、経験と直感に基づいて属性テーブルをプログラム的にフィルタリングして、検索を絞り込むことも可能です：</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4972,7 +4980,7 @@ BioMartのスナップショットからデータにアクセスするために�
 実際には、クエリは先行する分析から始まることがよくあります（例えば、差次的な遺伝子発現）。</p>
 <p>以下の例では、まだ紹介していない属性もクエリされます。
 前のセクションで、<code>listAttributes()</code>から返される属性テーブルを検索して、クエリに含める属性を特定する方法を説明しました。</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4998,10 +5006,20 @@ BioMartのスナップショットからデータにアクセスするために�
 <span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in `httr2::req_perform()` at biomaRt/R/utilityFunctions.R:211:5:
-! HTTP 500 Internal Server Error.</code></pre>
+<pre class="output" tabindex="0"><code>  ensembl_gene_id hgnc_symbol chromosome_name start_position end_position
+1 ENSG00000133101       CCNA1              13       36431520     36442870
+2 ENSG00000134057       CCNB1               5       69167135     69178245
+3 ENSG00000145386       CCNA2               4      121816444    121823883
+4 ENSG00000147082       CCNB3               X       50202713     50351914
+5 ENSG00000157456       CCNB2              15       59105126     59125045
+  strand
+1      1
+2      1
+3     -1
+4      1
+5      1</code></pre>
 </div>
 <p>フィルタリング属性<code>ensembl_gene_id</code>をデータセットから取得した属性に含めたことに注意してください。
 これは、新しく取得された属性をクエリで使用される属性と確実に一致させるための鍵です。</p>
@@ -5030,7 +5048,7 @@ BioMartのスナップショットからデータにアクセスするために�
 </h3>
 <p>この例では、<em><a href="https://bioconductor.org/packages/3.19/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em>パッケージを使用して、ヒト種の遺伝子アノテーションの使用方法を示します。</p>
 <p>最初にパッケージを読み込みましょう：</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5039,7 +5057,7 @@ BioMartのスナップショットからデータにアクセスするために�
 <p>各<code>OrgDb</code>パッケージには、パッケージ自体と同名のオブジェクトが含まれています。
 そのオブジェクトには、パッケージが提供することを目的とするアノテーションが含まれています。</p>
 <p>情報をクエリすることに加えて、オブジェクト全体を呼び出すことができ、含まれるアノテーションのスナップショットが作成された日付などの情報を印刷します。</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5094,7 +5112,7 @@ Please see: help('select') for usage information</code></pre>
 <p>ここで「カラム」という言葉は、データベース内の情報を格納するために使用されるテーブルのカラムを指し、BioMartの「属性」と同じ概念です。
 言い換えれば、カラムはオブジェクトから取得可能なすべてのアノテーションのタイプを表します。</p>
 <p>これにより、ユーザーはパッケージ内の利用可能なアノテーションのカラムの名前を記憶する必要がなくなります。</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5120,7 +5138,7 @@ Please see: help('select') for usage information</code></pre>
 その結果、クエリの一部としてキーとキーの型の両方を指定することが重要です。</p>
 <p>関数 <code>keytypes()</code>
 を使用すると、オブジェクトから情報をクエリするために使用できる列の名前を表示できます。</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5141,7 +5159,7 @@ Please see: help('select') for usage information</code></pre>
 <p>一般的には、クエリされるキーの型を指定する方が良い慣行です（あいまいさを避けるため）。ただし、データベーステーブルには、ユーザーが自分で型を指定しない場合に使用される「主キー」が通常あります。</p>
 <p>以下の例では、遺伝子記号のキーのリストを最初のいくつかの値に制限します。
 完全なセットは 193279 値を含みます。</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5170,7 +5188,7 @@ Please see: help('select') for usage information</code></pre>
 <li>遺伝子名</li>
 <li>遺伝子タイプ</li>
 </ul>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5235,7 +5253,7 @@ DGE
 デフォルトは最初の値を取得し、他の値は無視することです。</p>
 <p>以下の例では、一連の Ensembl
 遺伝子識別子の遺伝子記号をクエリします。</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5279,7 +5297,7 @@ DGE
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5301,7 +5319,7 @@ DGE
 [28] "TXNAME"              "TXSEQEND"            "TXSEQSTART"
 [31] "UNIPROTDB"           "UNIPROTID"           "UNIPROTMAPPINGTYPE" </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -5340,7 +5358,7 @@ DGE
 </div>
 </section></section><section id="aio-09-summarizedexperiment"><p>Content from <a href="09-summarizedexperiment.html">SummarizedExperimentクラス</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-05-19 |
 
         <a href="https://github.com/carpentries-incubator/bioc-project/edit/main/episodes/09-summarizedexperiment.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -5871,8 +5889,8 @@ gene_25          5         412</code></pre>
   "url": "https://carpentries-incubator.github.io/bioc-project/aio.html",
   "identifier": "https://carpentries-incubator.github.io/bioc-project/aio.html",
   "dateCreated": "2020-09-14",
-  "dateModified": "2026-05-12",
-  "datePublished": "2026-05-12"
+  "dateModified": "2026-05-19",
+  "datePublished": "2026-05-19"
 }
 
   </script><script>
