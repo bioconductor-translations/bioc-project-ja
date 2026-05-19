@@ -138,6 +138,12 @@ listMarts()
 ```
 
 ``` output
+Possible SSL connectivity problems detected.
+Please report this issue at https://github.com/grimbough/biomaRt/issues
+Error in req_perform(useast) : HTTP 403 Forbidden.
+```
+
+``` output
                biomart                version
 1 ENSEMBL_MART_ENSEMBL      Ensembl Genes 115
 2   ENSEMBL_MART_MOUSE      Mouse strains 115
@@ -378,9 +384,19 @@ getBM(
 )
 ```
 
-``` error
-Error in `httr2::req_perform()` at biomaRt/R/utilityFunctions.R:211:5:
-! HTTP 500 Internal Server Error.
+``` output
+  ensembl_gene_id hgnc_symbol chromosome_name start_position end_position
+1 ENSG00000133101       CCNA1              13       36431520     36442870
+2 ENSG00000134057       CCNB1               5       69167135     69178245
+3 ENSG00000145386       CCNA2               4      121816444    121823883
+4 ENSG00000147082       CCNB3               X       50202713     50351914
+5 ENSG00000157456       CCNB2              15       59105126     59125045
+  strand
+1      1
+2      1
+3     -1
+4      1
+5      1
 ```
 
 フィルタリング属性`ensembl_gene_id`をデータセットから取得した属性に含めたことに注意してください。
