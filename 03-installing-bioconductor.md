@@ -148,7 +148,7 @@ BiocManager::valid()
 ```
 
 ``` warning
-Warning: 53 packages out-of-date; 0 packages too new
+Warning: 55 packages out-of-date; 0 packages too new
 ```
 
 ``` output
@@ -185,27 +185,27 @@ loaded via a namespace (and not attached):
 [10] htmltools_0.5.8.1     rmarkdown_2.29        lifecycle_1.0.5      
 [13] xml2_1.6.0            ps_1.9.3              cli_3.6.6            
 [16] processx_3.9.0        callr_3.8.0           vctrs_0.7.3          
-[19] renv_1.2.3            withr_3.0.3           compiler_4.4.3       
+[19] renv_1.2.4            withr_3.0.3           compiler_4.4.3       
 [22] purrr_1.2.2           tools_4.4.3           tinkr_0.3.1          
 [25] evaluate_1.0.4        yaml_2.3.10           BiocManager_1.30.26  
 [28] otel_0.2.0            pegboard_0.7.9        rlang_1.3.0          
 
 Bioconductor version '3.19'
 
-  * 53 packages out-of-date
+  * 55 packages out-of-date
   * 0 packages too new
 
 create a valid installation with
 
   BiocManager::install(c(
-    "backports", "base64enc", "BH", "bibtex", "BiocManager", "bit64", "blob",
-    "bookdown", "bslib", "cli", "cpp11", "curl", "DBI", "dbplyr", "digest",
-    "dplyr", "evaluate", "fs", "futile.logger", "glue", "highr", "hms",
-    "htmltools", "httr", "httr2", "knitr", "lazyeval", "lifecycle",
+    "backports", "base64enc", "BH", "bibtex", "BiocManager", "bit64", "bitops",
+    "blob", "bookdown", "bslib", "cli", "cpp11", "curl", "DBI", "dbplyr",
+    "digest", "dplyr", "evaluate", "fs", "futile.logger", "glue", "highr",
+    "hms", "htmltools", "httr", "httr2", "knitr", "lazyeval", "lifecycle",
     "lubridate", "magrittr", "openssl", "pillar", "png", "purrr", "rappdirs",
     "Rcpp", "RCurl", "renv", "restfulr", "rlang", "rmarkdown", "RSQLite",
-    "stringr", "tibble", "tidyr", "timechange", "tinytex", "vctrs", "withr",
-    "xfun", "XML", "xml2", "yaml"
+    "stringi", "stringr", "tibble", "tidyr", "timechange", "tinytex", "vctrs",
+    "withr", "xfun", "XML", "xml2", "yaml"
   ), update = TRUE, ask = FALSE, force = TRUE)
 
 more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date
@@ -284,7 +284,7 @@ length(BiocManager::available())
 ```
 
 ``` output
-[1] 27824
+[1] 28012
 ```
 
 具体的には、現在の Bioconductor リポジトリと検索パス上の他のリポジトリの和集合を次のように表示できます。
